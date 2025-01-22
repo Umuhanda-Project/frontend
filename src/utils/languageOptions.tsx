@@ -1,4 +1,4 @@
-const options = [
+export const language_options = [
   {
     icon: "🇷🇼",
     name: "Kinyarwanda",
@@ -13,4 +13,4 @@ const options = [
   }
 ];
 
-export default options;
+

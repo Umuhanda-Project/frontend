@@ -1,6 +1,6 @@
 import Layout from "./Layout";
-import FeatureNumber from "./pages/FeatureNumber";
-import Hero from "./pages/Hero";
+import {Hero,FeatureNumber,Pricing} from "./pages";
+
 
 const App = () => {
   return (
@@ -8,6 +8,7 @@ const App = () => {
       <Layout>
         <Hero />
         <FeatureNumber />
+        <Pricing/>
       </Layout>
     </>
   );
