@@ -1,14 +1,16 @@
-import Layout from "./Layout"
-import Hero from "./pages/Hero"
-
-
+import Layout from "./Layout";
+import FeatureNumber from "./pages/FeatureNumber";
+import Hero from "./pages/Hero";
 
 const App = () => {
   return (
     <>
-    <Layout><Hero/></Layout>
+      <Layout>
+        <Hero />
+        <FeatureNumber />
+      </Layout>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
