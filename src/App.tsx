@@ -1,5 +1,6 @@
 import Layout from "./Layout";
 import {Hero,FeatureNumber,Pricing} from "./pages";
+import CallToAction from "./pages/CallToAction";
 import Testimonial from "./pages/Testimonial";
 
 
@@ -11,6 +12,7 @@ const App = () => {
         <FeatureNumber />
         <Pricing/>
         <Testimonial/>
+        <CallToAction/>
       </Layout>
     </>
   );
