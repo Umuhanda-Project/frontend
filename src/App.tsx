@@ -1,5 +1,6 @@
 import Layout from "./Layout";
 import {Hero,FeatureNumber,Pricing} from "./pages";
+import Testimonial from "./pages/Testimonial";
 
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
         <Hero />
         <FeatureNumber />
         <Pricing/>
+        <Testimonial/>
       </Layout>
     </>
   );
