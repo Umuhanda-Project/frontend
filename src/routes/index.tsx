@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "../App";
 import { Contact } from "../pages";
+import Signin from "../pages/auth";
 
 const router = createBrowserRouter([
     {
@@ -9,6 +10,9 @@ const router = createBrowserRouter([
     },{
         path: "/contact",
         element: <Contact/>
+    },{
+        path: "/signin",
+        element:<Signin/>
     }
 ])
 

@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import hero1 from "../assets/hero1.png"
 import hero2 from "../assets/hero2.png"
+import { useNavigate } from "react-router";
 
 const Hero = () => {
+    const navigate = useNavigate()
   return (
     <div className="relative min-h-screen bg-hero-image bg-center bg-cover bg-no-repeat">
       {/* Dark overlay */}
@@ -28,7 +30,7 @@ const Hero = () => {
               bworoshye kandi bwihuse.
             </p>
 
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 w-fit">
+            <button onClick={() => navigate("/signin")} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 w-fit">
               Tangira Nonaha
             </button>
           </motion.div>
