@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import logo from "../../assets/Umuhanda_logo.png";
 import authSignin from "../../assets/auth1.png";
 
-const VerificationCode = () => {
+const PasswordConfirmation = () => {
     const navigate = useNavigate()
   return (
     <div className="flex flex-col lg:flex-row h-screen">
@@ -16,35 +16,55 @@ const VerificationCode = () => {
           <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
             Injiramo
           </h1>
-          <form className="w-full max-w-md p-6 rounded-lg  space-y-6">
+          <form className="w-full max-w-md bg-white p-6 rounded-lg  space-y-6">
             <div>
               <label
-                htmlFor="phone"
+                htmlFor="password"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Injiza code
+                umubare w'ibanga
               </label>
               <input
-                type="number"
-                id="number"
-                placeholder="Injiza nimera ya code"
+                type="password"
+                id="confirm-password"
+                placeholder="Injiza umubare w'ibanga"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
-             </div>
+            </div>
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Emeza Umubare w'Ibanga
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Emeza umubare w'ibanga"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
             <div className="flex justify-between items-center">
               <button
                 type="submit"
                 className="bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition"
-                onClick={() => navigate("/passwordconfirmation")}
               >
                 Injiramo
               </button>
-             
+              {/* <button
+                type="button"
+                className="text-blue-500 hover:underline text-sm"
+                onClick={() => navigate("/reset")}
+              >
+                Wibagiwe W'Ibanga?
+              </button> */}
             </div>
             <button
               type="button"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-600 transition"
+              className="w-full bg-gray-100 py-3 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition"
               onClick={() => navigate('/signup')}
             >
               Kora Konti
@@ -65,4 +85,4 @@ const VerificationCode = () => {
   );
 };
 
-export default VerificationCode;
+export default PasswordConfirmation;

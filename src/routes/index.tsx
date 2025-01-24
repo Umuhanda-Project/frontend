@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "../App";
 import { Contact } from "../pages";
-import { ResetPassword, Signin, Signup, VerificationCode } from "../pages/auth";
+import { PasswordConfirmation, ResetPassword, Signin, Signup, VerificationCode } from "../pages/auth";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +25,9 @@ const router = createBrowserRouter([
   },{
     path:"/verificationcode",
     element:<VerificationCode/>
+  },{
+    path:"/passwordconfirmation",
+    element:<PasswordConfirmation/> 
   }
 ]);
 
