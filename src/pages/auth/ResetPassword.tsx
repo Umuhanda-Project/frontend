@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import logo from "../../assets/Umuhanda_logo.png";
 import authSignin from "../../assets/auth1.png";
 
-const Signin = () => {
+const ResetPassword = () => {
     const navigate = useNavigate()
   return (
     <div className="flex flex-col lg:flex-row h-screen">
@@ -16,7 +16,7 @@ const Signin = () => {
           <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
             Injiramo
           </h1>
-          <form className="w-full max-w-md bg-white p-6 rounded-lg  space-y-6">
+          <form className="w-full max-w-md p-6 rounded-lg  space-y-6">
             <div>
               <label
                 htmlFor="phone"
@@ -25,28 +25,13 @@ const Signin = () => {
                 Nimero ya Telephone
               </label>
               <input
-                type="text"
-                id="phone"
-                placeholder="Injiza nimero yawe"
+                type="number"
+                id="number"
+                placeholder="Injiza nimera y'telephone"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
-            </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Umubare w'Ibanga
-              </label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Injiza umubare w'ibanga"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
+             </div>
             <div className="flex justify-between items-center">
               <button
                 type="submit"
@@ -54,17 +39,11 @@ const Signin = () => {
               >
                 Injiramo
               </button>
-              <button
-                type="button"
-                className="text-blue-500 hover:underline text-sm"
-                onClick={() => navigate("/reset")}
-              >
-                Wibagiwe W'Ibanga?
-              </button>
+             
             </div>
             <button
               type="button"
-              className="w-full bg-gray-100 py-3 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition"
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-600 transition"
               onClick={() => navigate('/signup')}
             >
               Kora Konti
@@ -85,4 +64,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default ResetPassword;
