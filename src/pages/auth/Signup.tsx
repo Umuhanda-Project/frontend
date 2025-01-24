@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router";
 import logo from "../../assets/Umuhanda_logo.png";
-import authSignin from "../../assets/auth1.png";
+import authSignup from "../../assets/auth2.png";
 
-const Signin = () => {
+const Signup = () => {
     const navigate = useNavigate()
   return (
     <div className="flex flex-col lg:flex-row h-screen">
@@ -14,9 +14,24 @@ const Signin = () => {
         {/* Sign-In Form */}
         <div className="flex flex-col items-center">
           <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-            Injiramo
+            Kora Konte
           </h1>
           <form className="w-full max-w-md bg-white p-6 rounded-lg shadow-md space-y-6">
+          <div>
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Amazina yawe
+              </label>
+              <input
+                type="text"
+                id="text"
+                placeholder="Andika amazina yawe"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
             <div>
               <label
                 htmlFor="phone"
@@ -54,19 +69,19 @@ const Signin = () => {
               >
                 Injiramo
               </button>
-              <button
+              {/* <button
                 type="button"
                 className="text-blue-500 hover:underline text-sm"
               >
                 Wibagiwe W'Ibanga?
-              </button>
+              </button> */}
             </div>
             <button
               type="button"
               className="w-full bg-gray-100 py-3 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition"
-              onClick={() => navigate('/signup')}
+              onClick={() => navigate("/signin")}
             >
-              Kora Konti
+              Subira Aho Winjirira
             </button>
           </form>
         </div>
@@ -75,7 +90,7 @@ const Signin = () => {
       {/* Right Section */}
       <div className="flex-1 hidden lg:block">
         <img
-          src={authSignin}
+          src={authSignup}
           alt="Auth Illustration"
           className="h-full w-full object-cover"
         />
@@ -84,4 +99,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;
