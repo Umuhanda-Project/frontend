@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import logo from "../../assets/Umuhanda_logo.png";
 import authSignin from "../../assets/auth1.png";
 
-const ResetPassword = () => {
+const VerificationCode = () => {
     const navigate = useNavigate()
   return (
     <div className="flex flex-col lg:flex-row h-screen">
@@ -22,12 +22,12 @@ const ResetPassword = () => {
                 htmlFor="phone"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Nimero ya Telephone
+                Injiza code
               </label>
               <input
                 type="number"
                 id="number"
-                placeholder="Injiza nimera y'telephone"
+                placeholder="Injiza nimera ya code"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -36,7 +36,6 @@ const ResetPassword = () => {
               <button
                 type="submit"
                 className="bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition"
-                onClick={() => navigate("/verificationcode")}
               >
                 Injiramo
               </button>
@@ -65,4 +64,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default VerificationCode;
