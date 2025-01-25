@@ -8,7 +8,7 @@ const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="flex justify-between items-center w-full px-6 py-4 border-b-2 border-slate-200 bg-gray-100 shadow-sm"
+      className="flex justify-between items-center w-full px-6 py-4 border-b-2 border-slate-200 bg-white shadow-sm"
     >
       {/* User Info Section */}
       <div className="flex flex-col space-y-1">
