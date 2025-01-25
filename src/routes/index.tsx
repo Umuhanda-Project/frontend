@@ -9,6 +9,7 @@ import {
   VerificationCode,
 } from "../pages/auth";
 import Home from "../pages/dashboard/client/Home";
+import Lessons from "../pages/dashboard/client/Lessons";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         {
             path:"",
             element:<Home/>
+        },
+        {
+            path:"lessons",
+            element:<Lessons/>
         }
     ]
   }

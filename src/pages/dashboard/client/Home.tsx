@@ -11,19 +11,22 @@ const Home = () => {
     {
       id: 1,
       title: "Isomo ry' ibyapa",
-      description: "Ibibazo n' ibisubizo byagufasha kwitegura ikizami cya provisoire",
+      description:
+        "Ibibazo n' ibisubizo byagufasha kwitegura ikizami cya provisoire",
       image: lesson1,
     },
     {
       id: 2,
       title: "Isomo rya mbere",
-      description: "Ibibazo n’ ibisubizo byagufasha kwitegura ikizami cya provisoire",
+      description:
+        "Ibibazo n’ ibisubizo byagufasha kwitegura ikizami cya provisoire",
       image: lesson2,
     },
     {
       id: 3,
       title: "Isomo rya kabiri",
-      description: "Ibibazo n’ ibisubizo byagufasha kwitegura ikizami cya provisoire",
+      description:
+        "Ibibazo n’ ibisubizo byagufasha kwitegura ikizami cya provisoire",
       image: lesson3,
     },
   ];
@@ -49,9 +52,7 @@ const Home = () => {
               <h2 className="text-lg sm:text-xl font-semibold text-gray-700">
                 Amasomo
               </h2>
-              <p className="text-2xl sm:text-3xl font-bold text-blue-500">
-            3
-              </p>
+              <p className="text-2xl sm:text-3xl font-bold text-blue-500">3</p>
             </div>
           </motion.div>
 

@@ -35,7 +35,7 @@ const MENU_ITEMS = [
   {
     id: 5,
     name: "Gusohoka",
-    href: "/client",
+    href: "/signin",
     icon: <AiOutlineLogout />,
   },
 ];
@@ -101,7 +101,7 @@ const Sidebar = () => {
               className="flex items-center space-x-4 text-black hover:bg-blue-500 hover:text-white rounded-lg p-3 transition-all duration-300"
               aria-label={item.name}
               initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+            animate={{ opacity: 1, x: 0 }}
               transition={{
                 delay: index * 0.1,
                 duration: 0.4,
