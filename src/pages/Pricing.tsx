@@ -1,5 +1,6 @@
 import PricingCard from "../components/PricingCard";
-import { pricingOptions } from "../utils";
+import { pricingOptions } from "../utils/pricingOptions";
+
 
 
 
