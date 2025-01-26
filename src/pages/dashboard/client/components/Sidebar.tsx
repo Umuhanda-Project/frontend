@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { MdPlayLesson } from "react-icons/md";
-import { RiDashboardFill } from "react-icons/ri";
-import { PiExamThin } from "react-icons/pi";
-import { CiSettings } from "react-icons/ci";
-import { AiOutlineLogout, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { useLocation } from "react-router";
+
 import logo from "../../../../assets/Umuhanda_logo.png";
 import { motion } from "framer-motion";
+import { RiDashboardFill } from "react-icons/ri";
+import { AiOutlineLogout, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { CiSettings } from "react-icons/ci";
+import { MdPlayLesson } from "react-icons/md";
+import { PiExamThin } from "react-icons/pi";
 
 const MENU_ITEMS = [
   {
@@ -17,19 +19,19 @@ const MENU_ITEMS = [
   {
     id: 2,
     name: "Amasomo",
-    href: "/client",
+    href: "/client/lessons",
     icon: <MdPlayLesson />,
   },
   {
     id: 3,
     name: "Ibizamini",
-    href: "/client",
+    href: "/client/exams",
     icon: <PiExamThin />,
   },
   {
     id: 4,
     name: "Igenamiterere",
-    href: "/client",
+    href: "/client/settings",
     icon: <CiSettings />,
   },
   {
@@ -43,6 +45,7 @@ const MENU_ITEMS = [
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const location = useLocation();
 
   // Handle screen size changes
   useEffect(() => {
@@ -76,9 +79,7 @@ const Sidebar = () => {
         initial={{ x: isMobile ? "-100%" : 0 }}
         animate={{ x: isOpen ? 0 : "-100%" }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className={`max-lg:fixed max-lg:bg-white inset-y-0 left-0 w-64   border-r border-gray-200 flex flex-col min-h-screen justify-between z-40 transform ${
-          isMobile ? "lg:static" : ""
-        }`}
+        className={`fixed lg:static inset-y-0 left-0 w-64 bg-white border-r border-gray-200 flex flex-col min-h-screen justify-between z-40 transform`}
       >
         {/* Logo Section */}
         <div className="p-6">
@@ -95,13 +96,10 @@ const Sidebar = () => {
         {/* Menu Items */}
         <nav className="mb-36 flex flex-col space-y-4 px-4">
           {MENU_ITEMS.map((item, index) => (
-            <motion.a
+            <motion.div
               key={item.id}
-              href={item.href}
-              className="flex items-center space-x-4 text-black hover:bg-blue-500 hover:text-white rounded-lg p-3 transition-all duration-300"
-              aria-label={item.name}
               initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{
                 delay: index * 0.1,
                 duration: 0.4,
@@ -109,20 +107,29 @@ const Sidebar = () => {
               }}
               whileHover={{ scale: 1.05 }}
             >
-              <span className="text-xl">{item.icon}</span>
-              <span className="font-medium">{item.name}</span>
-            </motion.a>
+              <a
+                href={item.href}
+                className={`flex items-center space-x-4 rounded-lg p-3 text-black transition-all duration-300 ${
+                  location.pathname === item.href
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-blue-500 hover:text-white"
+                }`}
+                aria-label={item.name}
+              >
+                <span className={`text-xl ${location.pathname === item.href && "text-white"}`}>{item.icon}</span>
+                <span className={`font-medium ${location.pathname === item.href && "text-white"}`}>{item.name}</span>
+              </a>
+            </motion.div>
           ))}
         </nav>
 
         {/* Footer Section */}
         <div className="p-6 border-t border-gray-200">
-          <p className="text-sm text-black text-center">
+          <p className="text-sm text-gray-600 text-center">
             © 2025 <span className="font-semibold">Umuhanda</span>
           </p>
         </div>
       </motion.div>
-      Ï
     </>
   );
 };
