@@ -8,8 +8,7 @@ import {
   Signup,
   VerificationCode,
 } from "../pages/auth";
-import Home from "../pages/dashboard/client/Home";
-import Lessons from "../pages/dashboard/client/Lessons";
+import { Home, Lessons, Settings } from "../pages/dashboard/client";
 
 const router = createBrowserRouter([
   {
@@ -41,18 +40,22 @@ const router = createBrowserRouter([
     element: <PasswordConfirmation />,
   },
   {
-    path:"/client",
-    children:[
-        {
-            path:"",
-            element:<Home/>
-        },
-        {
-            path:"lessons",
-            element:<Lessons/>
-        }
-    ]
-  }
+    path: "/client",
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "lessons",
+        element: <Lessons />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
+    ],
+  },
 ]);
 
 const RouteProvider = () => <RouterProvider router={router} />;
