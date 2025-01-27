@@ -25,7 +25,7 @@ const MENU_ITEMS = [
   {
     id: 3,
     name: "Ibizamini",
-    href: "/client/exams",
+    href: "/client/exam",
     icon: <PiExamThin />,
   },
   {

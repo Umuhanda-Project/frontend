@@ -8,7 +8,7 @@ import {
   Signup,
   VerificationCode,
 } from "../pages/auth";
-import { Home, Lessons, Settings } from "../pages/dashboard/client";
+import { Home, Lessons, Settings ,Exam} from "../pages/dashboard/client";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +54,10 @@ const router = createBrowserRouter([
         path: "settings",
         element: <Settings />,
       },
+      {
+        path:"exam",
+        element: <Exam/>
+      }
     ],
   },
 ]);
