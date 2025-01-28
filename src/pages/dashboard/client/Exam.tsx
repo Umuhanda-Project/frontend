@@ -1,4 +1,5 @@
 import { BsQuestionCircleFill } from "react-icons/bs";
+import { MdTimer, MdOutlineScore, MdCheckCircle } from "react-icons/md";
 import { motion } from "framer-motion";
 import Layout from "./Layout";
 
@@ -24,17 +25,17 @@ const Exam = () => {
           transition={{ duration: 0.6 }}
         >
           {[
-            { label: "Umubare w'ibibazo", value: "20" },
-            { label: "Iminota y'ikizamini", value: "20 mins" },
-            { label: "Amanota yose", value: "20" },
-            { label: "Amanota yo gutsindiraho", value: "20" },
+            { label: "Umubare w'ibibazo", value: "20", icon: <BsQuestionCircleFill className="w-6 h-6 text-blue-500" /> },
+            { label: "Iminota y'ikizamini", value: "20 mins", icon: <MdTimer className="w-6 h-6 text-green-500" /> },
+            { label: "Amanota yose", value: "20", icon: <MdOutlineScore className="w-6 h-6 text-yellow-500" /> },
+            { label: "Amanota yo gutsindiraho", value: "20", icon: <MdCheckCircle className="w-6 h-6 text-purple-500" /> },
           ].map((item, index) => (
             <div
               key={index}
               className="flex items-center justify-between border-b pb-4 last:border-b-0 last:pb-0"
             >
               <div className="flex items-center space-x-3">
-                <BsQuestionCircleFill className="w-6 h-6 text-blue-500" />
+                {item.icon}
                 <p className="text-lg font-medium text-gray-700">{item.label}</p>
               </div>
               <p className="text-lg font-semibold text-gray-800">{item.value}</p>
