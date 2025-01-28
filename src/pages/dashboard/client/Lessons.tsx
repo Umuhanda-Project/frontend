@@ -1,34 +1,12 @@
 
+import { useNavigate } from "react-router";
+import { courses } from "../../../utils/Courses";
 import Layout from "./Layout";
-import lesson1 from "../../../assets/lesson1.png";
-import lesson2 from "../../../assets/lesson2.png";
-import lesson3 from "../../../assets/lesson3.png";
+
 import { motion } from "framer-motion";
 
 const Lessons = () => {
-  const courses = [
-    {
-      id: 1,
-      title: "Isomo ry' ibyapa",
-      description:
-        "Ibibazo n' ibisubizo byagufasha kwitegura ikizami cya provisoire",
-      image: lesson1,
-    },
-    {
-      id: 2,
-      title: "Isomo rya mbere",
-      description:
-        "Ibibazo n’ ibisubizo byagufasha kwitegura ikizami cya provisoire",
-      image: lesson2,
-    },
-    {
-      id: 3,
-      title: "Isomo rya kabiri",
-      description:
-        "Ibibazo n’ ibisubizo byagufasha kwitegura ikizami cya provisoire",
-      image: lesson3,
-    },
-  ];
+const navigate = useNavigate()
   return (
     <div>
       <Layout>
@@ -66,6 +44,7 @@ const Lessons = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="my-4 bg-blue-600 text-white px-8 sm:px-12 py-2 rounded-full"
+                    onClick={() => navigate("lesson/"+course.id)}
                   >
                     Tangira
                   </motion.button>
