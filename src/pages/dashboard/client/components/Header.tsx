@@ -1,8 +1,10 @@
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 const Header = () => {
+    const navigate = useNavigate();
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -57,6 +59,7 @@ const Header = () => {
           whileTap={{ scale: 0.95 }}
           aria-label="Settings"
           className="text-gray-600 hover:text-blue-500 text-2xl transition duration-300 ease-in-out"
+          onClick={() => navigate("/client/settings")}
         >
           <IoSettingsOutline />
         </motion.button>

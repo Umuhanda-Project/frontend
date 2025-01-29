@@ -6,7 +6,7 @@ const MENU_ITEMS = [
   { name: "Ahabanza", href: "/" },
   { name: "Kora Ibizamini", href: "/signin" },
   { name: "Injiramo", href: "/signin" },
-  { name: "Ibiciro", href: "/home" },
+  { name: "Ibiciro", href: "/" },
   { name: "Twandikire", href: "/contact" },
 ];
 

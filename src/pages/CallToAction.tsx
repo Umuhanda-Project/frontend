@@ -14,9 +14,9 @@ const CallToAction = () => {
       />
 
       {/* Overlay Content */}
-      <div className="absolute flex flex-col items-center text-center space-y-4 bg-black/20 p-6 rounded-md">
+      <div className="absolute flex flex-col items-center text-center space-y-4  p-6 rounded-md">
         <motion.p
-          className="text-2xl sm:text-4xl font-bold text-white"
+          className="text-2xl sm:text-4xl font-bold text-blue-700"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
