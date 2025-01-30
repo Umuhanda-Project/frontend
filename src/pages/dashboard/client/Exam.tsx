@@ -2,8 +2,10 @@ import { BsQuestionCircleFill } from "react-icons/bs";
 import { MdTimer, MdOutlineScore, MdCheckCircle } from "react-icons/md";
 import { motion } from "framer-motion";
 import Layout from "./Layout";
+import { useNavigate } from "react-router";
 
 const Exam = () => {
+    const navigate = useNavigate()
   return (
     <Layout>
       <div className="flex flex-col items-center px-4 py-10 space-y-6 md:space-y-12">
@@ -50,6 +52,7 @@ const Exam = () => {
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => navigate("questions")}
         >
           Tangira Ikizamini
         </motion.button>

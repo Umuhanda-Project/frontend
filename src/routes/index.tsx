@@ -16,6 +16,7 @@ import {
   Lesson,
 } from "../pages/dashboard/client";
 import ExamQuestions from "../pages/dashboard/client/ExamQuestions";
+import ExamAnswers from "../pages/dashboard/client/components/ExamAnswers";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
             path: "questions",
             element: <ExamQuestions />,
           },
+          {
+            path: "answers",
+            element: <ExamAnswers/>
+          }
         ],
       },
     ],

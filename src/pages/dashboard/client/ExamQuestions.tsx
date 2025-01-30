@@ -14,23 +14,13 @@ const questions = {
     {
       id: 1,
       question: "Ikinyabiziga cyose cyangwa ibinyabiziga bigenda bigomba kugira:",
-      options: [
-        "Umuyobozi",
-        "Umuherekeza",
-        "A na B ni ibisubizo by’ukuri",
-        "Nta gisubizo cy’ukuri kirimo",
-      ],
+      options: ["Umuyobozi", "Umuherekeza", "A na B ni ibisubizo by’ukuri", "Nta gisubizo cy’ukuri kirimo"],
       answer: "Umuyobozi",
     },
     {
       id: 2,
       question: "Ijambo 'akayira' bivuga inzira nyabagendwa ifunganye yagenewe gusa:",
-      options: [
-        "Abanyamaguru",
-        "Ibinyabiziga bigendera ku biziga bibiri",
-        "A na B ni ibisubizo by’ukuri",
-        "Nta gisubizo cy’ukuri kirimo",
-      ],
+      options: ["Abanyamaguru", "Ibinyabiziga bigendera ku biziga bibiri", "A na B ni ibisubizo by’ukuri", "Nta gisubizo cy’ukuri kirimo"],
       answer: "A na B ni ibisubizo by’ukuri",
     },
   ],
@@ -39,13 +29,14 @@ const questions = {
 const ExamQuestions = () => {
   const [currentState, setCurrentState] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [answers, setAnswers] = useState<Array<{ question: string; selectedAnswer: string; correctAnswer: string; isCorrect: boolean }>>([]);
   const [score, setScore] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [timeLeft, setTimeLeft] = useState(20 * 60); // 20 minutes in seconds
   const { width, height } = useWindowSize();
-  const currentQuestion = questions.questions[currentState];
   const navigate = useNavigate();
+  const currentQuestion = questions.questions[currentState];
 
   // Timer countdown
   useEffect(() => {
@@ -55,7 +46,7 @@ const ExamQuestions = () => {
       }, 1000);
       return () => clearInterval(timer);
     } else if (timeLeft === 0) {
-      setShowModal(true);
+      handleFinishExam(); // Auto-submit when timer reaches 0
     }
   }, [timeLeft, showModal]);
 
@@ -76,29 +67,34 @@ const ExamQuestions = () => {
       return;
     }
 
-    if (selectedAnswer === currentQuestion.answer) {
+    // Check if answer is correct
+    const isCorrect = selectedAnswer === currentQuestion.answer;
+    if (isCorrect) {
       setScore((prev) => prev + 1);
     }
 
+    // Store user's answer
+    const updatedAnswers = [
+      ...answers,
+      { question: currentQuestion.question, selectedAnswer, correctAnswer: currentQuestion.answer, isCorrect },
+    ];
+    setAnswers(updatedAnswers);
+
+    // Move to next question
     if (currentState < questions.questions.length - 1) {
       setCurrentState((prev) => prev + 1);
-      setSelectedAnswer(null); // Reset selection for next question
+      setSelectedAnswer(null);
     } else {
+      localStorage.setItem("examAnswers", JSON.stringify(updatedAnswers)); // Save to localStorage
       setShowConfetti(true);
       setShowModal(true);
     }
-  }, [selectedAnswer, currentQuestion, currentState]);
+  }, [selectedAnswer, currentQuestion, currentState, answers]);
 
-  // Handle keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Enter") {
-        handleNext();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleNext]);
+  const handleFinishExam = () => {
+    localStorage.setItem("examAnswers", JSON.stringify(answers));
+    navigate("/client/exam-answers");
+  };
 
   return (
     <Layout>
@@ -106,15 +102,7 @@ const ExamQuestions = () => {
         {showConfetti && <Confetti width={width} height={height} />}
         {showModal && (
           <div className="absolute inset-0 flex items-center justify-center h-screen bg-black/50">
-            <ScoreModel
-              score={score}
-              total={questions.questions.length}
-              onClose={() => {
-                setShowModal(false)
-                setShowConfetti(false)
-                navigate("/client/lessons")
-            }}
-            />
+            <ScoreModel score={score} total={questions.questions.length} onClose={handleFinishExam} />
           </div>
         )}
 
@@ -148,10 +136,7 @@ const ExamQuestions = () => {
           </ul>
 
           {/* Next Button */}
-          <button
-            className="bg-blue-500 px-6 py-2 rounded-sm text-white hover:bg-blue-700 mt-10"
-            onClick={handleNext}
-          >
+          <button className="bg-blue-500 px-6 py-2 rounded-sm text-white hover:bg-blue-700 mt-10" onClick={handleNext}>
             Komeza
           </button>
         </div>
