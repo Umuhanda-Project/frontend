@@ -33,7 +33,7 @@ const ExamQuestions = () => {
   const [score, setScore] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(20 * 60); // 20 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(2 * 60); // 20 minutes in seconds
   const { width, height } = useWindowSize();
   const navigate = useNavigate();
   const currentQuestion = questions.questions[currentState];
@@ -46,7 +46,7 @@ const ExamQuestions = () => {
       }, 1000);
       return () => clearInterval(timer);
     } else if (timeLeft === 0) {
-      handleFinishExam(); // Auto-submit when timer reaches 0
+      timerFinish(); // Auto-submit when timer reaches 0
     }
   }, [timeLeft, showModal]);
 
@@ -91,6 +91,9 @@ const ExamQuestions = () => {
     }
   }, [selectedAnswer, currentQuestion, currentState, answers]);
 
+  const timerFinish = () => {
+    navigate("/client")
+  }
   const handleFinishExam = () => {
     localStorage.setItem("examAnswers", JSON.stringify(answers));
     navigate("/client/exam-answers");
