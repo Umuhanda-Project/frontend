@@ -8,7 +8,6 @@ const Lessons = () => {
   return (
     <div>
       <Layout>
-        {/* Courses Section */}
         <motion.div
           className="px-6 py-8"
           initial={{ opacity: 0, y: 50 }}

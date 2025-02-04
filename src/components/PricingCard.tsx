@@ -1,5 +1,6 @@
 import { IoCheckmarkSharp } from "react-icons/io5";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 interface OptionsProps {
   id: number;
@@ -14,8 +15,10 @@ interface PriceProps {
   options: OptionsProps[];
 }
 
-const PricingCard = ({ header, description, price, options }: PriceProps) => (
-  <motion.div
+const PricingCard = ({ header, description, price, options }: PriceProps) => {
+  const {t} = useTranslation()
+  
+  return <motion.div
     className="shadow-lg p-4 rounded-md"
     initial={{ opacity: 0, y: 50 }} // Animation on load
     animate={{ opacity: 1, y: 0 }} // Animation after load
@@ -57,10 +60,10 @@ const PricingCard = ({ header, description, price, options }: PriceProps) => (
         whileTap={{ scale: 0.95 }}
         transition={{ duration: 0.3 }}
       >
-        Gutangira
+        {t('start_now')}
       </motion.button>
     </div>
   </motion.div>
-);
+};
 
 export default PricingCard;

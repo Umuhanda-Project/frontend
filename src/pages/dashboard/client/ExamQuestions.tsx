@@ -96,6 +96,7 @@ const ExamQuestions = () => {
   }
   const handleFinishExam = () => {
     localStorage.setItem("examAnswers", JSON.stringify(answers));
+    // localStorage.setItem("examCount",JSON.stringify())
     navigate("/client/exam-answers");
   };
 

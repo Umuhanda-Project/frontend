@@ -1,13 +1,15 @@
 import logo from "../assets/Umuhanda_logo.png";
 import { NavLink } from "react-router";
+import { useTranslation } from "react-i18next";
+import i18n from "../utils/i18n";
 
 // Constants for easier maintainability
 const MENU_ITEMS = [
-  { name: "Ahabanza", href: "/" },
-  { name: "Kora Ibizamini", href: "/signin" },
-  { name: "Injiramo", href: "/signin" },
-  { name: "Ibiciro", href: "/" },
-  { name: "Twandikire", href: "/contact" },
+  { name: "home", href: "/" },
+  { name: "exams", href: "/signin" },
+  { name: "login", href: "/signin" },
+  { name: "pricing", href: "/" },
+  { name: "contact", href: "/contact" },
 ];
 
 const LANGUAGES = [
@@ -16,23 +18,31 @@ const LANGUAGES = [
   { label: "🇫🇷 French", value: "french" },
 ];
 
+const handleChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  if (e.target.value === "kinyarwanda") i18n.changeLanguage("kiny");
+  if (e.target.value === "english") i18n.changeLanguage("en");
+  if (e.target.value === "french") i18n.changeLanguage("fr");
+};
+
 const Header = () => {
+  const { t } = useTranslation(); // Fetch translations
+
   return (
-    <header className="flex justify-between items-center py-4 px-6 shadow-md">
+    <header className="flex flex-col sm:flex-row items-center justify-between py-4 px-6 shadow-md">
       {/* Logo Section */}
-      <div>
+      <div className="mb-4 sm:mb-0">
         <img
           src={logo}
           alt="Umuhanda Logo - Navigate to Home"
-          className="w-32 max-md:w-24"
+          className="w-32 sm:w-40"
         />
       </div>
 
       {/* Navigation & Language Section */}
-      <div className="flex items-center space-x-8 max-md:space-x-4">
+      <div className="flex flex-col sm:flex-row items-center sm:space-x-8 max-sm:space-y-4 sm:space-y-0">
         {/* Navigation Menu */}
         <nav aria-label="Main navigation">
-          <ul className="flex items-center space-x-8 max-md:space-x-4">
+          <ul className="flex items-center space-x-8 sm:space-x-8">
             {MENU_ITEMS.map((item, index) => (
               <li key={index}>
                 <NavLink
@@ -42,9 +52,8 @@ const Header = () => {
                       isActive ? "text-blue-500 underline" : "text-gray-700"
                     } hover:text-blue-500 transition duration-300`
                   }
-                
                 >
-                  {item.name}
+                  {t(item.name)} {/* Translate each menu item dynamically */}
                 </NavLink>
               </li>
             ))}
@@ -53,16 +62,14 @@ const Header = () => {
 
         {/* Language Selector */}
         <div>
-          <label
-            htmlFor="language-options"
-            className="sr-only"
-          >
+          <label htmlFor="language-options" className="sr-only">
             Select Language
           </label>
           <select
             id="language-options"
             name="language-options"
             className="border rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={handleChangeLanguage}
           >
             {LANGUAGES.map((lang, index) => (
               <option key={index} value={lang.value}>

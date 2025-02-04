@@ -2,9 +2,11 @@ import { motion } from "framer-motion";
 import hero1 from "../assets/hero1.png"
 import hero2 from "../assets/hero2.png"
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const Hero = () => {
     const navigate = useNavigate()
+    const {t} = useTranslation()
   return (
     <div className="relative min-h-screen bg-hero-image bg-center bg-cover bg-no-repeat">
       {/* Dark overlay */}
@@ -21,17 +23,15 @@ const Hero = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight text-center lg:text-left">
-              Gutsinda Provisoire Biroroshye Hamwe natwe!
+            {t("welcome_message")}
             </h1>
             
             <p className="text-lg md:text-xl text-gray-200 leading-relaxed text-center lg:text-left">
-              Shyira imbere ejo heza hawe! Tangira kwiga amasomo arambuye kandi
-              asobanutse azagufasha gutsinda kizamini cyawe cya provisoire mu buryo
-              bworoshye kandi bwihuse.
+            {t("hero_message")}
             </p>
 
             <button onClick={() => navigate("/signin")} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 w-fit">
-              Tangira Nonaha
+            {t("start_now")}
             </button>
           </motion.div>
 

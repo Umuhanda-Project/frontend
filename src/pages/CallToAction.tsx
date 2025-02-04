@@ -1,13 +1,16 @@
+import { useTranslation } from "react-i18next";
 import video from "../assets/video1.mp4";
 import { motion } from "framer-motion";
 
 const CallToAction = () => {
+
+  const {t} = useTranslation()
   return (
     <div className="relative flex items-center justify-center my-6">
       {/* Video Background */}
       <video
         src={video}
-        className="rounded-md w-[80vw] max-h-[600px] max-sm:[90vw] object-cover"
+        className="rounded-md w-[80vw] max-h-[600px] max-sm-w:[100vw] object-cover"
         autoPlay
         muted
         loop
@@ -21,7 +24,7 @@ const CallToAction = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Witegure gukora ikizamini mugihe gito
+          {t("call_to_action")}
         </motion.p>
         <motion.button
           className="bg-blue-500 text-white py-3 px-6 rounded-full hover:bg-blue-600 focus:ring-4 focus:ring-blue-300"
@@ -29,7 +32,7 @@ const CallToAction = () => {
           whileTap={{ scale: 0.95 }}
           aria-label="Tangira hano"
         >
-          Tangira hano
+         {t("start_now")}
         </motion.button>
       </div>
     </div>
