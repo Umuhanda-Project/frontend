@@ -1,33 +1,36 @@
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 import logo from "../../assets/Umuhanda_logo.png";
 import authSignup from "../../assets/auth2.png";
 
 const Signup = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       {/* Left Section */}
-      <div className="flex-1 bg-gray-50 p-8 lg:p-4 flex flex-col ">
+      <div className="flex-1 bg-gray-50 p-8 lg:p-4 flex flex-col">
         {/* Logo */}
         <img src={logo} alt="Umuhanda Logo" className="w-40 mb-8" />
 
-        {/* Sign-In Form */}
+        {/* Sign-Up Form */}
         <div className="flex flex-col items-center">
           <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-            Kora Konte
+            {t("signup")}
           </h1>
           <form className="w-full max-w-md bg-white p-6 rounded-lg shadow-md space-y-6">
-          <div>
+            <div>
               <label
-                htmlFor="phone"
+                htmlFor="fullName"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Amazina yawe
+                {t("fullName")}
               </label>
               <input
                 type="text"
-                id="text"
-                placeholder="Andika amazina yawe"
+                id="fullName"
+                placeholder={t("enterFullName")}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -37,12 +40,12 @@ const Signup = () => {
                 htmlFor="phone"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Nimero ya Telephone
+                {t("phoneNumber")}
               </label>
               <input
                 type="text"
                 id="phone"
-                placeholder="Injiza nimero yawe"
+                placeholder={t("enterPhoneNumber")}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -52,12 +55,12 @@ const Signup = () => {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Umubare w'Ibanga
+                {t("password")}
               </label>
               <input
                 type="password"
                 id="password"
-                placeholder="Injiza umubare w'ibanga"
+                placeholder={t("enterPassword")}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -67,21 +70,15 @@ const Signup = () => {
                 type="submit"
                 className="bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition"
               >
-                Injiramo
+                {t("signUp")}
               </button>
-              {/* <button
-                type="button"
-                className="text-blue-500 hover:underline text-sm"
-              >
-                Wibagiwe W'Ibanga?
-              </button> */}
             </div>
             <button
               type="button"
               className="w-full bg-gray-100 py-3 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition"
               onClick={() => navigate("/signin")}
             >
-              Subira Aho Winjirira
+              {t("backToSignIn")}
             </button>
           </form>
         </div>

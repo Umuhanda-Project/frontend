@@ -13,14 +13,26 @@ const questions = {
   questions: [
     {
       id: 1,
-      question: "Ikinyabiziga cyose cyangwa ibinyabiziga bigenda bigomba kugira:",
-      options: ["Umuyobozi", "Umuherekeza", "A na B ni ibisubizo by’ukuri", "Nta gisubizo cy’ukuri kirimo"],
+      question:
+        "Ikinyabiziga cyose cyangwa ibinyabiziga bigenda bigomba kugira:",
+      options: [
+        "Umuyobozi",
+        "Umuherekeza",
+        "A na B ni ibisubizo by’ukuri",
+        "Nta gisubizo cy’ukuri kirimo",
+      ],
       answer: "Umuyobozi",
     },
     {
       id: 2,
-      question: "Ijambo 'akayira' bivuga inzira nyabagendwa ifunganye yagenewe gusa:",
-      options: ["Abanyamaguru", "Ibinyabiziga bigendera ku biziga bibiri", "A na B ni ibisubizo by’ukuri", "Nta gisubizo cy’ukuri kirimo"],
+      question:
+        "Ijambo 'akayira' bivuga inzira nyabagendwa ifunganye yagenewe gusa:",
+      options: [
+        "Abanyamaguru",
+        "Ibinyabiziga bigendera ku biziga bibiri",
+        "A na B ni ibisubizo by’ukuri",
+        "Nta gisubizo cy’ukuri kirimo",
+      ],
       answer: "A na B ni ibisubizo by’ukuri",
     },
   ],
@@ -29,11 +41,18 @@ const questions = {
 const ExamQuestions = () => {
   const [currentState, setCurrentState] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [answers, setAnswers] = useState<Array<{ question: string; selectedAnswer: string; correctAnswer: string; isCorrect: boolean }>>([]);
+  const [answers, setAnswers] = useState<
+    Array<{
+      question: string;
+      selectedAnswer: string;
+      correctAnswer: string;
+      isCorrect: boolean;
+    }>
+  >([]);
   const [score, setScore] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(2 * 60); // 20 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(20 * 60); // 20 minutes in seconds
   const { width, height } = useWindowSize();
   const navigate = useNavigate();
   const currentQuestion = questions.questions[currentState];
@@ -54,7 +73,9 @@ const ExamQuestions = () => {
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    return `${minutes.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   const handleAnswerSelect = (option: string) => {
@@ -76,7 +97,12 @@ const ExamQuestions = () => {
     // Store user's answer
     const updatedAnswers = [
       ...answers,
-      { question: currentQuestion.question, selectedAnswer, correctAnswer: currentQuestion.answer, isCorrect },
+      {
+        question: currentQuestion.question,
+        selectedAnswer,
+        correctAnswer: currentQuestion.answer,
+        isCorrect,
+      },
     ];
     setAnswers(updatedAnswers);
 
@@ -92,8 +118,8 @@ const ExamQuestions = () => {
   }, [selectedAnswer, currentQuestion, currentState, answers]);
 
   const timerFinish = () => {
-    navigate("/client")
-  }
+    navigate("/client");
+  };
   const handleFinishExam = () => {
     localStorage.setItem("examAnswers", JSON.stringify(answers));
     // localStorage.setItem("examCount",JSON.stringify())
@@ -106,7 +132,11 @@ const ExamQuestions = () => {
         {showConfetti && <Confetti width={width} height={height} />}
         {showModal && (
           <div className="absolute inset-0 flex items-center justify-center h-screen bg-black/50">
-            <ScoreModel score={score} total={questions.questions.length} onClose={handleFinishExam} />
+            <ScoreModel
+              score={score}
+              total={questions.questions.length}
+              onClose={handleFinishExam}
+            />
           </div>
         )}
 
@@ -140,7 +170,10 @@ const ExamQuestions = () => {
           </ul>
 
           {/* Next Button */}
-          <button className="bg-blue-500 px-6 py-2 rounded-sm text-white hover:bg-blue-700 mt-10" onClick={handleNext}>
+          <button
+            className="bg-blue-500 px-6 py-2 rounded-sm text-white hover:bg-blue-700 mt-10"
+            onClick={handleNext}
+          >
             Komeza
           </button>
         </div>

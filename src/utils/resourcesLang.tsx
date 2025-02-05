@@ -52,6 +52,35 @@ export const resources = {
       submit_button: "Send Message",
       contact_info: "Or call us at:",
       contact_number: "+250 787 787 878",
+
+      alt: {
+        logo: "Umuhanda Logo",
+        auth_image: "Auth Illustration",
+      },
+      signin: {
+        title: "Sign In",
+        phone_label: "Phone Number",
+        phone_placeholder: "Enter your phone number",
+        password_label: "Password",
+        password_placeholder: "Enter your password",
+        login: "Sign In",
+        forgot_password: "Forgot Password?",
+        create_account: "Create Account",
+      },
+
+      signup: "Create an Account",
+      fullName: "Your Full Name",
+      enterFullName: "Enter your full name",
+      phoneNumber: "Phone Number",
+      enterPhoneNumber: "Enter your phone number",
+      password: "Password",
+      enterPassword: "Enter your password",
+      signUp: "Sign Up",
+      backToSignIn: "Back to Sign In",
+
+      resetPassword: "Reset Password",
+      submit: "Submit",
+      createAccount: "Create an Account",
     },
   },
   fr: {
@@ -107,6 +136,35 @@ export const resources = {
       submit_button: "Envoyer le message",
       contact_info: "Ou appelez-nous à :",
       contact_number: "+250 787 787 878",
+
+      alt: {
+        logo: "Logo Umuhanda",
+        auth_image: "Illustration d'authentification",
+      },
+      signin: {
+        title: "Se Connecter",
+        phone_label: "Numéro de Téléphone",
+        phone_placeholder: "Entrez votre numéro de téléphone",
+        password_label: "Mot de Passe",
+        password_placeholder: "Entrez votre mot de passe",
+        login: "Connexion",
+        forgot_password: "Mot de passe oublié ?",
+        create_account: "Créer un Compte",
+      },
+
+      signup: "Créer un Compte",
+      fullName: "Votre Nom Complet",
+      enterFullName: "Entrez votre nom complet",
+      phoneNumber: "Numéro de Téléphone",
+      enterPhoneNumber: "Entrez votre numéro de téléphone",
+      password: "Mot de Passe",
+      enterPassword: "Entrez votre mot de passe",
+      signUp: "S'inscrire",
+      backToSignIn: "Retour à la Connexion",
+
+      resetPassword: "Kwinjiza Ijambo Rishya",
+      submit: "Emeza",
+      createAccount: "Kora Konti",
     },
   },
   kiny: {
@@ -163,6 +221,35 @@ export const resources = {
       submit_button: "Ohereza Ubutumwa",
       contact_info: "Cyangwa uduhamagare kuri:",
       contact_number: "+250 787 787 878",
+
+      alt: {
+        logo: "Ikirangantego cya Umuhanda",
+        auth_image: "Ishusho y'iyinjira",
+      },
+      signin: {
+        title: "Injiramo",
+        phone_label: "Nimero ya Telephone",
+        phone_placeholder: "Injiza nimero yawe",
+        password_label: "Umubare w'Ibanga",
+        password_placeholder: "Injiza umubare w'ibanga",
+        login: "Injiramo",
+        forgot_password: "Wibagiwe W'Ibanga?",
+        create_account: "Kora Konti",
+      },
+
+      signup: "Kora Konte",
+      fullName: "Amazina yawe",
+      enterFullName: "Andika amazina yawe",
+      phoneNumber: "Nimero ya Telephone",
+      enterPhoneNumber: "Injiza nimero yawe",
+      password: "Umubare w'Ibanga",
+      enterPassword: "Injiza umubare w'ibanga",
+      signUp: "Injiramo",
+      backToSignIn: "Subira Aho Winjirira",
+
+      resetPassword: "Réinitialiser le Mot de Passe",
+      submit: "Soumettre",
+      createAccount: "Créer un Compte",
     },
   },
 };
