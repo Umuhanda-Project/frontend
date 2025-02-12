@@ -81,6 +81,31 @@ export const resources = {
       resetPassword: "Reset Password",
       submit: "Submit",
       createAccount: "Create an Account",
+
+      exams_taken: "Exams Taken",
+      highest_score: "Highest Score",
+
+      exam_title: "Exam Instructions",
+      question_count: "Number of Questions",
+      time_limit: "Time Limit",
+      total_score: "Total Score",
+      passing_score: "Passing Score",
+      start_exam: "Start Exam",
+
+      profile_title: "Update Profile",
+      profile_desc: "Enter the required information to complete your profile.",
+      name_label: "Your Name",
+      birthdate_label: "Date of Birth",
+      country_label: "Country",
+      password_label: "Password",
+      address_label: "Your Address",
+      city_label: "City",
+
+
+
+          settings: "Settings",
+          logout: "Logout",
+
     },
   },
   fr: {
@@ -162,9 +187,27 @@ export const resources = {
       signUp: "S'inscrire",
       backToSignIn: "Retour à la Connexion",
 
-      resetPassword: "Kwinjiza Ijambo Rishya",
-      submit: "Emeza",
-      createAccount: "Kora Konti",
+      resetPassword: "Réinitialiser le Mot de Passe",
+      submit: "Soumettre",
+      createAccount: "Créer un Compte",
+
+      exam_title: "Instructions de l'examen",
+      question_count: "Nombre de questions",
+      time_limit: "Limite de temps",
+      total_score: "Score total",
+      passing_score: "Score de réussite",
+      start_exam: "Commencer l'examen",
+
+      profile_title: "Mettre à jour le profil",
+      profile_desc: "Entrez les informations requises pour compléter votre profil.",
+      name_label: "Votre nom",
+      birthdate_label: "Date de naissance",
+      country_label: "Pays",
+      password_label: "Mot de passe",
+      address_label: "Votre adresse",
+      city_label: "Ville",
+
+    
     },
   },
   kiny: {
@@ -247,9 +290,35 @@ export const resources = {
       signUp: "Injiramo",
       backToSignIn: "Subira Aho Winjirira",
 
-      resetPassword: "Réinitialiser le Mot de Passe",
-      submit: "Soumettre",
-      createAccount: "Créer un Compte",
+      resetPassword: "Kwinjiza Ijambo Rishya",
+      submit: "Emeza",
+      createAccount: "Kora Konti",
+
+      exams_taken: "Inshuro wakoze ibizamini",
+      highest_score: "Amanota menshi wagize",
+
+      exam_title: "Amabwiriza y'ikizamini",
+      question_count: "Umubare w'ibibazo",
+      time_limit: "Iminota y'ikizamini",
+      total_score: "Amanota yose",
+      passing_score: "Amanota yo gutsindiraho",
+      start_exam: "Tangira Ikizamini",
+
+
+      profile_title: "Hindura Profile",
+      profile_desc: "Injiza amakuru akenewe kugira ngo uzuze profile yawe neza.",
+      name_label: "Amazina Yawe",
+      birthdate_label: "Amatariki y' ivuko",
+      country_label: "Igihugu",
+      password_label: "Umubare w' ibanga",
+      address_label: "Aho utuye",
+      city_label: "Umugi",
+
+
+
+          settings: "Igenamiterere",
+          logout: "Gusohoka",
+
     },
   },
 };

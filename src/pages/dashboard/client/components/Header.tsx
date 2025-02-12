@@ -2,9 +2,13 @@ import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
+import LanguageSwitcher from "../../../../components/LanguageSwitcher";
+
+
 
 const Header = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+ 
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -32,6 +36,8 @@ const Header = () => {
         </motion.p>
       </div>
 
+    <LanguageSwitcher/>
+
       {/* Icon Section */}
       <div className="flex space-x-6 items-center">
         {/* Notification Icon */}
@@ -48,9 +54,7 @@ const Header = () => {
             animate={{ scale: 1 }}
             transition={{ duration: 0.3, delay: 0.2 }}
             className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center text-white text-xs font-bold rounded-full"
-          >
-            
-          </motion.span>
+          ></motion.span>
         </motion.button>
 
         {/* Settings Icon */}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router";
+import { useTranslation } from "react-i18next";
 
 import logo from "../../../../assets/Umuhanda_logo.png";
 import { motion } from "framer-motion";
@@ -12,31 +13,31 @@ import { PiExamThin } from "react-icons/pi";
 const MENU_ITEMS = [
   {
     id: 1,
-    name: "Ahabanza",
+    nameKey: "home", // Key for i18n
     href: "/client",
     icon: <RiDashboardFill />,
   },
   {
     id: 2,
-    name: "Amasomo",
+    nameKey: "lessons", // Key for i18n
     href: "/client/lessons",
     icon: <MdPlayLesson />,
   },
   {
     id: 3,
-    name: "Ibizamini",
+    nameKey: "exams", // Key for i18n
     href: "/client/exam",
     icon: <PiExamThin />,
   },
   {
     id: 4,
-    name: "Igenamiterere",
+    nameKey: "settings", // Key for i18n
     href: "/client/settings",
     icon: <CiSettings />,
   },
   {
     id: 5,
-    name: "Gusohoka",
+    nameKey: "logout", // Key for i18n
     href: "/signin",
     icon: <AiOutlineLogout />,
   },
@@ -45,6 +46,7 @@ const MENU_ITEMS = [
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { t } = useTranslation(); // Hook for translation
   const location = useLocation();
 
   // Handle screen size changes
@@ -114,10 +116,10 @@ const Sidebar = () => {
                     ? "bg-blue-500 text-white"
                     : "hover:bg-blue-500 hover:text-white"
                 }`}
-                aria-label={item.name}
+                aria-label={t(item.nameKey)} // Using the translation function
               >
                 <span className={`text-xl ${location.pathname === item.href && "text-white"}`}>{item.icon}</span>
-                <span className={`font-medium ${location.pathname === item.href && "text-white"}`}>{item.name}</span>
+                <span className={`font-medium ${location.pathname === item.href && "text-white"}`}>{t(item.nameKey)}</span> {/* Translated name */}
               </a>
             </motion.div>
           ))}

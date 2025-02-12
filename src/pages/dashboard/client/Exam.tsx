@@ -3,9 +3,12 @@ import { MdTimer, MdOutlineScore, MdCheckCircle } from "react-icons/md";
 import { motion } from "framer-motion";
 import Layout from "./Layout";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const Exam = () => {
-    const navigate = useNavigate()
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
   return (
     <Layout>
       <div className="flex flex-col items-center px-4 py-10 space-y-6 md:space-y-12">
@@ -16,7 +19,7 @@ const Exam = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Amabwiriza y'ikizamini
+          {t("exam_title")}
         </motion.p>
 
         {/* Instructions Section */}
@@ -27,10 +30,10 @@ const Exam = () => {
           transition={{ duration: 0.6 }}
         >
           {[
-            { label: "Umubare w'ibibazo", value: "20", icon: <BsQuestionCircleFill className="w-6 h-6 text-blue-500" /> },
-            { label: "Iminota y'ikizamini", value: "20 mins", icon: <MdTimer className="w-6 h-6 text-green-500" /> },
-            { label: "Amanota yose", value: "20", icon: <MdOutlineScore className="w-6 h-6 text-yellow-500" /> },
-            { label: "Amanota yo gutsindiraho", value: "20", icon: <MdCheckCircle className="w-6 h-6 text-purple-500" /> },
+            { label: t("question_count"), value: "20", icon: <BsQuestionCircleFill className="w-6 h-6 text-blue-500" /> },
+            { label: t("time_limit"), value: "20 mins", icon: <MdTimer className="w-6 h-6 text-green-500" /> },
+            { label: t("total_score"), value: "20", icon: <MdOutlineScore className="w-6 h-6 text-yellow-500" /> },
+            { label: t("passing_score"), value: "20", icon: <MdCheckCircle className="w-6 h-6 text-purple-500" /> },
           ].map((item, index) => (
             <div
               key={index}
@@ -54,7 +57,7 @@ const Exam = () => {
           whileTap={{ scale: 0.95 }}
           onClick={() => navigate("questions")}
         >
-          Tangira Ikizamini
+          {t("start_exam")}
         </motion.button>
       </div>
     </Layout>

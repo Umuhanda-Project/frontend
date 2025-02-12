@@ -3,15 +3,16 @@ import Layout from "./Layout";
 import { motion } from "framer-motion";
 import { PiExamThin } from "react-icons/pi";
 import Notes from "./components/Notes";
-
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
- 
+  const { t } = useTranslation();
+
   return (
     <Layout>
       {/* Metrics Section */}
       <motion.div
-        className="px-6 py-8 "
+        className="px-6 py-8"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -26,7 +27,7 @@ const Home = () => {
             <MdOutlinePlayLesson className="w-12 h-12 sm:w-16 sm:h-16 text-blue-600" />
             <div>
               <h2 className="text-lg sm:text-xl font-semibold text-gray-700">
-                Amasomo
+                {t("lessons")}
               </h2>
               <p className="text-2xl sm:text-3xl font-bold text-blue-500">3</p>
             </div>
@@ -41,7 +42,7 @@ const Home = () => {
             <PiExamThin className="w-12 h-12 sm:w-16 sm:h-16 text-green-600" />
             <div>
               <h2 className="text-lg sm:text-xl font-semibold text-gray-700">
-                Inshuro Wakoze Ibizamini
+                {t("exams_taken")}
               </h2>
               <p className="text-2xl sm:text-3xl font-bold text-green-500">4</p>
             </div>
@@ -56,7 +57,7 @@ const Home = () => {
             <MdOutlineSportsScore className="w-12 h-12 sm:w-16 sm:h-16 text-red-600" />
             <div>
               <h2 className="text-lg sm:text-xl font-semibold text-gray-700">
-                Amanota Menshi Wagize
+                {t("highest_score")}
               </h2>
               <p className="text-2xl sm:text-3xl font-bold text-red-500">13</p>
             </div>
@@ -71,7 +72,7 @@ const Home = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6 }}
       >
-       <Notes length={3} />
+        <Notes length={3} />
       </motion.div>
     </Layout>
   );
