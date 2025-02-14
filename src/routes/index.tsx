@@ -1,101 +1,89 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
-import App from "../App";
-import { Contact } from "../pages";
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import App from '../App';
+import { Contact } from '../pages';
 import {
   PasswordConfirmation,
   ResetPassword,
   Signin,
   Signup,
   VerificationCode,
-} from "../pages/auth";
-import {
-  Home,
-  Lessons,
-  Settings,
-  Exam,
-  Lesson,
-} from "../pages/dashboard/client";
-import ExamQuestions from "../pages/dashboard/client/ExamQuestions";
-import ExamAnswers from "../pages/dashboard/client/components/ExamAnswers";
-import Igazeti from "../pages/dashboard/client/Igazeti";
-import PdfRender from "../PdfRender"
+} from '../pages/auth';
+import { Home, Lessons, Settings, Exam, Lesson } from '../pages/dashboard/client';
+import ExamQuestions from '../pages/dashboard/client/ExamQuestions';
+import ExamAnswers from '../pages/dashboard/client/components/ExamAnswers';
+import Igazeti from '../pages/dashboard/client/Igazeti';
+
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
   },
   {
-    path: "/contact",
+    path: '/contact',
     element: <Contact />,
   },
   {
-    path: "/pdf",
-    element:<PdfRender/>
-
-  },
-  {
-    path: "/signin",
+    path: '/signin',
     element: <Signin />,
   },
   {
-    path: "/signup",
+    path: '/signup',
     element: <Signup />,
   },
   {
-    path: "/reset",
+    path: '/reset',
     element: <ResetPassword />,
   },
   {
-    path: "/verificationcode",
+    path: '/verificationcode',
     element: <VerificationCode />,
   },
   {
-    path: "/passwordconfirmation",
+    path: '/passwordconfirmation',
     element: <PasswordConfirmation />,
   },
   {
-    path: "/client",
+    path: '/client',
     children: [
       {
-        path: "",
+        path: '',
         element: <Home />,
       },
       {
-        path: "igazeti",
-        element: <Igazeti/>
-
+        path: 'igazeti',
+        element: <Igazeti />,
       },
       {
-        path: "lessons",
+        path: 'lessons',
         children: [
           {
-            path: "",
+            path: '',
             element: <Lessons />,
           },
           {
-            path: "lesson/:id",
+            path: 'lesson/:id',
             element: <Lesson />,
           },
         ],
       },
       {
-        path: "settings",
+        path: 'settings',
         element: <Settings />,
       },
       {
-        path: "exam",
+        path: 'exam',
         children: [
           {
-            path: "",
+            path: '',
             element: <Exam />,
           },
           {
-            path: "questions",
+            path: 'questions',
             element: <ExamQuestions />,
           },
           {
-            path: "answers",
+            path: 'answers',
             element: <ExamAnswers />,
           },
         ],
