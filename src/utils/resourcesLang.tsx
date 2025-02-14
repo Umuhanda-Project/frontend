@@ -9,6 +9,8 @@ export const resources = {
       lessons: "Lessons",
       questions: "Questions",
 
+      igazeti:"books",
+
       // Pricing-related translations
       choosePlan: "Choose a plan",
       plan_one_header: "Five Exams Plan",
@@ -118,6 +120,8 @@ export const resources = {
       lessons: "Leçons",
       questions: "Questions",
 
+      igazeti:"Livre",
+
       // Pricing-related translations
       choosePlan: "Choisissez un plan",
       plan_one_header: "Plan Cinq Examens",
@@ -219,6 +223,8 @@ export const resources = {
       students: "Abanyeshuri",
       lessons: "Amasomo",
       questions: "Ibibazo",
+
+      igazeti:"Igazeti",
 
       // Pricing-related translations
       choosePlan: "Hitamo Ifatabuguzi",

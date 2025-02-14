@@ -17,6 +17,8 @@ import {
 } from "../pages/dashboard/client";
 import ExamQuestions from "../pages/dashboard/client/ExamQuestions";
 import ExamAnswers from "../pages/dashboard/client/components/ExamAnswers";
+import Igazeti from "../pages/dashboard/client/Igazeti";
+import PdfRender from "../PdfRender"
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,11 @@ const router = createBrowserRouter([
   {
     path: "/contact",
     element: <Contact />,
+  },
+  {
+    path: "/pdf",
+    element:<PdfRender/>
+
   },
   {
     path: "/signin",
@@ -53,6 +60,11 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path: "igazeti",
+        element: <Igazeti/>
+
       },
       {
         path: "lessons",
@@ -84,8 +96,8 @@ const router = createBrowserRouter([
           },
           {
             path: "answers",
-            element: <ExamAnswers/>
-          }
+            element: <ExamAnswers />,
+          },
         ],
       },
     ],

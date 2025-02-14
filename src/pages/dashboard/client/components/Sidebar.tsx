@@ -9,6 +9,7 @@ import { AiOutlineLogout, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { CiSettings } from "react-icons/ci";
 import { MdPlayLesson } from "react-icons/md";
 import { PiExamThin } from "react-icons/pi";
+import { IoBookSharp } from "react-icons/io5";
 
 const MENU_ITEMS = [
   {
@@ -28,6 +29,12 @@ const MENU_ITEMS = [
     nameKey: "exams", // Key for i18n
     href: "/client/exam",
     icon: <PiExamThin />,
+  },
+  {
+    id:6,
+    nameKey:"igazeti",
+    href:"/client/igazeti",
+    icon:<IoBookSharp/>
   },
   {
     id: 4,
