@@ -40,6 +40,7 @@ export const courses = [
     description:
       "Ibibazo n' ibisubizo byagufasha kwitegura ikizami cya provisoire",
     image: lesson1,
+    label: "Kinyarwanda",
     notes: [
       {
         id: 1,
@@ -242,6 +243,7 @@ export const courses = [
     description:
       "Ibibazo n’ ibisubizo byagufasha kwitegura ikizami cya provisoire",
     image: lesson2,
+    label: "Kinyarwanda",
     notes: [
       {
         id: 1,
@@ -276,6 +278,7 @@ export const courses = [
     description:
       "Ibibazo n’ ibisubizo byagufasha kwitegura ikizami cya provisoire",
     image: lesson3,
+    label: "Kinyarwanda",
     notes: [
       {
         id: 1,

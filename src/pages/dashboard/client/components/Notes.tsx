@@ -11,6 +11,7 @@ interface Course {
   title: string;
   description: string;
   image: string;
+  label:string
 }
 
 /**
@@ -67,12 +68,15 @@ const Notes: React.FC<NotesProps> = ({ length }) => {
             <img
               src={course.image}
               alt={course.title}
-              className="h-40 w-full object-cover"
+              className="h-48 w-full object-cover"
             />
             <div className="p-4">
+              <div className="flex justify-between">
               <h2 className="text-lg sm:text-xl font-semibold text-gray-800">
                 {course.title}
               </h2>
+              <span className="bg-blue-600 rounded-full p-2 text-white text-xs">{course.label}</span>
+              </div>
               <p className="text-sm sm:text-base text-gray-600 mt-2">
                 {course.description}
               </p>
