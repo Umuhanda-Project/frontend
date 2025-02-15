@@ -1,144 +1,190 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router";
-import { useTranslation } from "react-i18next";
 
+import { useTranslation } from "react-i18next";
 import logo from "../../../../assets/Umuhanda_logo.png";
-import { motion } from "framer-motion";
 import { RiDashboardFill } from "react-icons/ri";
 import { AiOutlineLogout, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { CiSettings } from "react-icons/ci";
 import { MdPlayLesson } from "react-icons/md";
 import { PiExamThin } from "react-icons/pi";
 import { IoBookSharp } from "react-icons/io5";
+import { Link, useLocation } from "react-router";
 
 const MENU_ITEMS = [
   {
     id: 1,
-    nameKey: "home", // Key for i18n
+    nameKey: "home",
     href: "/client",
     icon: <RiDashboardFill />,
+    section: "main"
   },
   {
     id: 2,
-    nameKey: "lessons", // Key for i18n
+    nameKey: "lessons",
     href: "/client/lessons",
     icon: <MdPlayLesson />,
+    section: "main"
   },
   {
     id: 3,
-    nameKey: "exams", // Key for i18n
+    nameKey: "exams",
     href: "/client/exam",
     icon: <PiExamThin />,
+    section: "main"
   },
   {
-    id:6,
-    nameKey:"igazeti",
-    href:"/client/igazeti",
-    icon:<IoBookSharp/>
+    id: 6,
+    nameKey: "igazeti",
+    href: "/client/igazeti",
+    icon: <IoBookSharp />,
+    section: "main"
   },
   {
     id: 4,
-    nameKey: "settings", // Key for i18n
+    nameKey: "settings",
     href: "/client/settings",
     icon: <CiSettings />,
+    section: "account"
   },
   {
     id: 5,
-    nameKey: "logout", // Key for i18n
+    nameKey: "logout",
     href: "/signin",
     icon: <AiOutlineLogout />,
+    section: "account"
   },
 ];
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const { t } = useTranslation(); // Hook for translation
+  const { t } = useTranslation();
   const location = useLocation();
 
   // Handle screen size changes
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+      setIsMobile(window.innerWidth < 1024);
       if (window.innerWidth >= 1024) {
-        setIsOpen(true); // Always show sidebar on large screens
+        setIsOpen(true);
       } else {
-        setIsOpen(false); // Collapse sidebar on smaller screens
+        setIsOpen(false);
       }
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Initialize on mount
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // Group menu items by section
+  const mainMenuItems = MENU_ITEMS.filter(item => item.section === 'main');
+  const accountMenuItems = MENU_ITEMS.filter(item => item.section === 'account');
+
   return (
     <>
+      {/* Mobile Overlay */}
+      {isMobile && isOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={handleToggle}
+          aria-hidden="true"
+        />
+      )}
+      
       {/* Toggle Button (Only for Mobile View) */}
       {isMobile && (
         <button
-          className="fixed top-4 left-4 z-50 bg-blue-500 text-white p-2 rounded-md shadow-md"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle Sidebar"
+          className="fixed top-4 left-4 z-50 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+          onClick={handleToggle}
+          aria-label={isOpen ? t("closeSidebar") : t("openSidebar")}
+          aria-expanded={isOpen}
         >
           {isOpen ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
         </button>
       )}
-      <motion.div
-        initial={{ x: isMobile ? "-100%" : 0 }}
-        animate={{ x: isOpen ? 0 : "-100%" }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-        className={`fixed lg:static inset-y-0 left-0 w-64 bg-white border-r border-gray-200 flex flex-col min-h-screen justify-between z-40 transform`}
+      
+      {/* Sidebar */}
+      <aside
+        className={`fixed lg:static inset-y-0 left-0 w-64 bg-white shadow-lg flex flex-col min-h-screen z-40 transform transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        }`}
+        aria-label="Sidebar navigation"
       >
         {/* Logo Section */}
-        <div className="p-6">
-          <motion.img
+        <div className="p-6 flex justify-center items-center border-b border-gray-100">
+          <img
             src={logo}
             alt="Umuhanda Logo"
-            className="w-36 mx-auto"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="w-36"
           />
         </div>
-
-        {/* Menu Items */}
-        <nav className="mb-36 flex flex-col space-y-4 px-4">
-          {MENU_ITEMS.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                delay: index * 0.1,
-                duration: 0.4,
-                ease: "easeOut",
-              }}
-              whileHover={{ scale: 1.05 }}
-            >
-              <a
-                href={item.href}
-                className={`flex items-center space-x-4 rounded-lg p-3 text-black transition-all duration-300 ${
-                  location.pathname === item.href
-                    ? "bg-blue-500 text-white"
-                    : "hover:bg-blue-500 hover:text-white"
-                }`}
-                aria-label={t(item.nameKey)} // Using the translation function
-              >
-                <span className={`text-xl ${location.pathname === item.href && "text-white"}`}>{item.icon}</span>
-                <span className={`font-medium ${location.pathname === item.href && "text-white"}`}>{t(item.nameKey)}</span> {/* Translated name */}
-              </a>
-            </motion.div>
-          ))}
-        </nav>
-
+        
+        {/* Menu Container */}
+        <div className="flex flex-col flex-grow justify-between overflow-y-auto">
+          {/* Main Menu Items */}
+          <nav className="mt-6 px-4" aria-label="Main navigation">
+            <ul className="space-y-2 pt-16">
+              {mainMenuItems.map((item) => (
+                <li key={item.id}>
+                  <Link
+                    to={item.href}
+                    className={`flex items-center space-x-4 rounded-lg p-3 transition-all duration-200 ${
+                      location.pathname === item.href
+                        ? "bg-blue-500 text-white"
+                        : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                    aria-current={location.pathname === item.href ? "page" : undefined}
+                  >
+                    <span className={`text-2xl ${location.pathname === item.href ? "text-white" : "text-blue-500"}`}>
+                      {item.icon}
+                    </span>
+                    <span className="font-medium">{t(item.nameKey)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          
+          {/* Account Menu Items */}
+          <nav className="mt-6 mb-6 px-4" aria-label="Account navigation">
+            <div className="border-t border-gray-200 pt-4 mb-4">
+              <p className="text-xs text-gray-500 px-3 mb-2 uppercase">{t("account")}</p>
+            </div>
+            <ul className="space-y-2">
+              {accountMenuItems.map((item) => (
+                <li key={item.id}>
+                  <Link
+                    to={item.href}
+                    className={`flex items-center space-x-4 rounded-lg p-3 transition-all duration-200 ${
+                      location.pathname === item.href
+                        ? "bg-blue-500 text-white"
+                        : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                    }`}
+                    aria-current={location.pathname === item.href ? "page" : undefined}
+                  >
+                    <span className={`text-xl ${location.pathname === item.href ? "text-white" : "text-blue-500"}`}>
+                      {item.icon}
+                    </span>
+                    <span className="font-medium">{t(item.nameKey)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+        
         {/* Footer Section */}
-        <div className="p-6 border-t border-gray-200">
-          <p className="text-sm text-gray-600 text-center">
-            © 2025 <span className="font-semibold">Umuhanda</span>
+        <div className="p-4 border-t border-gray-200 bg-gray-50">
+          <p className="text-xs text-gray-600 text-center">
+            © {new Date().getFullYear()} <span className="font-semibold">Umuhanda</span>
           </p>
         </div>
-      </motion.div>
+      </aside>
     </>
   );
 };

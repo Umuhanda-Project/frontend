@@ -56,7 +56,7 @@ const Igazeti = () => {
           {/* Header Section */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Digital Magazines
+              Books(Igazeti)
             </h1>
             <p className="text-gray-600">
               Choose your preferred language to read our latest publications

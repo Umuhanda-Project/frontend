@@ -1,74 +1,49 @@
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import { IoSettingsOutline } from "react-icons/io5";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router";
-import LanguageSwitcher from "../../../../components/LanguageSwitcher";
+import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
+import { IoSettingsOutline } from 'react-icons/io5';
 
-
+import LanguageSwitcher from '../../../../components/LanguageSwitcher';
+import { useNavigate } from 'react-router';
 
 const Header = () => {
   const navigate = useNavigate();
- 
+  
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="flex justify-between items-center w-full px-6 py-4 border-b-2 border-slate-200 bg-white shadow-sm"
-    >
+    <header className="sticky top-0 z-10 flex justify-between items-center w-full px-6 py-4 border-b border-slate-200 bg-white shadow-sm">
       {/* User Info Section */}
       <div className="flex flex-col space-y-1">
-        <motion.p
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4 }}
-          className="text-lg font-bold text-gray-700"
-        >
-          John
-        </motion.p>
-        <motion.p
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-sm text-gray-500"
-        >
-          Murakaza neza
-        </motion.p>
+        <h1 className="text-lg font-bold text-gray-800">John</h1>
+        <p className="text-sm text-gray-500">Murakaza neza</p>
       </div>
-
-    <LanguageSwitcher/>
-
+      
+      {/* Center element */}
+      <div className="absolute left-1/2 transform -translate-x-1/2">
+        <LanguageSwitcher />
+      </div>
+      
       {/* Icon Section */}
       <div className="flex space-x-6 items-center">
         {/* Notification Icon */}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+        <button
           aria-label="Notifications"
-          className="relative group text-gray-600 hover:text-blue-500 text-2xl transition duration-300 ease-in-out"
+          className="relative group focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 rounded-full p-1"
         >
-          <IoIosCheckmarkCircleOutline />
-          {/* Badge for Notifications */}
-          <motion.span
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
-            className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center text-white text-xs font-bold rounded-full"
-          ></motion.span>
-        </motion.button>
-
+          <IoIosCheckmarkCircleOutline className="text-gray-600 group-hover:text-blue-500 text-2xl transition duration-300 ease-in-out" />
+          {/* Badge for Notifications - Only show when there are notifications */}
+          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center bg-red-500 text-white text-xs font-bold rounded-full">
+            2
+          </span>
+        </button>
+        
         {/* Settings Icon */}
-        <motion.button
-          whileHover={{ rotate: 90, scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+        <button
           aria-label="Settings"
-          className="text-gray-600 hover:text-blue-500 text-2xl transition duration-300 ease-in-out"
-          onClick={() => navigate("/client/settings")}
+          onClick={() => navigate('/client/settings')}
+          className="focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 rounded-full p-1"
         >
-          <IoSettingsOutline />
-        </motion.button>
+          <IoSettingsOutline className="text-gray-600 hover:text-blue-500 text-2xl transition duration-300 ease-in-out" />
+        </button>
       </div>
-    </motion.header>
+    </header>
   );
 };
 
