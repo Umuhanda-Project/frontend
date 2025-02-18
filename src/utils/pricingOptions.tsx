@@ -76,32 +76,32 @@ export const pricingOptions = [
       { id: 2, description: "unlimited_reading", status: true }, // translation key
       { id: 3, description: "video_permission", status: true }, // translation key
       { id: 4, description: "reading_lessons", status: true }, // translation key
-      { id: 5, description: "duration_ten_days", status: true }, // translation key
+      { id: 5, description: "duration_nine_days", status: true }, // translation key
     ],
   },
   {
     id: 3,
     header: "plan_three_header", // translation key for header
     description: "plan_three_description", // translation key for description
-    price: 6500,
+    price: 5000,
     options: [
       { id: 1, description: "unlimited_exam_three", status: true }, // translation key
       { id: 2, description: "unlimited_reading_three", status: true }, // translation key
       { id: 3, description: "video_permission_three", status: true }, // translation key
       { id: 4, description: "reading_lessons_three", status: true }, // translation key
-      { id: 5, description: "duration_thirty_days", status: true }, // translation key
+      { id: 5, description: "duration_fifteen_days", status: true }, // translation key
     ],
   },
   {
     id: 4,
     header: "plan_three_header", // translation key for header
     description: "plan_three_description", // translation key for description
-    price: 8500,
+    price: 8000,
     options: [
-      { id: 1, description: "unlimited_exam_three", status: true }, // translation key
-      { id: 2, description: "unlimited_reading_three", status: true }, // translation key
-      { id: 3, description: "video_permission_three", status: true }, // translation key
-      { id: 4, description: "reading_lessons_three", status: true }, // translation key
+      { id: 1, description: "unlimited_exam_four", status: true }, // translation key
+      { id: 2, description: "unlimited_reading_four", status: true }, // translation key
+      { id: 3, description: "video_permission_four", status: true }, // translation key
+      { id: 4, description: "reading_lessons_four", status: true }, // translation key
       { id: 5, description: "duration_thirty_days", status: true }, // translation key
     ],
   },

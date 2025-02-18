@@ -14,7 +14,7 @@ const LANGUAGES = [
       if (e.target.value === "french") i18n.changeLanguage("fr");
     };
   return (
-    <div> {/* Language Selector */}
+    <div> 
     <div>
       <label htmlFor="language-options" className="sr-only">
         Select Language
@@ -22,7 +22,7 @@ const LANGUAGES = [
       <select
         id="language-options"
         name="language-options"
-        className="border rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="border rounded px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         onChange={handleChangeLanguage}
       >
         {LANGUAGES.map((lang, index) => (

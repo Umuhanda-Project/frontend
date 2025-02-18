@@ -3,7 +3,7 @@ import { Sidebar, Header } from "./components";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex max-h-screen">
       <aside className="flex-shrink-0">
         <Sidebar />
       </aside>
@@ -13,7 +13,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           <Header />
         </header>
 
-        <main className="flex-1 bg-[#F4F7FE] p-6 overflow-auto">
+        <main className="flex-1 bg-[#F4F7FE] p-6 overflow-y-scroll">
           {children}
         </main>
       </div>

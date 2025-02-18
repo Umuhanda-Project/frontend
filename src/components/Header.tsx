@@ -13,7 +13,7 @@ const MENU_ITEMS = [
 ];
 
 const Header = () => {
-  const { t } = useTranslation(); // Fetch translations
+  const { t } = useTranslation(); 
 
   return (
     <header className="flex flex-col sm:flex-row items-center justify-between py-4 px-6 shadow-md">

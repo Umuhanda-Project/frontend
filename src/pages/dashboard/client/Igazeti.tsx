@@ -52,7 +52,7 @@ const Igazeti = () => {
   return (
     <Fragment>
       <Layout>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
           {/* Header Section */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -120,7 +120,7 @@ const Igazeti = () => {
             <PdfViewer
               file={selectedMagazine.ref}
               height="calc(100vh - 400px)"
-              className="rounded-lg"
+              className="rounded-lg "
               onLoadSuccess={() => {
                 setIsLoading(false);
                 console.log("Magazine loaded successfully");
