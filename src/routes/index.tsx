@@ -12,6 +12,7 @@ import { Home, Lessons, Settings, Exam, Lesson } from '../pages/dashboard/client
 import ExamQuestions from '../pages/dashboard/client/ExamQuestions';
 import ExamAnswers from '../pages/dashboard/client/components/ExamAnswers';
 import Igazeti from '../pages/dashboard/client/Igazeti';
+import RevisionStudy from '../pages/dashboard/client/components/RevisionStudy';
 
 
 const router = createBrowserRouter([
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
             path: 'lesson/:id',
             element: <Lesson />,
           },
+          {
+            path: 'revision/:id',
+            element:<RevisionStudy/>
+          }
         ],
       },
       {

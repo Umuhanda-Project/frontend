@@ -1,5 +1,7 @@
 export const englishQuestions = {
   title: "Exam Questions",
+  description:"Exam Questions",
+  status:"English",
   author: "Teacher Francois Twizeyimana",
   contact: ["0781272066", "0735494981"],
   questions: [

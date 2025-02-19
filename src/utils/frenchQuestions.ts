@@ -1,5 +1,7 @@
 export const frenchQuestions = {
   title: "Questions de l'Examen",
+  description:"Questions de l'Examen",
+  status: "French",
   author: "Teacher Francois Twizeyimana",
   contact: ["0781272066", "0735494981"],
   questions: [

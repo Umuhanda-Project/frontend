@@ -2,6 +2,7 @@ import { courses } from "../../../utils/Courses";
 import Layout from "./Layout";
 import { motion } from "framer-motion";
 import Notes from "./components/Notes";
+import Revisions from "./Revisions";
 
 const Lessons = () => {
 
@@ -15,6 +16,7 @@ const Lessons = () => {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
            <Notes length={courses.length}/>
+           <Revisions/>
         </motion.div>
       </Layout>
     </div>
