@@ -11,14 +11,6 @@ interface question {
   answer: string;
 }
 
-// interface Course {
-//   title: string;
-//   author: string;
-//   description: string;
-//   status: string;
-//   contact: string[];
-//   questions: question[];
-// }
 
 interface questionsStudy{
     id:number,
@@ -42,7 +34,7 @@ const Revision = ({ questions }: { questions: questionsStudy[] }) => {
     setFilteredCourses(questions);
   }, [length]);
 
-  console.log(filteredCourses);
+  console.log("filteredCourses",filteredCourses);
   // Motion variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -78,6 +70,7 @@ const Revision = ({ questions }: { questions: questionsStudy[] }) => {
       >
         {filteredCourses?.map((course) => (
         <motion.div
+        key={course.id}
           variants={itemVariants}
           className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
         >

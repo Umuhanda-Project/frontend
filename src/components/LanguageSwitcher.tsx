@@ -1,20 +1,27 @@
-import React from 'react'
-import i18n from '../utils/i18n';
+import React from 'react';
+import { useLanguage } from '../hooks/useLanguage';
 
-const LANGUAGES = [
-    { label: "🇷🇼 Kinyarwanda", value: "kinyarwanda" },
-    { label: "🇬🇧 English", value: "english" },
-    { label: "🇫🇷 French", value: "french" },
-  ];
+
+const LanguageSwitcher = () => {
+  const { state, setLanguage } = useLanguage();
   
-  const LanguageSwitcher = () => {
-    const handleChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      if (e.target.value === "kinyarwanda") i18n.changeLanguage("kiny");
-      if (e.target.value === "english") i18n.changeLanguage("en");
-      if (e.target.value === "french") i18n.changeLanguage("fr");
-    };
+  const handleChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value === "kinyarwanda") setLanguage("kiny");
+    if (e.target.value === "english") setLanguage("en");
+    if (e.target.value === "french") setLanguage("fr");
+  };
+  
+  // Determine which language is currently selected
+  const getCurrentValue = () => {
+    switch(state.currentCode) {
+      case 'kiny': return 'kinyarwanda';
+      case 'en': return 'english';
+      case 'fr': return 'french';
+      default: return 'english';
+    }
+  };
+  
   return (
-    <div> 
     <div>
       <label htmlFor="language-options" className="sr-only">
         Select Language
@@ -24,15 +31,14 @@ const LANGUAGES = [
         name="language-options"
         className="border rounded px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         onChange={handleChangeLanguage}
+        value={getCurrentValue()}
       >
-        {LANGUAGES.map((lang, index) => (
-          <option key={index} value={lang.value}>
-            {lang.label}
-          </option>
-        ))}
+        <option value="kinyarwanda">🇷🇼 Kinyarwanda</option>
+        <option value="english">🇬🇧 English</option>
+        <option value="french">🇫🇷 French</option>
       </select>
-    </div></div>
-  )
-}
+    </div>
+  );
+};
 
-export default LanguageSwitcher
+export default LanguageSwitcher;

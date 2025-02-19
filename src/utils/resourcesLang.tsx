@@ -22,7 +22,7 @@ export const resources = {
       limited_attempts: 'Only five attempts',
       video_access: 'No video access',
       reading_permission: 'No reading permission',
-      duration_three_days: '3 days',
+      duration_three_days: '5 Exam',
 
       plan_two_header: 'Full Access Plan',
       plan_two_description: 'Study with full access',
@@ -30,7 +30,7 @@ export const resources = {
       unlimited_reading: 'Read all exams',
       video_permission: 'Access to videos',
       reading_lessons: 'Study lessons',
-      duration_nine_days: '9 days',
+      duration_nine_days: '10 days',
 
       plan_three_header: 'Premium Access Plan',
       plan_three_description: 'Complete access to everything',
@@ -143,7 +143,7 @@ export const resources = {
       limited_attempts: 'Seulement cinq tentatives',
       video_access: "Pas d'accès aux vidéos",
       reading_permission: "Pas d'autorisation de lecture",
-      duration_three_days: '3 jours',
+      duration_three_days: '5 Examens',
 
       plan_two_header: 'Plan Accès Complet',
       plan_two_description: 'Étudier avec un accès complet',
@@ -151,7 +151,7 @@ export const resources = {
       unlimited_reading: 'Lire tous les examens',
       video_permission: 'Accès aux vidéos',
       reading_lessons: 'Étudier les leçons',
-      duration_nine_days: '9 jours',
+      duration_nine_days: '10 jours',
 
       plan_three_header: 'Plan Accès Premium',
       plan_three_description: 'Accès complet à tout',
@@ -263,7 +263,7 @@ export const resources = {
       limited_attempts: 'Inshuro 5 gusa',
       video_access: 'Nta video wemerewe kureba',
       reading_permission: 'Nta gusoma wemerewe',
-      duration_three_days: '3 iminsi',
+      duration_three_days: 'Ibizamini bitanu',
 
       plan_two_header: "Plan y'Ubwisungane Bwohejuru",
       plan_two_description: 'Kwiga ufite uburenganzira bwose',

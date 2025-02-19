@@ -8,12 +8,12 @@ const Layout = ({ children }: PropsWithChildren) => {
         <Sidebar />
       </aside>
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-y-scroll min-h-screen">
         <header className="flex-shrink-0">
           <Header />
         </header>
 
-        <main className="flex-1 bg-[#F4F7FE] p-6 overflow-y-scroll">
+        <main className="flex-1 bg-[#F4F7FE] p-6 ">
           {children}
         </main>
       </div>
