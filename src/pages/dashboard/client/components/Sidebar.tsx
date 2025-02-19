@@ -1,57 +1,64 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import { useTranslation } from "react-i18next";
-import logo from "../../../../assets/Umuhanda_logo.png";
-import { RiDashboardFill } from "react-icons/ri";
-import { AiOutlineLogout, AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { CiSettings } from "react-icons/ci";
-import { MdPlayLesson } from "react-icons/md";
-import { PiExamThin } from "react-icons/pi";
-import { IoBookSharp } from "react-icons/io5";
-import { Link, useLocation } from "react-router";
+import { useTranslation } from 'react-i18next';
+import logo from '../../../../assets/Umuhanda_logo.png';
+import { RiDashboardFill } from 'react-icons/ri';
+import { AiOutlineLogout, AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { CiSettings } from 'react-icons/ci';
+import { MdPlayLesson } from 'react-icons/md';
+import { PiExamThin, PiTestTube } from 'react-icons/pi';
+import { IoBookSharp } from 'react-icons/io5';
+import { Link, useLocation } from 'react-router';
 
 const MENU_ITEMS = [
   {
     id: 1,
-    nameKey: "home",
-    href: "/client",
+    nameKey: 'home',
+    href: '/client',
     icon: <RiDashboardFill />,
-    section: "main"
+    section: 'main',
   },
   {
     id: 2,
-    nameKey: "lessons",
-    href: "/client/lessons",
+    nameKey: 'lessons',
+    href: '/client/lessons',
     icon: <MdPlayLesson />,
-    section: "main"
+    section: 'main',
   },
   {
     id: 3,
-    nameKey: "exams",
-    href: "/client/exam",
+    nameKey: 'exams',
+    href: '/client/exam',
     icon: <PiExamThin />,
-    section: "main"
+    section: 'main',
+  },
+  {
+    id: 7,
+    nameKey: 'test',
+    href: '/client/exam/test',
+    icon: <PiTestTube />,
+    section: 'main',
   },
   {
     id: 6,
-    nameKey: "igazeti",
-    href: "/client/igazeti",
+    nameKey: 'igazeti',
+    href: '/client/igazeti',
     icon: <IoBookSharp />,
-    section: "main"
+    section: 'main',
   },
   {
     id: 4,
-    nameKey: "settings",
-    href: "/client/settings",
+    nameKey: 'settings',
+    href: '/client/settings',
     icon: <CiSettings />,
-    section: "account"
+    section: 'account',
   },
   {
     id: 5,
-    nameKey: "logout",
-    href: "/signin",
+    nameKey: 'logout',
+    href: '/signin',
     icon: <AiOutlineLogout />,
-    section: "account"
+    section: 'account',
   },
 ];
 
@@ -72,9 +79,9 @@ const Sidebar = () => {
       }
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     handleResize();
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleToggle = () => {
@@ -82,32 +89,32 @@ const Sidebar = () => {
   };
 
   // Group menu items by section
-  const mainMenuItems = MENU_ITEMS.filter(item => item.section === 'main');
-  const accountMenuItems = MENU_ITEMS.filter(item => item.section === 'account');
+  const mainMenuItems = MENU_ITEMS.filter((item) => item.section === 'main');
+  const accountMenuItems = MENU_ITEMS.filter((item) => item.section === 'account');
 
   return (
     <>
       {/* Mobile Overlay */}
       {isMobile && isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30"
           onClick={handleToggle}
           aria-hidden="true"
         />
       )}
-      
+
       {/* Toggle Button (Only for Mobile View) */}
       {isMobile && (
         <button
           className="fixed top-4 left-4 z-50 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
           onClick={handleToggle}
-          aria-label={isOpen ? t("closeSidebar") : t("openSidebar")}
+          aria-label={isOpen ? t('closeSidebar') : t('openSidebar')}
           aria-expanded={isOpen}
         >
           {isOpen ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
         </button>
       )}
-      
+
       {/* Sidebar */}
       <aside
         className={`fixed lg:static inset-y-0 left-0 w-64 bg-white shadow-lg flex flex-col min-h-screen z-40 transform transition-transform duration-300 ease-in-out ${
@@ -117,13 +124,9 @@ const Sidebar = () => {
       >
         {/* Logo Section */}
         <div className="p-6 flex justify-center items-center border-b border-gray-100">
-          <img
-            src={logo}
-            alt="Umuhanda Logo"
-            className="w-36"
-          />
+          <img src={logo} alt="Umuhanda Logo" className="w-36" />
         </div>
-        
+
         {/* Menu Container */}
         <div className="flex flex-col flex-grow justify-between overflow-y-auto">
           {/* Main Menu Items */}
@@ -135,12 +138,16 @@ const Sidebar = () => {
                     to={item.href}
                     className={`flex items-center space-x-4 rounded-lg p-3 transition-all duration-200 ${
                       location.pathname === item.href
-                        ? "bg-blue-500 text-white"
-                        : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                        ? 'bg-blue-500 text-white'
+                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
                     }`}
-                    aria-current={location.pathname === item.href ? "page" : undefined}
+                    aria-current={location.pathname === item.href ? 'page' : undefined}
                   >
-                    <span className={`text-2xl ${location.pathname === item.href ? "text-white" : "text-blue-500"}`}>
+                    <span
+                      className={`text-2xl ${
+                        location.pathname === item.href ? 'text-white' : 'text-blue-500'
+                      }`}
+                    >
                       {item.icon}
                     </span>
                     <span className="font-medium">{t(item.nameKey)}</span>
@@ -149,11 +156,11 @@ const Sidebar = () => {
               ))}
             </ul>
           </nav>
-          
+
           {/* Account Menu Items */}
           <nav className="mt-6 mb-6 px-4" aria-label="Account navigation">
             <div className="border-t border-gray-200 pt-4 mb-4">
-              <p className="text-xs text-gray-500 px-3 mb-2 uppercase">{t("account")}</p>
+              <p className="text-xs text-gray-500 px-3 mb-2 uppercase">{t('account')}</p>
             </div>
             <ul className="space-y-2">
               {accountMenuItems.map((item) => (
@@ -162,12 +169,16 @@ const Sidebar = () => {
                     to={item.href}
                     className={`flex items-center space-x-4 rounded-lg p-3 transition-all duration-200 ${
                       location.pathname === item.href
-                        ? "bg-blue-500 text-white"
-                        : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                        ? 'bg-blue-500 text-white'
+                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
                     }`}
-                    aria-current={location.pathname === item.href ? "page" : undefined}
+                    aria-current={location.pathname === item.href ? 'page' : undefined}
                   >
-                    <span className={`text-xl ${location.pathname === item.href ? "text-white" : "text-blue-500"}`}>
+                    <span
+                      className={`text-xl ${
+                        location.pathname === item.href ? 'text-white' : 'text-blue-500'
+                      }`}
+                    >
                       {item.icon}
                     </span>
                     <span className="font-medium">{t(item.nameKey)}</span>
@@ -177,7 +188,7 @@ const Sidebar = () => {
             </ul>
           </nav>
         </div>
-        
+
         {/* Footer Section */}
         <div className="p-4 border-t border-gray-200 bg-gray-50">
           <p className="text-xs text-gray-600 text-center">

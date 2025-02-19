@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BsQuestionCircleFill } from 'react-icons/bs';
 import { FaLanguage } from 'react-icons/fa';
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 import LanguageSwitcher from '../../../components/LanguageSwitcher';
 import Layout from './Layout';
 
-// Type definitions
+
 interface ExamInfo {
   label: string;
   value: string | JSX.Element;
@@ -32,48 +32,56 @@ const fadeInScale = {
   visible: { opacity: 1, scale: 1 },
 };
 
-
-const Exam: FC = () => {
+const Exam = ({ path }: { path?: string }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const languageStatus = useMemo(() => {
     const language = localStorage.getItem('i18nextLng');
-    return LANGUAGE_MAPPING[language as keyof typeof LANGUAGE_MAPPING] || 'Please choose a language';
+    return (
+      LANGUAGE_MAPPING[language as keyof typeof LANGUAGE_MAPPING] || 'Please choose a language'
+    );
   }, []);
 
   console.log(languageStatus);
 
-  const examInfoItems: ExamInfo[] = useMemo(() => [
-    {
-      label: t('question_count'),
-      value: '20',
-      icon: <BsQuestionCircleFill className="w-6 h-6 text-blue-500" />,
-    },
-    {
-      label: t('time_limit'),
-      value: '20 mins',
-      icon: <MdTimer className="w-6 h-6 text-green-500" />,
-    },
-    {
-      label: t('total_score'),
-      value: '20',
-      icon: <MdOutlineScore className="w-6 h-6 text-yellow-500" />,
-    },
-    {
-      label: t('passing_score'),
-      value: '20',
-      icon: <MdCheckCircle className="w-6 h-6 text-purple-500" />,
-    },
-    {
-      label: t('Choose_language'),
-      value: <LanguageSwitcher />,
-      icon: <FaLanguage className="w-6 h-6 text-purple-500" />,
-    },
-  ], [t]);
+  const examInfoItems: ExamInfo[] = useMemo(
+    () => [
+      {
+        label: t('question_count'),
+        value: '20',
+        icon: <BsQuestionCircleFill className="w-6 h-6 text-blue-500" />,
+      },
+      {
+        label: t('time_limit'),
+        value: '20 mins',
+        icon: <MdTimer className="w-6 h-6 text-green-500" />,
+      },
+      {
+        label: t('total_score'),
+        value: '20',
+        icon: <MdOutlineScore className="w-6 h-6 text-yellow-500" />,
+      },
+      {
+        label: t('passing_score'),
+        value: '20',
+        icon: <MdCheckCircle className="w-6 h-6 text-purple-500" />,
+      },
+      {
+        label: t('Choose_language'),
+        value: <LanguageSwitcher />,
+        icon: <FaLanguage className="w-6 h-6 text-purple-500" />,
+      },
+    ],
+    [t],
+  );
 
   const handleStartExam = () => {
-    navigate('questions');
+    if (path && typeof path === 'string' && path.trim().length > 0) {
+      navigate('questions');
+    } else {
+      navigate('questions');
+    }
   };
 
   return (
@@ -105,9 +113,7 @@ const Exam: FC = () => {
                 {item.icon}
                 <p className="text-lg font-medium text-gray-700">{item.label}</p>
               </div>
-              <div className="text-lg font-semibold text-gray-800">
-                {item.value}
-              </div>
+              <div className="text-lg font-semibold text-gray-800">{item.value}</div>
             </div>
           ))}
         </motion.div>

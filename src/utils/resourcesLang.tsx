@@ -9,6 +9,8 @@ export const resources = {
       lessons: 'Lessons',
       questions: 'Questions',
 
+      test: 'Test',
+
       igazeti: 'books',
       testimonial_header: 'See what other clients say',
 
@@ -128,6 +130,8 @@ export const resources = {
       lessons: 'Leçons',
       questions: 'Questions',
 
+      test: 'Test',
+
       igazeti: 'Livre',
       testimonial_header: 'Découvrez ce que disent les autres clients',
 
@@ -245,6 +249,8 @@ export const resources = {
       students: 'Abanyeshuri',
       lessons: 'Amasomo',
       questions: 'Ibibazo',
+
+      test: 'Isuzume',
 
       igazeti: 'Igazeti',
       testimonial_header: 'Reba ibyo abandi banyeshuri bavuga',

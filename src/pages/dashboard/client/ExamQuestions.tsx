@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback, useRef } from "react";
-import { useNavigate } from "react-router";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { useWindowSize } from "react-use";
 import { MdOutlineTimer } from "react-icons/md";
 import Confetti from "react-confetti";
@@ -29,6 +29,7 @@ const QUESTIONS_LIMIT = 20;
 
 const LOCAL_STORAGE_KEYS = {
   EXAM_ANSWERS: "examAnswers",
+  EXAM_TEST: 'examTestAnswers'
 };
 
 const LANGUAGE_CONFIG = {
@@ -59,12 +60,19 @@ const ExamQuestions = () => {
   const [timeLeft, setTimeLeft] = useState(EXAM_TIME);
   const [examQuestions, setExamQuestions] = useState<Question[]>([]);
   const [currentLanguage, setCurrentLanguage] = useState<keyof typeof LANGUAGE_CONFIG>();
+  const answersRef = useRef<Answer[]>([]);
 
   const { width, height } = useWindowSize();
   const navigate = useNavigate();
+  const location = useLocation();
   const timerRef = useRef<NodeJS.Timeout>();
+  
+  // Memoize test mode check
+  const isTestMode = useMemo(() => {
+    return location.pathname.split('/').includes('test');
+  }, [location.pathname]);
 
-  // Initialize questions based on language
+  // Initialize questions based on language - only when component mounts
   useEffect(() => {
     const language = localStorage.getItem("i18nextLng") as keyof typeof LANGUAGE_CONFIG;
     
@@ -75,17 +83,32 @@ const ExamQuestions = () => {
 
     setCurrentLanguage(language);
     
-    // Get questions for the selected language and shuffle them
-    const shuffledQuestions = [...LANGUAGE_CONFIG[language].questions]
+    // Get questions for the selected language and shuffle them - do this once
+    const allQuestions = LANGUAGE_CONFIG[language].questions;
+    const shuffledIndices = [...Array(allQuestions.length).keys()]
       .sort(() => Math.random() - 0.5)
       .slice(0, QUESTIONS_LIMIT);
     
-    setExamQuestions(shuffledQuestions);
+    const selectedQuestions = shuffledIndices.map(index => allQuestions[index]);
+    setExamQuestions(selectedQuestions);
+    
+    // Clean up function
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
   }, [navigate]);
 
-  const currentQuestion = examQuestions[currentQuestionIndex];
+  // Memoize current question and last question status
+  const currentQuestion = useMemo(() => 
+    examQuestions[currentQuestionIndex], 
+    [examQuestions, currentQuestionIndex]
+  );
+  
   const isLastQuestion = currentQuestionIndex === QUESTIONS_LIMIT - 1;
 
+  // Format time as a memoized function
   const formatTime = useCallback((seconds: number): string => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -97,8 +120,20 @@ const ExamQuestions = () => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
+    
+    // Save any pending answers before navigating
+    if (answersRef.current.length > 0) {
+      const storageKey = isTestMode ? LOCAL_STORAGE_KEYS.EXAM_TEST : LOCAL_STORAGE_KEYS.EXAM_ANSWERS;
+      localStorage.setItem(storageKey, JSON.stringify(answersRef.current));
+    }
+    
     navigate("/client");
-  }, [navigate]);
+  }, [navigate, isTestMode]);
+
+  useEffect(() => {
+    // Keep answers ref in sync with state
+    answersRef.current = answers;
+  }, [answers]);
 
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -114,7 +149,13 @@ const ExamQuestions = () => {
     }
 
     timerRef.current = setInterval(() => {
-      setTimeLeft((prev) => prev <= 1 ? 0 : prev - 1);
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          if (timerRef.current) clearInterval(timerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
 
     return () => {
@@ -129,14 +170,18 @@ const ExamQuestions = () => {
   }, []);
 
   const handleNext = useCallback(() => {
-    if (!currentLanguage || !selectedAnswer) {
-      alert(LANGUAGE_CONFIG[currentLanguage!]?.noSelectionMessage);
+    if (!currentLanguage || !selectedAnswer || !currentQuestion) {
+      if (currentLanguage) {
+        alert(LANGUAGE_CONFIG[currentLanguage].noSelectionMessage);
+      }
       return;
     }
 
     const isCorrect = selectedAnswer === currentQuestion.answer;
+    
+    // Update score immediately if correct
     if (isCorrect) {
-      setScore((prev) => prev + 1);
+      setScore(prev => prev + 1);
     }
 
     const newAnswer: Answer = {
@@ -146,26 +191,38 @@ const ExamQuestions = () => {
       isCorrect,
     };
 
-    setAnswers((prev) => [...prev, newAnswer]);
+    // Use function form to avoid stale closure issues
+    setAnswers(prev => {
+      const updatedAnswers = [...prev, newAnswer];
+      
+      // Handle last question
+      if (isLastQuestion) {
+        const storageKey = isTestMode ? LOCAL_STORAGE_KEYS.EXAM_TEST : LOCAL_STORAGE_KEYS.EXAM_ANSWERS;
+        // Store answers in localStorage
+        localStorage.setItem(storageKey, JSON.stringify(updatedAnswers));
+        
+        // Show completion UI
+        setShowConfetti(true);
+        setShowModal(true);
+      }
+      
+      return updatedAnswers;
+    });
 
-    if (isLastQuestion) {
-      localStorage.setItem(
-        LOCAL_STORAGE_KEYS.EXAM_ANSWERS, 
-        JSON.stringify([...answers, newAnswer])
-      );
-      setShowConfetti(true);
-      setShowModal(true);
-    } else {
-      setCurrentQuestionIndex((prev) => prev + 1);
+    // Advance to next question if not the last one
+    if (!isLastQuestion) {
+      setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);
     }
-  }, [selectedAnswer, currentQuestion, answers, isLastQuestion, currentLanguage]);
+  }, [selectedAnswer, currentQuestion, isLastQuestion, currentLanguage, isTestMode]);
 
   const handleFinishExam = useCallback(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEYS.EXAM_ANSWERS, JSON.stringify(answers));
+    // Navigate to results page
+    if(isTestMode) navigate("/client/exam/answers")
     navigate("/client/exam-answers");
-  }, [answers, navigate]);
+  }, [navigate]);
 
+  // Show loading only when truly needed
   if (!currentQuestion || !currentLanguage) {
     return <Layout><div className="p-6">Loading...</div></Layout>;
   }
@@ -173,7 +230,7 @@ const ExamQuestions = () => {
   return (
     <Layout>
       <div className="p-6">
-        {showConfetti && <Confetti width={width} height={height} recycle={false} />}
+        {showConfetti && <Confetti width={width} height={height} recycle={false} numberOfPieces={200} />}
         
         {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
@@ -207,8 +264,9 @@ const ExamQuestions = () => {
           <ul className="space-y-4">
             {currentQuestion.options.map((option, index) => (
               <li 
-                key={`${currentQuestionIndex}-${index}`}
+                key={`option-${index}`}
                 className="flex items-center p-3 border rounded-lg hover:bg-gray-50 transition-colors"
+                onClick={() => handleAnswerSelect(option)}
               >
                 <input
                   type="radio"
@@ -216,7 +274,7 @@ const ExamQuestions = () => {
                   name="answer"
                   value={option}
                   checked={selectedAnswer === option}
-                  onChange={() => handleAnswerSelect(option)}
+                  onChange={() => {}} // Controlled by parent onClick
                   className="mr-3 h-4 w-4 text-blue-600"
                 />
                 <label 

@@ -1,18 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Layout from "../Layout";
 import { useNavigate } from "react-router";
 
 const ExamAnswers = () => {
   const [answers, setAnswers] = useState<Array<{ question: string; selectedAnswer: string; correctAnswer: string; isCorrect: boolean }>>([]);
   const navigate = useNavigate();
+ // Memoize test mode check
+  const isTestMode = useMemo(() => {
+    return location.pathname.split('/').includes('test');
+  }, [location.pathname]);
 
   useEffect(() => {
-    const storedAnswers = localStorage.getItem("examAnswers");
+    const localStorageKey = isTestMode ? "examTestAnswers" : "examAnswers";
+    const storedAnswers = localStorage.getItem(localStorageKey);
+  
     if (storedAnswers) {
-      setAnswers(JSON.parse(storedAnswers));
+      try {
+        setAnswers(JSON.parse(storedAnswers));
+      } catch (error) {
+        console.error("Error parsing stored answers from localStorage:", error);
+      }
     }
-  }, []);
-
+  }, [isTestMode]); 
+  
   return (
     <Layout>
       <div className="p-6">

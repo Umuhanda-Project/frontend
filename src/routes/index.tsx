@@ -13,7 +13,7 @@ import ExamQuestions from '../pages/dashboard/client/ExamQuestions';
 import ExamAnswers from '../pages/dashboard/client/components/ExamAnswers';
 import Igazeti from '../pages/dashboard/client/Igazeti';
 import RevisionStudy from '../pages/dashboard/client/components/RevisionStudy';
-
+import ExamTest from '../pages/dashboard/client/ExamTest';
 
 const router = createBrowserRouter([
   {
@@ -68,8 +68,8 @@ const router = createBrowserRouter([
           },
           {
             path: 'revision/:id',
-            element:<RevisionStudy/>
-          }
+            element: <RevisionStudy />,
+          },
         ],
       },
       {
@@ -90,6 +90,23 @@ const router = createBrowserRouter([
           {
             path: 'answers',
             element: <ExamAnswers />,
+          },
+          {
+            path: 'test',
+            children: [
+              {
+                path: '',
+                element: <ExamTest />,
+              },
+              {
+                path: 'questions',
+                element: <ExamQuestions />,
+              },
+              {
+                path: 'answers',
+                element: <ExamAnswers />,
+              },
+            ],
           },
         ],
       },
