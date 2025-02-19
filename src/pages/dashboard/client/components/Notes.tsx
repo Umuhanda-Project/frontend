@@ -5,9 +5,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-/**
- * Interface defining the structure of a course.
- */
+
 interface Course {
   id: number;
   title: string;
@@ -16,9 +14,7 @@ interface Course {
   label: string;
 }
 
-/**
- * Props for the Notes component.
- */
+
 interface NotesProps {
   length: number;
 }
