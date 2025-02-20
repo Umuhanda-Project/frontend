@@ -59,7 +59,7 @@ const Igazeti = () => {
               Books(Igazeti)
             </h1>
             <p className="text-gray-600">
-              Choose your preferred language to read our latest publications
+              Choose your preferred language to read 
             </p>
           </div>
 

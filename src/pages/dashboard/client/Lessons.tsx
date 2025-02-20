@@ -16,6 +16,7 @@ const Lessons = () => {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
            <Notes length={courses.length}/>
+           <div className="w-full border border-slate-200"></div>
            <Revisions/>
         </motion.div>
       </Layout>

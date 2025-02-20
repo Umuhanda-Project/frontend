@@ -1,7 +1,8 @@
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useModal } from '../context/ModalContext';
+import { useModal } from '../hooks/useModal';
+
 
 interface OptionsProps {
   id: number;

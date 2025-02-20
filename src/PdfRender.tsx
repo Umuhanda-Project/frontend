@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useModal } from './hooks/useModal';
 
 interface PdfViewerProps {
   /** URL or path to the PDF file */
@@ -35,13 +36,15 @@ const PdfViewer: React.FC<PdfViewerProps> = ({
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [scale, setScale] = useState(100);
+  const { isOpen, openModal } = useModal();
+  console.log(isOpen);
 
   const handleZoomIn = () => {
-    setScale(prev => Math.min(prev + 10, 200));
+    setScale((prev) => Math.min(prev + 10, 200));
   };
 
   const handleZoomOut = () => {
-    setScale(prev => Math.max(prev - 10, 50));
+    setScale((prev) => Math.max(prev - 10, 50));
   };
 
   const handleRetry = () => {
@@ -51,8 +54,11 @@ const PdfViewer: React.FC<PdfViewerProps> = ({
 
   const handleDownload = () => {
     try {
-      window.open(file, '_blank');
-      onDownload?.();
+      openModal();
+      if(isOpen){
+        window.open(file, '_blank');
+        onDownload?.();
+      }
     } catch (err) {
       console.error('Download failed:', err);
       onLoadError?.(err as Error);
@@ -115,7 +121,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({
             <div className="animate-spin rounded-full h-8 w-8 border-4 border-gray-300 border-t-blue-600" />
           </div>
         )}
-        
+
         {error ? (
           <div className="p-8 text-center">
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 max-w-lg mx-auto">
@@ -131,10 +137,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({
             </div>
           </div>
         ) : (
-          <div 
-            className="w-full bg-gray-100 rounded-lg overflow-hidden"
-            style={{ height }}
-          >
+          <div className="w-full bg-gray-100 rounded-lg overflow-hidden" style={{ height }}>
             <iframe
               src={file}
               className="w-full h-full"

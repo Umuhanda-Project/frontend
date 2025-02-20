@@ -14,11 +14,12 @@ const Revisions = () => {
 
   const questions = useMemo(() => {
     return revisionQuestions.filter((lesson) => lesson.status === contextLanguage.state.currentName);
-  }, [language]);
+  }, [contextLanguage]);
 
   console.log("revisions",revisionQuestions.filter((lesson) => lesson.status === contextLanguage.state.currentName))
   
   console.log("questions",questions);
+  console.log("revisionsQuestions",revisionQuestions)
 
   return <Revision questions={questions} />;
 };
