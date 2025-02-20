@@ -3,9 +3,12 @@ import { IoSettingsOutline } from 'react-icons/io5';
 
 import LanguageSwitcher from '../../../../components/LanguageSwitcher';
 import { useNavigate } from 'react-router';
+import { useConnection } from '../../../../hooks/useConnection';
 
 const Header = () => {
   const navigate = useNavigate();
+  const connection = useConnection()
+  console.log(connection)
 
   return (
     <header className="sticky top-0 z-10 flex justify-between items-center w-full px-6 py-4 border-b border-slate-200 bg-white shadow-sm">
@@ -13,6 +16,7 @@ const Header = () => {
       <div className="flex flex-col space-y-1">
         <h1 className="text-lg font-bold text-gray-800">John</h1>
         <p className="text-sm text-gray-500">Murakaza neza</p>
+        <p>{connection ? "True": "False"}</p>
       </div>
 
       {/* Center element */}

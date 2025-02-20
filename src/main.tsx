@@ -8,7 +8,6 @@ import { LanguageProvider } from './context/LanguageContext.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <LanguageProvider>
-
     <RouteProvider/>
     </LanguageProvider>
   </StrictMode>,

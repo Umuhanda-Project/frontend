@@ -6,15 +6,19 @@ import { useLanguage } from '../../../hooks/useLanguage';
 
 const Revisions = () => {
   const language = useLanguageDetector();
-  console.log(language);
   const contextLanguage = useLanguage()
-  console.log(contextLanguage.state.currentCode);
+
+  console.log(language);
+
+  console.log("contextLanguagee",contextLanguage.state.currentName);
 
   const questions = useMemo(() => {
-    return revisionQuestions.filter((lesson) => lesson.status === contextLanguage.state.currentCode);
+    return revisionQuestions.filter((lesson) => lesson.status === contextLanguage.state.currentName);
   }, [language]);
 
-  console.log(revisionQuestions);
+  console.log("revisions",revisionQuestions.filter((lesson) => lesson.status === contextLanguage.state.currentName))
+  
+  console.log("questions",questions);
 
   return <Revision questions={questions} />;
 };
