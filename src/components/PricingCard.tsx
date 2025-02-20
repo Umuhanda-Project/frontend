@@ -1,6 +1,7 @@
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useModal } from '../context/ModalContext';
 
 interface OptionsProps {
   id: number;
@@ -18,16 +19,22 @@ interface PriceProps {
 const PricingCard = ({ header, description, price, options }: PriceProps) => {
   const { t } = useTranslation();
 
+  const { openModal } = useModal();
+
+  const handlePaymentModal = () => {
+    openModal();
+  };
+
   return (
     <motion.div
       className="shadow-lg p-4 rounded-md min-w-80"
-      initial={{ opacity: 0, y: 50 }} // Animation on load
-      animate={{ opacity: 1, y: 0 }} // Animation after load
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
       whileHover={{
-        scale: 1.05, // Slight zoom effect on hover
+        scale: 1.05,
         transition: { duration: 0.3 },
       }}
-      whileTap={{ scale: 0.95 }} // Subtle shrink on click
+      whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       <div className="flex-col">
@@ -56,10 +63,11 @@ const PricingCard = ({ header, description, price, options }: PriceProps) => {
           className="bg-blue-700 text-white px-5 py-2 w-full rounded-md mt-4"
           whileHover={{
             scale: 1.1,
-            boxShadow: '0px 4px 15px rgba(59, 130, 246, 0.3)', // Add shadow on hover
+            boxShadow: '0px 4px 15px rgba(59, 130, 246, 0.3)',
           }}
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.3 }}
+          onClick={handlePaymentModal}
         >
           {t('start_now')}
         </motion.button>
