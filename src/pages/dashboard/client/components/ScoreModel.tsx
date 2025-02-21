@@ -21,12 +21,12 @@ const ScoreModel = ({ score, total, onClose }: ScoreProp) => {
       <p className="text-gray-700 text-lg">Wagerageje Kizami</p>
       <p className="text-2xl font-semibold text-green-600">{score} / {total}</p>
 
-      <button
+      {/* <button
         onClick={onClose}
         className="mt-6 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
       >
         Fungura
-      </button>
+      </button> */}
       <button
         onClick={() => navigate("/client/exam/answers")}
         className="mt-6 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"

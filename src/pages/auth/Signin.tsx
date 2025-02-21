@@ -2,13 +2,65 @@ import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import logo from "../../assets/Umuhanda_logo.png";
 import authSignin from "../../assets/auth1.png";
+import { useState } from "react";
+import { ToastContainer } from 'react-toastify';
+import { toast } from "react-toastify";
+import axios from '../../config/axios'
+import 'react-toastify/dist/ReactToastify.css';
+import { Loader2 } from "lucide-react";
 
 const Signin = () => {
   const navigate = useNavigate();
   const { t } = useTranslation(); // Initialize translation
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    emailOrPhone: "",
+    password: "",
+  });
+
+  const handleChange = (e:any) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  const handleLogin = async (e:any) => {
+    e.preventDefault();
+    
+
+    setIsLoading(true);
+    try {
+      const response = await axios.post('/auth/login', {
+        emailOrPhone: formData.emailOrPhone.trim(),
+        password: formData.password.trim()
+      });
+     if(response.status==200 && response.data.token){
+      toast.success(response.data.message);
+      sessionStorage.setItem('token', response.data.token);
+      //Set up axios default header for subsequent requests
+      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+  
+      navigate("/client")
+     }
+     else{
+      toast.success(response.data.message);
+      navigate("/client")
+     }
+    } catch (error:any) {
+      console.log(error)
+
+      toast.error(error.response?.data?.error || "Login failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
   return (
     <div className="flex flex-col lg:flex-row h-screen">
+      <ToastContainer position="top-right" />
       {/* Left Section */}
       <div className="flex-1 bg-gray-50 p-8 lg:p-4 flex flex-col">
         {/* Logo */}
@@ -19,17 +71,19 @@ const Signin = () => {
           <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
             {t("signin.title")}
           </h1>
-          <form className="w-full max-w-md bg-white p-6 rounded-lg space-y-6">
+          <form onSubmit={handleLogin} className="w-full max-w-md bg-white p-6 rounded-lg space-y-6">
             <div>
               <label
-                htmlFor="phone"
+                htmlFor="emailOrPhone"
                 className="block text-sm font-medium text-gray-700 mb-2"
               >
                 {t("signin.phone_label")}
               </label>
               <input
                 type="text"
-                id="phone"
+                id="emailOrPhone"
+                value={formData.emailOrPhone}
+                onChange={handleChange}
                 placeholder={t("signin.phone_placeholder")}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -45,6 +99,8 @@ const Signin = () => {
               <input
                 type="password"
                 id="password"
+                value={formData.password}
+                onChange={handleChange}
                 placeholder={t("signin.password_placeholder")}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -54,9 +110,14 @@ const Signin = () => {
               <button
                 type="submit"
                 className="bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition"
-                onClick={() => navigate("/client")}
               >
-                {t("signin.login")}
+                  {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  </>
+                ) : (
+                  t("signin.login")
+                )}
               </button>
               <button
                 type="button"

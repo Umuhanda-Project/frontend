@@ -9,6 +9,7 @@ import ScoreModel from "./components/ScoreModel";
 import { englishQuestions } from "../../../utils/englishQuestions";
 import { kinyarwandaQuestions } from "../../../utils/kinyarwandaQuestions";
 import { frenchQuestions } from "../../../utils/frenchQuestions";
+import { createUserExamAttempt } from "../../../utils/createAttempt";
 
 interface Question {
   id: number;
@@ -24,7 +25,7 @@ interface Answer {
   isCorrect: boolean;
 }
 
-const EXAM_TIME = 20 * 60; // 20 minutes in seconds
+const EXAM_TIME = 1 * 60; // 20 minutes in seconds
 const QUESTIONS_LIMIT = 20;
 
 const LOCAL_STORAGE_KEYS = {
@@ -126,8 +127,10 @@ const ExamQuestions = () => {
       const storageKey = isTestMode ? LOCAL_STORAGE_KEYS.EXAM_TEST : LOCAL_STORAGE_KEYS.EXAM_ANSWERS;
       localStorage.setItem(storageKey, JSON.stringify(answersRef.current));
     }
-    
-    navigate("/client");
+    createUserExamAttempt(score);
+    setShowConfetti(true);
+    setShowModal(true);
+    //navigate("/client");
   }, [navigate, isTestMode]);
 
   useEffect(() => {
@@ -202,6 +205,7 @@ const ExamQuestions = () => {
         localStorage.setItem(storageKey, JSON.stringify(updatedAnswers));
         
         // Show completion UI
+        createUserExamAttempt(score);
         setShowConfetti(true);
         setShowModal(true);
       }

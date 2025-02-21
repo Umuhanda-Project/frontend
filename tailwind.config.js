@@ -7,8 +7,10 @@ export default {
   theme: {
     extend: {
       backgroundImage: { 'hero-image': "url('/src/assets/hero.png')" }
-
     },
+    fontFamily:{
+      outfit: ["Outfit", "serif"]
+    }
   },
   plugins: [],
 }

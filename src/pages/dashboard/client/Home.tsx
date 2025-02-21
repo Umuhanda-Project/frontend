@@ -4,9 +4,26 @@ import { motion } from "framer-motion";
 import { PiExamThin } from "react-icons/pi";
 import Notes from "./components/Notes";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import { getuserAttempts } from "../../../utils/getuserAttempts";
 
 const Home = () => {
   const { t } = useTranslation();
+  const [loggedInUserTotalAttempts, setLoggedInUserTotalAttempts] = useState(0);
+  const [loggedInUserMaxScore, setLoggedInUserMaxScore] = useState(0);
+
+  useEffect(() => {
+    const fetchAttempts = async () => {
+      const attemptsData = await getuserAttempts();
+      if (attemptsData) {
+        setLoggedInUserTotalAttempts(attemptsData.totalAttempts);
+        setLoggedInUserMaxScore(attemptsData.maxScore);
+      }
+    };
+
+    fetchAttempts(); 
+  }, []);
+
 
   return (
     <Layout>
@@ -44,7 +61,7 @@ const Home = () => {
               <h2 className="text-lg sm:text-xl font-semibold text-gray-700">
                 {t("exams_taken")}
               </h2>
-              <p className="text-2xl sm:text-3xl font-bold text-green-500">4</p>
+              <p className="text-2xl sm:text-3xl font-bold text-green-500">{loggedInUserTotalAttempts}</p>
             </div>
           </motion.div>
 
@@ -59,7 +76,7 @@ const Home = () => {
               <h2 className="text-lg sm:text-xl font-semibold text-gray-700">
                 {t("highest_score")}
               </h2>
-              <p className="text-2xl sm:text-3xl font-bold text-red-500">13</p>
+              <p className="text-2xl sm:text-3xl font-bold text-red-500">{loggedInUserMaxScore}</p>
             </div>
           </motion.div>
         </div>

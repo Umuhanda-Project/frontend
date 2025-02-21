@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren, useEffect} from 'react';
 import { Sidebar, Header } from './components';
 import toast, { Toaster } from 'react-hot-toast';
 import { useConnection } from '../../../hooks/useConnection';

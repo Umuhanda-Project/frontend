@@ -4,11 +4,11 @@ import { FaInstagram, FaFacebook, FaYoutube, FaTwitter, FaTiktok } from 'react-i
 const Footer = () => {
 
 const socialLinks = [
-    { icon: FaInstagram, href: '#', label: 'Instagram' },
+    { icon: FaInstagram, href: 'https://www.instagram.com/reel/C8hqmnTtCee/?igsh=MTRvMWR2azFmZm94', label: 'Instagram' },
     { icon: FaFacebook, href: '#', label: 'Facebook' },
-    { icon: FaYoutube, href: '#', label: 'YouTube' },
+    { icon: FaYoutube, href: 'https://youtube.com/@honestdrivingschool?si=kFe-OCFVLXz4lAXT', label: 'YouTube' },
     { icon: FaTwitter, href: '#', label: 'Twitter' },
-    { icon: FaTiktok, href: '#', label: 'TikTok' }
+    { icon: FaTiktok, href: 'https://vm.tiktok.com/ZMkv4CPTe/', label: 'TikTok' }
   ];
 
   return (

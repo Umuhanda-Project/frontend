@@ -9,6 +9,8 @@ import { MdPlayLesson } from 'react-icons/md';
 import { PiExamThin, PiTestTube } from 'react-icons/pi';
 import { IoBookSharp } from 'react-icons/io5';
 import { Link, useLocation } from 'react-router';
+import useLogout from '../../../../utils/logout';
+import { tokenDecoder } from '../../../../utils/tokenDecoder';
 
 const MENU_ITEMS = [
   {
@@ -67,6 +69,7 @@ const Sidebar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { t } = useTranslation();
   const location = useLocation();
+  const handleLogout = useLogout(); 
 
   // Handle screen size changes
   useEffect(() => {
@@ -91,6 +94,32 @@ const Sidebar = () => {
   // Group menu items by section
   const mainMenuItems = MENU_ITEMS.filter((item) => item.section === 'main');
   const accountMenuItems = MENU_ITEMS.filter((item) => item.section === 'account');
+
+
+useEffect(() => {
+  const checkTokenExpiration = () => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      handleLogout();
+      return;
+    }
+
+    const decodedToken: any = tokenDecoder();
+    const currentTime = Date.now() / 1000; // Get current time in seconds
+
+    if (decodedToken.exp < currentTime) {
+      handleLogout(); // Logout if token has expired
+    }
+  };
+
+  checkTokenExpiration();
+
+  // Set interval to check every minute
+  const interval = setInterval(checkTokenExpiration, 60000);
+
+  return () => clearInterval(interval);
+}, []);
+
 
   return (
     <>
@@ -134,6 +163,15 @@ const Sidebar = () => {
             <ul className="space-y-2 pt-16">
               {mainMenuItems.map((item) => (
                 <li key={item.id}>
+                   {item.nameKey === "logout" ? (
+            <button
+              onClick={() => handleLogout()}// 🔥 Call logout function
+              className="flex w-full items-center space-x-4 rounded-lg p-3 transition-all duration-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+            >
+              <span className="text-xl text-blue-500">{item.icon}</span>
+              <span className="font-medium">{t(item.nameKey)}</span>
+            </button>
+          ) : (
                   <Link
                     to={item.href}
                     className={`flex items-center space-x-4 rounded-lg p-3 transition-all duration-200 ${
@@ -152,6 +190,7 @@ const Sidebar = () => {
                     </span>
                     <span className="font-medium">{t(item.nameKey)}</span>
                   </Link>
+          )}
                 </li>
               ))}
             </ul>

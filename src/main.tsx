@@ -3,16 +3,13 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import RouteProvider from './routes/index.tsx'
 import "./utils/i18n.ts"
-import { LanguageProvider } from './context/LanguageContext.tsx'
-import { ModalProvider } from './providers/ModalProviders.tsx'
+import RootLayout from './Layout/RootLayout.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ModalProvider>
-    <LanguageProvider>
+    <RootLayout>
     <RouteProvider/>
-    </LanguageProvider>
-    </ModalProvider>
+    </RootLayout>
   </StrictMode>,
 )

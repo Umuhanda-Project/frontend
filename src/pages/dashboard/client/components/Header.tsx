@@ -1,20 +1,38 @@
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { IoSettingsOutline } from 'react-icons/io5';
-
 import LanguageSwitcher from '../../../../components/LanguageSwitcher';
 import { useNavigate } from 'react-router';
+import { useState,useEffect} from 'react';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useTranslation } from 'react-i18next';
+import { getuserInfo } from '../../../../utils/getUserInfo';
 
 
 const Header = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const [loggedInUsernames,setLoggedInUserNames] = useState("");
+
+     useEffect(() => {
+          const fetchuserInfo = async () => {
+            const userData = await getuserInfo();
+            if (userData) {
+              setLoggedInUserNames(userData.names)
+              toast.success("Welcome back " + userData.names);
+            }
+          };
+      
+          fetchuserInfo(); 
+        }, []);
 
 
   return (
     <header className="sticky top-0 z-10 flex justify-between items-center w-full px-6 py-4 border-b border-slate-200 bg-white shadow-sm">
       {/* User Info Section */}
       <div className="flex flex-col space-y-1">
-        <h1 className="text-lg font-bold text-gray-800">John</h1>
-        <p className="text-sm text-gray-500">Murakaza neza</p>
+        <h1 className="text-lg font-bold text-gray-800">{loggedInUsernames}</h1>
+        <p className="text-sm text-gray-500">{t('welcome')}</p>
 
       </div>
 
