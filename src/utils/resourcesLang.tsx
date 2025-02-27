@@ -1,3 +1,4 @@
+
 export const resources = {
   en: {
     translation: {
@@ -65,6 +66,9 @@ export const resources = {
       submit_button: 'Send Message',
       contact_info: 'Or call us at:',
       contact_number: '+250 787 787 878',
+      request_reset:'Request code',
+      verify:'Verify Code',
+      reset_password:'Confirm Reset Password',
 
       alt: {
         logo: 'Umuhanda Logo',
@@ -94,6 +98,8 @@ export const resources = {
       enterConfirmPassword: 'Re-Type your password',
       signUp: 'Sign Up',
       backToSignIn: 'Back to Sign In',
+      phone_email_label: 'Email Or Phone Number',
+      phone_email_placeholder: 'Enter your email or phone number',
 
       resetPassword: 'Reset Password',
       submit: 'Submit',
@@ -101,6 +107,7 @@ export const resources = {
 
       exams_taken: 'Exams Taken',
       highest_score: 'Highest Score',
+      attempts_left:'Exam Attempts Left',
 
       exam_title: 'Exam Instructions',
       question_count: 'Number of Questions',
@@ -197,6 +204,9 @@ export const resources = {
       submit_button: 'Envoyer le message',
       contact_info: 'Ou appelez-nous à :',
       contact_number: '+250 787 787 878',
+      request_reset:'Demande Code',
+      verify:'vérifier un code',
+      reset_password:'Confirmer la réinitialisation du mot de passe',
 
       alt: {
         logo: 'Logo Umuhanda',
@@ -225,7 +235,9 @@ export const resources = {
       confirmPassword:'Confirmer le mot de passe',
       enterConfirmPassword:'Ressaisissez votre mot de passe',
       signUp: "S'inscrire",
-      backToSignIn: 'Retour à la Connexion',
+      backToSignIn: 'Retour à la Connexion', 
+      phone_email_label: 'Email Ou Numéro de Téléphone',
+      phone_email_placeholder: 'Entrez votre email ou numéro de téléphone',
 
       resetPassword: 'Réinitialiser le Mot de Passe',
       submit: 'Soumettre',
@@ -233,6 +245,7 @@ export const resources = {
 
       exams_taken: "Nombre de fois où vous avez passé l'examen",
       highest_score: 'Score le plus élevé',
+      attempts_left:"Tentatives d'examen restantes",
 
       exam_title: "Instructions de l'examen",
       question_count: 'Nombre de questions',
@@ -327,6 +340,9 @@ export const resources = {
       submit_button: 'Ohereza Ubutumwa',
       contact_info: 'Cyangwa uduhamagare kuri:',
       contact_number: '+250 787 787 878',
+      request_reset:'Saba kode',
+      verify:'Suzuma kode',
+      reset_password:'Emeza guhindura ijambo banga',
 
       alt: {
         logo: 'Ikirangantego cya Umuhanda',
@@ -357,12 +373,15 @@ export const resources = {
       signUp: 'Injiramo',
       backToSignIn: 'Subira Aho Winjirira',
 
-      resetPassword: 'Kwinjiza Ijambo Rishya',
+      phone_email_label: 'Imeli cg nimero ya telefone',
+      phone_email_placeholder: 'Injiza imeli yawe cg nimero ya telefone',
+      resetPassword: 'Guhindura Ijambo banga',
       submit: 'Emeza',
       createAccount: 'Kora Konti',
 
       exams_taken: 'Inshuro wakoze ibizamini',
       highest_score: 'Amanota menshi wagize',
+      attempts_left:'Inshuro usigaje gukora ikizamini',
 
       exam_title: "Amabwiriza y'ikizamini",
       question_count: "Umubare w'ibibazo",

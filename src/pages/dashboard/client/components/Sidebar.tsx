@@ -163,15 +163,6 @@ useEffect(() => {
             <ul className="space-y-2 pt-16">
               {mainMenuItems.map((item) => (
                 <li key={item.id}>
-                   {item.nameKey === "logout" ? (
-            <button
-              onClick={() => handleLogout()}// 🔥 Call logout function
-              className="flex w-full items-center space-x-4 rounded-lg p-3 transition-all duration-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-            >
-              <span className="text-xl text-blue-500">{item.icon}</span>
-              <span className="font-medium">{t(item.nameKey)}</span>
-            </button>
-          ) : (
                   <Link
                     to={item.href}
                     className={`flex items-center space-x-4 rounded-lg p-3 transition-all duration-200 ${
@@ -190,7 +181,6 @@ useEffect(() => {
                     </span>
                     <span className="font-medium">{t(item.nameKey)}</span>
                   </Link>
-          )}
                 </li>
               ))}
             </ul>
@@ -204,6 +194,19 @@ useEffect(() => {
             <ul className="space-y-2">
               {accountMenuItems.map((item) => (
                 <li key={item.id}>
+                            {item.nameKey === "logout" ? (
+            <button
+              onClick={(event) => {
+                event.stopPropagation()
+                handleLogout()
+                }
+              }
+              className="flex w-full items-center space-x-4 rounded-lg p-3 transition-all duration-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+            >
+              <span className="text-xl text-blue-500">{item.icon}</span>
+              <span className="font-medium">{t(item.nameKey)}</span>
+            </button>
+          ) : (
                   <Link
                     to={item.href}
                     className={`flex items-center space-x-4 rounded-lg p-3 transition-all duration-200 ${
@@ -222,6 +225,7 @@ useEffect(() => {
                     </span>
                     <span className="font-medium">{t(item.nameKey)}</span>
                   </Link>
+          )}
                 </li>
               ))}
             </ul>
