@@ -60,8 +60,8 @@ const VerificationCode = () => {
             <ToastContainer position="top-right" />
             <div className="flex-1 bg-gray-50 p-8 flex flex-col">
                 <img src={logo} alt="Umuhanda Logo" className="w-40 mb-8" />
-                <div className="flex flex-col items-center">
-                    <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">Enter Reset Code</h1>
+                <div className="flex flex-colN items-center">
+                    <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">{t('enter_reset_code')}</h1>
 
                     {/* 6-digit input field */}
                     <div className="flex space-x-2 justify-center mb-8">

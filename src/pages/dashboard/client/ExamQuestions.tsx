@@ -68,6 +68,7 @@ const ExamQuestions = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const timerRef = useRef<NodeJS.Timeout>();
+
   
   // Memoize test mode check
   const isTestMode = useMemo(() => {
@@ -116,24 +117,6 @@ const ExamQuestions = () => {
     const remainingSeconds = seconds % 60;
     return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
   }, []);
-
-  // Timer management
-  // const handleTimerFinish = useCallback(() => {
-  //   if (timerRef.current) {
-  //     clearInterval(timerRef.current);
-  //   }
-    
-  //   // Save any pending answers before navigating
-  //   if (answersRef.current.length > 0) {
-  //     const storageKey = isTestMode ? LOCAL_STORAGE_KEYS.EXAM_TEST : LOCAL_STORAGE_KEYS.EXAM_ANSWERS;
-  //     localStorage.setItem(storageKey, JSON.stringify(answersRef.current));
-  //   }
-  //   const finalScore = answersRef.current.filter(answer => answer.isCorrect).length;
-  //   createUserExamAttempt(finalScore);
-  //   setShowConfetti(true);
-  //   setShowModal(true);
-  //   //navigate("/client");
-  // }, [navigate, isTestMode]);
 
 
   const handleTimerFinish = useCallback(() => {
@@ -193,53 +176,6 @@ const ExamQuestions = () => {
     setSelectedAnswer(option);
   }, []);
 
-  // const handleNext = useCallback(() => {
-  //   if (!currentLanguage || !selectedAnswer || !currentQuestion) {
-  //     if (currentLanguage) {
-  //       alert(LANGUAGE_CONFIG[currentLanguage].noSelectionMessage);
-  //     }
-  //     return;
-  //   }
-
-  //   const isCorrect = selectedAnswer === currentQuestion.answer;
-    
-  //   // Update score immediately if correct
-  //   if (isCorrect) {
-  //     setScore(prev => prev + 1);
-  //   }
-
-  //   const newAnswer: Answer = {
-  //     question: currentQuestion.question,
-  //     selectedAnswer,
-  //     correctAnswer: currentQuestion.answer,
-  //     isCorrect,
-  //   };
-
-  //   // Use function form to avoid stale closure issues
-  //   setAnswers(prev => {
-  //     const updatedAnswers = [...prev, newAnswer];
-      
-  //     // Handle last question
-  //     if (isLastQuestion) {
-  //       const storageKey = isTestMode ? LOCAL_STORAGE_KEYS.EXAM_TEST : LOCAL_STORAGE_KEYS.EXAM_ANSWERS;
-  //       // Store answers in localStorage
-  //       localStorage.setItem(storageKey, JSON.stringify(updatedAnswers));
-        
-  //       // Show completion UI
-  //       createUserExamAttempt(score);
-  //       setShowConfetti(true);
-  //       setShowModal(true);
-  //     }
-      
-  //     return updatedAnswers;
-  //   });
-
-  //   // Advance to next question if not the last one
-  //   if (!isLastQuestion) {
-  //     setCurrentQuestionIndex(prev => prev + 1);
-  //     setSelectedAnswer(null);
-  //   }
-  // }, [selectedAnswer, currentQuestion, isLastQuestion, currentLanguage, isTestMode]);
 
   const handleNext = useCallback(() => {
     if (!currentLanguage || !selectedAnswer || !currentQuestion) {

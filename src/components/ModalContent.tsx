@@ -3,6 +3,7 @@ import mtn from '../assets/mtn.jpg';
 import { PricingPlans } from '../utils/PricingPlans';
 import { language_options } from '../utils/languageOptions';
 import { useForm } from 'react-hook-form';
+import PaymentButton from './PaymentButton';
 
 type PricingPlan = {
   id: number;
@@ -30,11 +31,10 @@ export const ModalContent = () => {
   const onSubmit = () => {
     console.log('data');
   };
-  console.log(selectedLanguage);
 
   return (
     <div className="w-full max-w-2xl flex flex-col items-center justify-center p-6 bg-white rounded-lg">
-      <img src={mtn} alt="Mtn_Logo" className="w-20 h-16 object-cover" />
+      <img src={mtn} alt="Mtn_Logo" className="w-96 h-16 object-cover" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full py-4">
           <p className="py-4 font-medium text-lg">Choose Language</p>
@@ -78,7 +78,7 @@ export const ModalContent = () => {
             </div>
           </div>
         )}
-        <button className="bg-blue-600 w-full mt-4 rounded-md px-6 py-2 text-white">Submit</button>
+        <PaymentButton subscriptionId="67bf7c68c884017f1366f660" />
       </form>
 
       {selectedLanguage && filteredPlans.length === 0 && (

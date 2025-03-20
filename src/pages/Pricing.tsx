@@ -29,7 +29,7 @@ const Pricing = () => {
   }, [language]);
 
   return (
-    <div className="p-4">
+    <section className="p-4" id="pricing">
       <p className="text-center text-3xl font-bold underline py-4">{t('choosePlan')}</p>
       <div className="flex items-center justify-center my-6 space-x-6 max-md:flex-col max-md:space-y-4 flex-wrap">
         {filteredPrices.map(({ id, header, description, price, options }) => (
@@ -45,7 +45,7 @@ const Pricing = () => {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

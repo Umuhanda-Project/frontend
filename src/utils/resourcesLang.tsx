@@ -102,6 +102,7 @@ export const resources = {
       phone_email_placeholder: 'Enter your email or phone number',
 
       resetPassword: 'Reset Password',
+      enter_reset_code:'Enter Reset Code',
       submit: 'Submit',
       createAccount: 'Create an Account',
 
@@ -136,6 +137,9 @@ export const resources = {
       logout: 'Logout',
 
       courses: 'Courses',
+      no_attempts: "No More Exam Attempts Left! 🚀",
+      upgrade_message: "Upgrade your subscription to get unlimited access to practice exams and improve your knowledge!",
+      upgrade_button: "Upgrade Now"
     },
   },
   fr: {
@@ -240,6 +244,7 @@ export const resources = {
       phone_email_placeholder: 'Entrez votre email ou numéro de téléphone',
 
       resetPassword: 'Réinitialiser le Mot de Passe',
+      enter_reset_code:'Entrez le code de réinitialisation',
       submit: 'Soumettre',
       createAccount: 'Créer un Compte',
 
@@ -272,6 +277,9 @@ export const resources = {
       logout: 'Déconnexion',
 
       courses: 'Cours',
+      no_attempts: "Plus de tentatives d'examen disponibles ! 🚀",
+      upgrade_message: "Mettez à niveau votre abonnement pour un accès illimité aux examens pratiques et améliorez vos connaissances !",
+      upgrade_button: "Mettre à niveau maintenant"
     },
   },
   kiny: {
@@ -343,6 +351,7 @@ export const resources = {
       request_reset:'Saba kode',
       verify:'Suzuma kode',
       reset_password:'Emeza guhindura ijambo banga',
+      enter_reset_code:'Injiza kode yo guhindura ijambo banga',
 
       alt: {
         logo: 'Ikirangantego cya Umuhanda',
@@ -410,6 +419,9 @@ export const resources = {
       logout: 'Gusohoka',
 
       courses: 'Amasomo',
+      no_attempts: "Nta mahirwe usigaranye yo gukora ikizamini! 🚀",
+      upgrade_message: "Ongera ifatabuguzi ryawe kugirango ubone amahirwe adafite umubare w’ibizamini byo kwimenyereza no kongera ubumenyi bwawe!",
+      upgrade_button: "Ongera Ifatabuguzi nonaha"
     },
   },
 };

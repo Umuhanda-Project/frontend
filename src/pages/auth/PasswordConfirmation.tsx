@@ -49,11 +49,11 @@ const PasswordConfirmation = () => {
             <div className="flex-1 bg-gray-50 p-8 flex flex-col">
                 <img src={logo} alt="Umuhanda Logo" className="w-40 mb-8" />
                 <div className="flex flex-col items-center">
-                    <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">Reset Password</h1>
+                    <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">{t('resetPassword')}</h1>
                     <form onSubmit={handleSubmit} className="w-full max-w-md p-6 rounded-lg space-y-6">
                         <input
                             type="password"
-                            placeholder="New Password"
+                            placeholder={t('new_password')}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full p-3 border border-gray-300 rounded-lg"
@@ -61,7 +61,7 @@ const PasswordConfirmation = () => {
                         />
                         <input
                             type="password"
-                            placeholder="Confirm Password"
+                            placeholder={t('confirm_new_password')}
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             className="w-full p-3 border border-gray-300 rounded-lg"
