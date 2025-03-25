@@ -1,11 +1,22 @@
 import { useState } from 'react';
 import axios from '../config/axios';
 import { isAuthenticated } from './ProtectedRoute';
+import { Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
-const PaymentButton = ({ subscriptionId }: { subscriptionId: string }) => {
+const PaymentButton = ({
+  subscriptionId,
+  language,
+  disabled,
+}: {
+  subscriptionId: string;
+  language: string;
+  disabled?: boolean;
+}) => {
   const [loading, setLoading] = useState(false);
   const token = sessionStorage.getItem('token');
   const PUBLIC_KEY = import.meta.env.VITE_IPAY_PUBLIC_KEY;
+  const { t } = useTranslation();
 
   const handlePayment = async () => {
     setLoading(true);
@@ -19,7 +30,7 @@ const PaymentButton = ({ subscriptionId }: { subscriptionId: string }) => {
       // Send request to the backend to generate invoice
       const response = await axios.post(
         '/pay',
-        { subscription_id: subscriptionId },
+        { subscription_id: subscriptionId, language },
         {
           headers: {
             'irembopay-secretKey': PUBLIC_KEY,
@@ -45,10 +56,20 @@ const PaymentButton = ({ subscriptionId }: { subscriptionId: string }) => {
   return (
     <button
       onClick={handlePayment}
-      disabled={loading}
-      className="bg-blue-600 text-white w-full px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300"
+      disabled={loading || disabled}
+      className={`w-full px-6 py-3 rounded-lg shadow-md transition-all duration-300 ${
+        loading || disabled
+          ? 'bg-blue-400 cursor-not-allowed'
+          : 'bg-blue-600 hover:bg-blue-700 text-white hover:bg-blue-700'
+      }`}
     >
-      {loading ? 'Processing...' : 'Pay Now'}
+      {loading ? (
+        <>
+          <Loader2 className="w-4 h-4 animate-spin" />
+        </>
+      ) : (
+        t('payButton')
+      )}
     </button>
   );
 };

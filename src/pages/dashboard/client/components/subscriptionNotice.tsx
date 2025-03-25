@@ -6,7 +6,6 @@ export const SubscriptionNotice = () => {
 
   return (
     <Layout>
-      <h2>ddd</h2>
       <div className="flex p-6 items-center justify-center">
         <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-md w-full">
           <h2 className="text-2xl font-bold text-gray-800 mb-3">{t('no_attempts')}</h2>

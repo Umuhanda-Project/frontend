@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useModal } from './hooks/useModal';
+import axios from './config/axios';
 
 interface PdfViewerProps {
   /** URL or path to the PDF file */
@@ -20,6 +20,8 @@ interface PdfViewerProps {
   hideDownload?: boolean;
   /** Hide zoom controls if set to true */
   hideZoom?: boolean;
+  /** Optional callback when access is revoked */
+  onAccessRevoked?: () => void;
 }
 
 const PdfViewer: React.FC<PdfViewerProps> = ({
@@ -30,14 +32,14 @@ const PdfViewer: React.FC<PdfViewerProps> = ({
   onLoadSuccess,
   onLoadError,
   onDownload,
+  onAccessRevoked,
   hideDownload = false,
   hideZoom = false,
 }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [disablingAccess, setDisablingAccess] = useState(false);
   const [scale, setScale] = useState(100);
-  const { isOpen, openModal } = useModal();
-  console.log(isOpen);
 
   const handleZoomIn = () => {
     setScale((prev) => Math.min(prev + 10, 200));
@@ -52,13 +54,41 @@ const PdfViewer: React.FC<PdfViewerProps> = ({
     setLoading(true);
   };
 
+  const disableGazetteAccess = async () => {
+    try {
+      setDisablingAccess(true);
+      const token = sessionStorage.getItem('token');
+      await axios.put(
+        '/auth/disable-gazette-access',
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        },
+      );
+      onAccessRevoked?.();
+    } catch (error) {
+      console.log('An expected error', error);
+    } finally {
+      setDisablingAccess(false);
+    }
+  };
+
   const handleDownload = () => {
     try {
-      openModal();
-      if(isOpen){
-        window.open(file, '_blank');
-        onDownload?.();
-      }
+      const link = document.createElement('a');
+      link.href = file;
+
+      // Extract filename from file path or fallback to default
+      const fileNameFromPath = file.split('/').pop()?.replace(/\s+/g, '_') || 'gazette.pdf';
+      link.download = fileNameFromPath;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      onDownload?.();
+      disableGazetteAccess();
     } catch (err) {
       console.error('Download failed:', err);
       onLoadError?.(err as Error);
@@ -106,6 +136,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({
             <button
               className="px-4 py-1 border rounded hover:bg-gray-100 transition-colors"
               onClick={handleDownload}
+              disabled={disablingAccess}
               aria-label="Download PDF"
             >
               Download PDF
@@ -139,7 +170,7 @@ const PdfViewer: React.FC<PdfViewerProps> = ({
         ) : (
           <div className="w-full bg-gray-100 rounded-lg overflow-hidden" style={{ height }}>
             <iframe
-              src={file}
+              src={`${file}#toolbar=0&navpanes=0&scrollbar=0`}
               className="w-full h-full"
               style={{ transform: `scale(${scale / 100})`, transformOrigin: 'top left' }}
               onLoad={handleLoad}
