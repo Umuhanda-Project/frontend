@@ -1,109 +1,123 @@
-import { createBrowserRouter, RouterProvider } from 'react-router';
-import App from '../App';
-import { Contact } from '../pages';
+
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "../App";
+import { Contact } from "../pages";
 import {
   PasswordConfirmation,
   ResetPassword,
   Signin,
   Signup,
   VerificationCode,
-} from '../pages/auth';
-import { Home, Lessons, Settings, Exam, Lesson } from '../pages/dashboard/client';
-import ExamQuestions from '../pages/dashboard/client/ExamQuestions';
-import ExamAnswers from '../pages/dashboard/client/components/ExamAnswers';
-import Igazeti from '../pages/dashboard/client/Igazeti';
-import RevisionStudy from '../pages/dashboard/client/components/RevisionStudy';
-import ExamTest from '../pages/dashboard/client/ExamTest';
+} from "../pages/auth";
+import {
+  Home,
+  Lessons,
+  Settings,
+  Exam,
+  Lesson,
+} from "../pages/dashboard/client";
+import ExamQuestions from "../pages/dashboard/client/ExamQuestions";
+import ExamAnswers from "../pages/dashboard/client/components/ExamAnswers";
+import Igazeti from "../pages/dashboard/client/Igazeti";
+import RevisionStudy from "../pages/dashboard/client/components/RevisionStudy";
+import ExamTest from "../pages/dashboard/client/ExamTest";
+import ProtectedRoute from '../components/ProtectedRoute'
+import ProtectedExamRoute from "../components/ProtectedExamRoute";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
   },
   {
-    path: '/contact',
+    path: "/contact",
     element: <Contact />,
   },
   {
-    path: '/signin',
+    path: "/signin",
     element: <Signin />,
   },
   {
-    path: '/signup',
+    path: "/signup",
     element: <Signup />,
   },
   {
-    path: '/reset',
+    path: "/reset",
     element: <ResetPassword />,
   },
   {
-    path: '/verificationcode',
+    path: "/verificationcode",
     element: <VerificationCode />,
   },
   {
-    path: '/passwordconfirmation',
+    path: "/passwordconfirmation",
     element: <PasswordConfirmation />,
   },
+
+  // 🔒 Protected Routes
   {
-    path: '/client',
+    path: "/client",
+    element: <ProtectedRoute />, 
     children: [
       {
-        path: '',
+        path: "",
         element: <Home />,
       },
       {
-        path: 'igazeti',
+        path: "igazeti",
         element: <Igazeti />,
       },
       {
-        path: 'lessons',
+        path: "lessons",
         children: [
           {
-            path: '',
+            path: "",
             element: <Lessons />,
           },
           {
-            path: 'lesson/:id',
+            path: "lesson/:id",
             element: <Lesson />,
           },
           {
-            path: 'revision/:id',
+            path: "revision/:id",
             element: <RevisionStudy />,
           },
         ],
       },
       {
-        path: 'settings',
+        path: "settings",
         element: <Settings />,
       },
       {
-        path: 'exam',
+        path: "exam",
+        element: <ProtectedExamRoute />,
         children: [
           {
-            path: '',
+            path: "",
             element: <Exam />,
           },
           {
-            path: 'questions',
+            path: "questions",
             element: <ExamQuestions />,
           },
           {
-            path: 'answers',
+            path: "answers",
             element: <ExamAnswers />,
           },
           {
-            path: 'test',
+            path: "test",
             children: [
               {
-                path: '',
+                path: "",
                 element: <ExamTest />,
               },
               {
-                path: 'questions',
+                path: "questions",
                 element: <ExamQuestions />,
               },
               {
-                path: 'answers',
+                path: "answers",
                 element: <ExamAnswers />,
               },
             ],

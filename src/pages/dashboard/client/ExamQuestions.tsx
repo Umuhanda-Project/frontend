@@ -62,11 +62,13 @@ const ExamQuestions = () => {
   const [examQuestions, setExamQuestions] = useState<Question[]>([]);
   const [currentLanguage, setCurrentLanguage] = useState<keyof typeof LANGUAGE_CONFIG>();
   const answersRef = useRef<Answer[]>([]);
+  const hasAttemptBeenSaved = useRef(false);
 
   const { width, height } = useWindowSize();
   const navigate = useNavigate();
   const location = useLocation();
   const timerRef = useRef<NodeJS.Timeout>();
+
   
   // Memoize test mode check
   const isTestMode = useMemo(() => {
@@ -116,22 +118,24 @@ const ExamQuestions = () => {
     return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
   }, []);
 
-  // Timer management
+
   const handleTimerFinish = useCallback(() => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
     
-    // Save any pending answers before navigating
-    if (answersRef.current.length > 0) {
+    if (!hasAttemptBeenSaved.current) { // Ensure the score is saved only once
+      hasAttemptBeenSaved.current = true;
+      
       const storageKey = isTestMode ? LOCAL_STORAGE_KEYS.EXAM_TEST : LOCAL_STORAGE_KEYS.EXAM_ANSWERS;
       localStorage.setItem(storageKey, JSON.stringify(answersRef.current));
+      
+      const finalScore = answersRef.current.filter(answer => answer.isCorrect).length;
+      createUserExamAttempt(finalScore);
+      setShowConfetti(true);
+      setShowModal(true);
     }
-    createUserExamAttempt(score);
-    setShowConfetti(true);
-    setShowModal(true);
-    //navigate("/client");
-  }, [navigate, isTestMode]);
+  }, [isTestMode]);
 
   useEffect(() => {
     // Keep answers ref in sync with state
@@ -172,6 +176,7 @@ const ExamQuestions = () => {
     setSelectedAnswer(option);
   }, []);
 
+
   const handleNext = useCallback(() => {
     if (!currentLanguage || !selectedAnswer || !currentQuestion) {
       if (currentLanguage) {
@@ -182,7 +187,6 @@ const ExamQuestions = () => {
 
     const isCorrect = selectedAnswer === currentQuestion.answer;
     
-    // Update score immediately if correct
     if (isCorrect) {
       setScore(prev => prev + 1);
     }
@@ -194,18 +198,17 @@ const ExamQuestions = () => {
       isCorrect,
     };
 
-    // Use function form to avoid stale closure issues
     setAnswers(prev => {
       const updatedAnswers = [...prev, newAnswer];
       
-      // Handle last question
-      if (isLastQuestion) {
+      if (isLastQuestion && !hasAttemptBeenSaved.current) {
+        hasAttemptBeenSaved.current = true;
+        
         const storageKey = isTestMode ? LOCAL_STORAGE_KEYS.EXAM_TEST : LOCAL_STORAGE_KEYS.EXAM_ANSWERS;
-        // Store answers in localStorage
         localStorage.setItem(storageKey, JSON.stringify(updatedAnswers));
         
-        // Show completion UI
-        createUserExamAttempt(score);
+        const finalScore = updatedAnswers.filter(answer => answer.isCorrect).length;
+        createUserExamAttempt(finalScore);
         setShowConfetti(true);
         setShowModal(true);
       }
@@ -213,7 +216,6 @@ const ExamQuestions = () => {
       return updatedAnswers;
     });
 
-    // Advance to next question if not the last one
     if (!isLastQuestion) {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);

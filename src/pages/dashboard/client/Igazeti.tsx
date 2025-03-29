@@ -1,10 +1,15 @@
-import { Fragment, useState } from "react";
-import { motion } from "framer-motion";
-import englishIgazeti from "../../../assets/igazeti/english igazeti.pdf";
-import francaisIgazeti from "../../../assets/igazeti/french igazeti.pdf";
-import kinyarwandaIgazeti from "../../../assets/igazeti/kinyarwada igazeti.pdf";
-import PdfViewer from "../../../PdfRender";
-import Layout from "./Layout";
+import { Fragment, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import englishIgazeti from '../../../assets/igazeti/english igazeti.pdf';
+import francaisIgazeti from '../../../assets/igazeti/french igazeti.pdf';
+import kinyarwandaIgazeti from '../../../assets/igazeti/kinyarwada igazeti.pdf';
+import PdfViewer from '../../../PdfRender';
+import Layout from './Layout';
+import axios from '../../../config/axios';
+import { useTranslation } from 'react-i18next';
+import { Loader2 } from 'lucide-react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Magazine {
   lang: string;
@@ -16,33 +21,81 @@ interface Magazine {
 
 const magazines: Magazine[] = [
   {
-    lang: "english",
+    lang: 'english',
     ref: englishIgazeti,
-    title: "English Book(Igazeti)",
-    description: "Explore our content in English",
-    icon: "🇬🇧",
+    title: 'English Book(Igazeti)',
+    description: 'Explore our content in English',
+    icon: '🇬🇧',
   },
   {
-    lang: "francais",
+    lang: 'francais',
     ref: francaisIgazeti,
-    title: "French Livre(Igazeti)",
-    description: "Découvrez notre contenu en français",
-    icon: "🇫🇷",
+    title: 'French Livre(Igazeti)',
+    description: 'Découvrez notre contenu en français',
+    icon: '🇫🇷',
   },
   {
-    lang: "kinyarwanda",
+    lang: 'kinyarwanda',
     ref: kinyarwandaIgazeti,
-    title: "Kinyarwanda Igazeti",
-    description: "Soma ibitekerezo byacu mu Kinyarwanda",
-    icon: "🇷🇼",
+    title: 'Kinyarwanda Igazeti',
+    description: 'Soma ibitekerezo byacu mu Kinyarwanda',
+    icon: '🇷🇼',
   },
 ];
 
 const Igazeti = () => {
-  const [selectedMagazine, setSelectedMagazine] = useState<Magazine>(
-    magazines[0]
-  );
+  const [selectedMagazine, setSelectedMagazine] = useState<Magazine>(magazines[0]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasAccess, setHasAccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
+
+  const handleGazettePayment = async () => {
+    try {
+      setLoading(true);
+      const token = sessionStorage.getItem('token');
+      const PUBLIC_KEY = import.meta.env.VITE_IPAY_PUBLIC_KEY;
+
+      const response = await axios.post(
+        '/pay',
+        {
+          subscription_id: '0',
+          language: selectedMagazine.lang.toUpperCase(),
+          transactionType: 'gazette',
+        },
+        {
+          headers: {
+            'irembopay-secretKey': PUBLIC_KEY,
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        },
+      );
+
+      if (response.data.success) {
+        window.location.href = response.data.paymentUrl;
+      } else {
+        toast.error('Something Went Wrong');
+      }
+    } catch (error) {
+      console.error('❌ Payment error:', error);
+      toast.error('Un expected error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const fetchAccess = async () => {
+      const token = sessionStorage.getItem('token');
+      const res = await axios.get('/auth/gazette-access', {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+      setHasAccess(res.data.hasAccess);
+    };
+    fetchAccess();
+  }, []);
 
   const handleMagazineChange = (magazine: Magazine) => {
     setIsLoading(true);
@@ -51,16 +104,13 @@ const Igazeti = () => {
 
   return (
     <Fragment>
+      <ToastContainer />
       <Layout>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
           {/* Header Section */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Books(Igazeti)
-            </h1>
-            <p className="text-gray-600">
-              Choose your preferred language to read 
-            </p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Books(Igazeti)</h1>
+            <p className="text-gray-600">Choose your preferred language to read</p>
           </div>
 
           {/* Magazine Selection */}
@@ -76,21 +126,17 @@ const Igazeti = () => {
                   flex items-center p-4 rounded-xl transition-all
                   ${
                     selectedMagazine.lang === magazine.lang
-                      ? "bg-blue-50 border-2 border-blue-500 shadow-md"
-                      : "bg-white border-2 border-gray-200 hover:border-blue-200"
+                      ? 'bg-blue-50 border-2 border-blue-500 shadow-md'
+                      : 'bg-white border-2 border-gray-200 hover:border-blue-200'
                   }
                 `}
                 >
                   <div className="flex-1 text-left">
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{magazine.icon}</span>
-                      <h3 className="font-semibold text-gray-900">
-                        {magazine.title}
-                      </h3>
+                      <h3 className="font-semibold text-gray-900">{magazine.title}</h3>
                     </div>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {magazine.description}
-                    </p>
+                    <p className="text-sm text-gray-600 mt-1">{magazine.description}</p>
                   </div>
                   {selectedMagazine.lang === magazine.lang && (
                     <div className="w-3 h-3 bg-blue-500 rounded-full ml-4" />
@@ -117,21 +163,47 @@ const Igazeti = () => {
               </div>
             )}
 
+            {!hasAccess && (
+              <div className="m-2 text-center">
+                <p className="text-red-600 mb-4 font-medium">{t('needToPayGazette')}</p>
+                <button
+                  onClick={handleGazettePayment}
+                  disabled={loading}
+                  className={`px-6 py-3 rounded-lg shadow-md transition-all duration-300 ${
+                    loading
+                      ? 'bg-blue-400 cursor-not-allowed'
+                      : 'bg-blue-600 hover:bg-blue-700 text-white hover:bg-blue-700'
+                  }`}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    </>
+                  ) : (
+                    t('needToPayGazetteButton')
+                  )}
+                </button>
+              </div>
+            )}
+
             <PdfViewer
               file={selectedMagazine.ref}
               height="calc(100vh - 400px)"
               className="rounded-lg "
               onLoadSuccess={() => {
                 setIsLoading(false);
-                console.log("Magazine loaded successfully");
+                console.log('Magazine loaded successfully');
+              }}
+              onAccessRevoked={() => {
+                setHasAccess(false);
+                toast.info('You have downloaded the gazette. Access is now revoked.');
               }}
               onLoadError={(error) => {
                 setIsLoading(false);
-                console.error("Failed to load magazine:", error);
+                console.error('Failed to load magazine:', error);
               }}
-              onDownload={() =>
-                console.log(`Downloading ${selectedMagazine.title}`)
-              }
+              hideDownload={!hasAccess}
+              onDownload={() => console.log(`Downloading ${selectedMagazine.title}`)}
             />
           </motion.div>
         </div>

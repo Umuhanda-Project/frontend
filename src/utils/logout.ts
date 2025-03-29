@@ -6,7 +6,6 @@ const useLogout = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    console.log("Logging out....")
     try {
       await axios.post("/auth/logout", {}, { withCredentials: true });
       sessionStorage.clear();

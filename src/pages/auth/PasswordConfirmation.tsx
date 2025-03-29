@@ -1,88 +1,89 @@
-import { useNavigate } from "react-router";
+
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router";
+import axios from '../../config/axios'
 import logo from "../../assets/Umuhanda_logo.png";
 import authSignin from "../../assets/auth1.png";
+import { toast, ToastContainer } from "react-toastify";
+import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const PasswordConfirmation = () => {
-    const navigate = useNavigate()
-  return (
-    <div className="flex flex-col lg:flex-row h-screen">
-      {/* Left Section */}
-      <div className="flex-1 bg-gray-50 p-8 lg:p-4 flex flex-col ">
-        {/* Logo */}
-        <img src={logo} alt="Umuhanda Logo" className="w-40 mb-8" />
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {t} = useTranslation()
+    const emailOrPhone = location.state?.emailOrPhone || "";
+    const resetCode = location.state?.resetCode || "";
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
-        {/* Sign-In Form */}
-        <div className="flex flex-col items-center">
-          <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-            Injiramo
-          </h1>
-          <form className="w-full max-w-md bg-white p-6 rounded-lg  space-y-6">
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                umubare w'ibanga
-              </label>
-              <input
-                type="password"
-                id="confirm-password"
-                placeholder="Injiza umubare w'ibanga"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            setMessage("Passwords do not match!");
+            toast.error(message);
+            return;
+        }
+        setLoading(true);
+        try {
+            const response = await axios.post("/auth/reset-password", {
+                emailOrPhone,
+                resetCode,
+                newPassword: password,
+            });
+            setMessage(response.data.message);
+            toast.success(message);
+            navigate("/signin");
+        } catch (error:any) {
+            setMessage(error.response?.data?.error || "Something went wrong.");
+            toast.error(message);
+        }
+        setLoading(false);
+    };
+
+    return (
+        <div className="flex flex-col lg:flex-row h-screen">
+          <ToastContainer position="top-right" />
+            <div className="flex-1 bg-gray-50 p-8 flex flex-col">
+                <img src={logo} alt="Umuhanda Logo" className="w-40 mb-8" />
+                <div className="flex flex-col items-center">
+                    <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">{t('resetPassword')}</h1>
+                    <form onSubmit={handleSubmit} className="w-full max-w-md p-6 rounded-lg space-y-6">
+                        <input
+                            type="password"
+                            placeholder={t('new_password')}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full p-3 border border-gray-300 rounded-lg"
+                            required
+                        />
+                        <input
+                            type="password"
+                            placeholder={t('confirm_new_password')}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            className="w-full p-3 border border-gray-300 rounded-lg"
+                            required
+                        />
+                        <button type="submit" className="bg-blue-600 text-white py-3 px-6 rounded-lg" disabled={loading}>
+                        {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  </>
+                ) : (
+                  t("reset_password")
+                )}
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Emeza Umubare w'Ibanga
-              </label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Emeza umubare w'ibanga"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
+            <div className="flex-1 hidden lg:block">
+                <img src={authSignin} alt="Auth Illustration" className="h-full w-full object-cover" />
             </div>
-            <div className="flex justify-between items-center">
-              <button
-                type="submit"
-                className="bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition"
-              >
-                Injiramo
-              </button>
-              {/* <button
-                type="button"
-                className="text-blue-500 hover:underline text-sm"
-                onClick={() => navigate("/reset")}
-              >
-                Wibagiwe W'Ibanga?
-              </button> */}
-            </div>
-            <button
-              type="button"
-              className="w-full bg-gray-100 py-3 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition"
-              onClick={() => navigate('/signup')}
-            >
-              Kora Konti
-            </button>
-          </form>
         </div>
-      </div>
-
-      {/* Right Section */}
-      <div className="flex-1 hidden lg:block">
-        <img
-          src={authSignin}
-          alt="Auth Illustration"
-          className="h-full w-full object-cover"
-        />
-      </div>
-    </div>
-  );
+    );
 };
 
 export default PasswordConfirmation;

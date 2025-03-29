@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import mtn from '../assets/mtn.jpg';
+import paymentImage from '../assets/paymentImage.jpg';
 import { PricingPlans } from '../utils/PricingPlans';
 import { language_options } from '../utils/languageOptions';
 import { useForm } from 'react-hook-form';
+import PaymentButton from './PaymentButton';
+import { useTranslation } from 'react-i18next';
 
 type PricingPlan = {
   id: number;
+  subId: string;
   name: string;
   price: number;
   language: string;
@@ -15,11 +18,13 @@ export const ModalContent = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [filteredPlans, setFilteredPlans] = useState<PricingPlan[]>([]);
   const { register, handleSubmit } = useForm();
+  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
+  const selectedPlan = filteredPlans.find((plan) => plan.subId === selectedPlanId);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (selectedLanguage) {
       const plans = PricingPlans.filter((plan) => plan.language === selectedLanguage);
-      console.log(plans);
       setFilteredPlans(plans);
     }
   }, [selectedLanguage]);
@@ -30,14 +35,13 @@ export const ModalContent = () => {
   const onSubmit = () => {
     console.log('data');
   };
-  console.log(selectedLanguage);
 
   return (
     <div className="w-full max-w-2xl flex flex-col items-center justify-center p-6 bg-white rounded-lg">
-      <img src={mtn} alt="Mtn_Logo" className="w-20 h-16 object-cover" />
+      <img src={paymentImage} alt="Payment Image" className="w-96 h-64 rounded object-cover" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full py-4">
-          <p className="py-4 font-medium text-lg">Choose Language</p>
+          <p className="py-4 font-medium text-lg">{t('chooseSubLanguage')}</p>
           <div className="flex gap-4 flex-wrap">
             {language_options.map((option) => (
               <div key={option.id} className="flex items-center space-x-2">
@@ -59,7 +63,7 @@ export const ModalContent = () => {
 
         {filteredPlans.length > 0 && (
           <div className="w-full">
-            <p className="py-4 font-medium text-lg">Choose Plan</p>
+            <p className="py-4 font-medium text-lg">{t('chooseSubPlan')}</p>
             <div className="space-y-2">
               {filteredPlans.map((plan) => (
                 <div key={plan.id} className="flex items-center space-x-2">
@@ -68,6 +72,7 @@ export const ModalContent = () => {
                     {...register('plan')}
                     name="plan"
                     id={`plan-${plan.id}`}
+                    onChange={() => setSelectedPlanId(plan.subId)}
                     className="h-4 w-4"
                   />
                   <label htmlFor={`plan-${plan.id}`}>
@@ -78,7 +83,11 @@ export const ModalContent = () => {
             </div>
           </div>
         )}
-        <button className="bg-blue-600 w-full mt-4 rounded-md px-6 py-2 text-white">Submit</button>
+        <PaymentButton
+          subscriptionId={selectedPlan ? selectedPlan.subId : ''}
+          language={selectedPlan ? selectedPlan.language : ''}
+          disabled={!selectedPlan}
+        />
       </form>
 
       {selectedLanguage && filteredPlans.length === 0 && (
