@@ -7,39 +7,51 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { getuserAttempts } from '../../../utils/getuserAttempts';
 import { getuserInfo } from '../../../utils/getUserInfo';
+import Loader from './components/Loader';
 
 const Home = () => {
   const { t } = useTranslation();
   const [loggedInUserTotalAttempts, setLoggedInUserTotalAttempts] = useState(0);
   const [loggedInUserMaxScore, setLoggedInUserMaxScore] = useState(0);
   const [loggedInUserAttemptsLeft, setLoggedInUserAttemptsLeft] = useState('0');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAttempts = async () => {
-      const attemptsData = await getuserAttempts();
-      const userInfo = await getuserInfo();
-      if (
-        attemptsData &&
-        userInfo &&
-        new Date(userInfo.active_subscription.end_date).getTime() > Date.now()
-      ) {
-        setLoggedInUserTotalAttempts(attemptsData.totalAttempts);
-        setLoggedInUserMaxScore(attemptsData.maxScore);
-        const attemptsFromSub = userInfo.active_subscription?.attempts_left || 0;
+      try {
+        const attemptsData = await getuserAttempts();
+        const userInfo = await getuserInfo();
+        if (
+          attemptsData &&
+          userInfo &&
+          new Date(userInfo.active_subscription.end_date).getTime() > Date.now()
+        ) {
+          setLoggedInUserTotalAttempts(attemptsData.totalAttempts);
+          setLoggedInUserMaxScore(attemptsData.maxScore);
+          const attemptsFromSub = userInfo.active_subscription?.attempts_left || 0;
 
-        let finalAttemptsLeft = attemptsFromSub;
-        if (userInfo.hasFreeTrial) {
-          finalAttemptsLeft += 1;
+          let finalAttemptsLeft = attemptsFromSub;
+          if (userInfo.hasFreeTrial) {
+            finalAttemptsLeft += 1;
+          }
+          setLoggedInUserAttemptsLeft(finalAttemptsLeft);
+          if (userInfo.active_subscription && userInfo.active_subscription?.attempts_left == null) {
+            setLoggedInUserAttemptsLeft('Unlimited');
+          }
         }
-        setLoggedInUserAttemptsLeft(finalAttemptsLeft);
-        if (userInfo.active_subscription && userInfo.active_subscription?.attempts_left == null) {
-          setLoggedInUserAttemptsLeft('Unlimited');
-        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchAttempts();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <Layout>

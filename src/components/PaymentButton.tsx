@@ -3,6 +3,7 @@ import axios from '../config/axios';
 import { isAuthenticated } from './ProtectedRoute';
 import { Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const PaymentButton = ({
   subscriptionId,
@@ -40,16 +41,15 @@ const PaymentButton = ({
           withCredentials: true,
         },
       );
-
       if (response.data.success) {
         window.location.href = response.data.paymentUrl;
       } else {
-        alert('Failed to create invoice. Please try again.');
+        toast.error('Failed to create invoice. Please try again.');
+        setLoading(false);
       }
     } catch (error) {
+      toast.error('Un expected error occurred. Please try again.');
       console.error('❌ Error fetching invoice number:', error);
-    } finally {
-      setLoading(false);
     }
   };
 

@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { getuserInfo } from '../utils/getUserInfo';
 import { SubscriptionNotice } from '../pages/dashboard/client/components/subscriptionNotice';
+import Loader from '../pages/dashboard/client/components/Loader';
 
 const ProtectedExamRoute = () => {
   const [loggedInUserAttemptsLeft, setLoggedInUserAttemptsLeft] = useState(0);
   const [hasFreeTrial, setHasFreeTrial] = useState(false);
   const [unLimited, setUnLimited] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAttempts = async () => {
@@ -30,10 +32,16 @@ const ProtectedExamRoute = () => {
         }
       } catch (error) {
         console.error('Error fetching user attempts:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchAttempts();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return loggedInUserAttemptsLeft > 0 || hasFreeTrial || unLimited ? (
     <Outlet />

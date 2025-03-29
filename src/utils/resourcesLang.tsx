@@ -145,6 +145,10 @@ export const resources = {
       upgrade_message:
         'Upgrade your subscription to get unlimited access to practice exams and improve your knowledge!',
       upgrade_button: 'Upgrade Now',
+      no_sub: "You don't have Subscription! 🚀",
+      upgrade_sub_message: 'Please buy subscription to get access/read to gazette!',
+      updadate_password: 'Change Password',
+      update_profile_button: 'Update Profile',
     },
   },
   fr: {
@@ -291,6 +295,10 @@ export const resources = {
       upgrade_message:
         'Mettez à niveau votre abonnement pour un accès illimité aux examens pratiques et améliorez vos connaissances !',
       upgrade_button: 'Mettre à niveau maintenant',
+      no_sub: "Vous n'avez pas d'abonnement !🚀",
+      upgrade_sub_message: 'Veuillez acheter un abonnement pour avoir accès/lire la gazette !',
+      updadate_password: 'Changer le mot de passe',
+      update_profile_button: 'Mettre à jour le profil',
     },
   },
   kiny: {
@@ -440,6 +448,10 @@ export const resources = {
       upgrade_message:
         'Ongera ifatabuguzi ryawe kugirango ubone amahirwe adafite umubare w’ibizamini byo kwimenyereza no kongera ubumenyi bwawe!',
       upgrade_button: 'Ongera Ifatabuguzi nonaha',
+      no_sub: 'Nta fatabuguzi mufite! 🚀',
+      upgrade_sub_message: 'Gura ifatabuguzi ryawe kugirango ubone amahirwe yo gusoma igazeti!',
+      update_password: 'Hindura Ijambo banga',
+      update_profile_button: 'Hindura Imyirondoro',
     },
   },
 };

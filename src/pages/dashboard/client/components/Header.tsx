@@ -3,7 +3,6 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import LanguageSwitcher from '../../../../components/LanguageSwitcher';
 import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import { getuserInfo } from '../../../../utils/getUserInfo';
@@ -18,7 +17,6 @@ const Header = () => {
       const userData = await getuserInfo();
       if (userData) {
         setLoggedInUserNames(userData.names);
-        toast.success('Welcome back ' + userData.names);
       }
     };
 

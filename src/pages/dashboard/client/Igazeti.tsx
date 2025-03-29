@@ -10,6 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { Loader2 } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getuserInfo } from '../../../utils/getUserInfo';
+import Loader from './components/Loader';
 
 interface Magazine {
   lang: string;
@@ -48,6 +50,9 @@ const Igazeti = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loggedInUserAttemptsLeft, setLoggedInUserAttemptsLeft] = useState(0);
+  const [unLimited, setUnLimited] = useState(false);
+  const [loadingData, setLoadingData] = useState(true);
   const { t } = useTranslation();
 
   const handleGazettePayment = async () => {
@@ -61,7 +66,7 @@ const Igazeti = () => {
         {
           subscription_id: '0',
           language: selectedMagazine.lang.toUpperCase(),
-          transactionType: 'gazette',
+          transactionType: 'gaz',
         },
         {
           headers: {
@@ -86,6 +91,29 @@ const Igazeti = () => {
   };
 
   useEffect(() => {
+    const fetchAttempts = async () => {
+      try {
+        const userInfo = await getuserInfo();
+        if (userInfo) {
+          if (userInfo.active_subscription && userInfo.active_subscription.attempts_left != null) {
+            const attemptsFromSub = userInfo.active_subscription?.attempts_left || 0;
+            setLoggedInUserAttemptsLeft(attemptsFromSub);
+          } else if (
+            userInfo.active_subscription &&
+            userInfo.active_subscription.attempts_left == null
+          ) {
+            setUnLimited(true);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching user attempts:', error);
+      } finally {
+        setLoadingData(false);
+      }
+    };
+    fetchAttempts();
+  }, []);
+  useEffect(() => {
     const fetchAccess = async () => {
       const token = sessionStorage.getItem('token');
       const res = await axios.get('/auth/gazette-access', {
@@ -101,6 +129,33 @@ const Igazeti = () => {
     setIsLoading(true);
     setSelectedMagazine(magazine);
   };
+
+  if (loadingData) {
+    return <Loader />;
+  }
+
+  if (loggedInUserAttemptsLeft <= 0 && !unLimited)
+    return (
+      <Layout>
+        <div className="flex p-6 items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-md w-full">
+            <h2 className="text-2xl font-bold text-gray-800 mb-3">{t('no_sub')}</h2>
+            <p className="text-gray-600 mb-4">{t('upgrade_sub_message')}</p>
+            <button
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300"
+              onClick={() => {
+                window.location.href = '/';
+                setTimeout(() => {
+                  document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+                }, 100); // Wait for navigation
+              }}
+            >
+              {t('upgrade_button')}
+            </button>
+          </div>
+        </div>
+      </Layout>
+    );
 
   return (
     <Fragment>

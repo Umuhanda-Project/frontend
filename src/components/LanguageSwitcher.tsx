@@ -1,4 +1,4 @@
-import  { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
 import { language_options } from '../utils/languageOptions';
 
@@ -32,7 +32,7 @@ const LanguageSwitcher = () => {
     const currentCode = state.currentCode;
     let name = 'English';
     let icon = '🇬🇧';
-    
+
     if (currentCode === 'kiny') {
       name = 'Kinyarwanda';
       icon = '🇷🇼';
@@ -43,7 +43,7 @@ const LanguageSwitcher = () => {
       name = 'English';
       icon = '🇬🇧';
     }
-    
+
     return { name, icon };
   };
 
@@ -63,35 +63,54 @@ const LanguageSwitcher = () => {
           <span className="mr-2 text-lg">{currentLang.icon}</span>
           <span>{currentLang.name}</span>
         </span>
-        <svg 
-          className={`ml-2 h-5 w-5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
-          xmlns="http://www.w3.org/2000/svg" 
-          viewBox="0 0 20 20" 
+        <svg
+          className={`ml-2 h-5 w-5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
           fill="currentColor"
         >
-          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+          <path
+            fillRule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clipRule="evenodd"
+          />
         </svg>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white 
+        <div
+          className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white 
                       shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none 
-                      divide-y divide-gray-100 transform transition-all duration-200 ease-out">
+                      divide-y divide-gray-100 transform transition-all duration-200 ease-out"
+        >
           <div className="py-1">
             {language_options.map((option) => (
               <button
                 key={option.id}
                 onClick={() => handleSelectLanguage(option.name)}
                 className={`group flex w-full items-center px-4 py-2 text-sm hover:bg-gray-100 
-                          ${state.currentCode === (option.value === 'kinyarwanda' ? 'kiny' : option.value.substring(0, 2)) 
-                          ? 'bg-blue-50 text-blue-700 font-medium' 
-                          : 'text-gray-700'}`}
+                          ${
+                            state.currentCode ===
+                            (option.value === 'kinyarwanda' ? 'kiny' : option.value.substring(0, 2))
+                              ? 'bg-blue-50 text-blue-700 font-medium'
+                              : 'text-gray-700'
+                          }`}
               >
                 <span className="mr-3 text-lg">{option.icon}</span>
                 <span>{option.name}</span>
-                {state.currentCode === (option.value === 'kinyarwanda' ? 'kiny' : option.value.substring(0, 2)) && (
-                  <svg className="ml-auto h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                {state.currentCode ===
+                  (option.value === 'kinyarwanda' ? 'kiny' : option.value.substring(0, 2)) && (
+                  <svg
+                    className="ml-auto h-5 w-5 text-blue-600"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 )}
               </button>
