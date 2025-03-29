@@ -61,7 +61,7 @@ const Igazeti = () => {
         {
           subscription_id: '0',
           language: selectedMagazine.lang.toUpperCase(),
-          transactionType: 'gazette',
+          transactionType: 'gaz',
         },
         {
           headers: {
