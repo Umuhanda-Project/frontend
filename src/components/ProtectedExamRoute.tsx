@@ -39,6 +39,7 @@ const ProtectedExamRoute = () => {
     fetchAttempts();
   }, []);
 
+  //loading state
   if (loading) {
     return <Loader />;
   }
