@@ -16,6 +16,8 @@ import RevisionStudy from '../pages/dashboard/client/components/RevisionStudy';
 import ExamTest from '../pages/dashboard/client/ExamTest';
 import ProtectedRoute from '../components/ProtectedRoute';
 import ProtectedExamRoute from '../components/ProtectedExamRoute';
+import PaymentSuccess from '../components/PaymentSuccess';
+import PaymentFailure from '../components/PaymentFailure';
 
 const router = createBrowserRouter([
   {
@@ -75,6 +77,19 @@ const router = createBrowserRouter([
           {
             path: 'revision/:id',
             element: <RevisionStudy />,
+          },
+        ],
+      },
+      {
+        path: 'payment',
+        children: [
+          {
+            path: 'success',
+            element: <PaymentSuccess />,
+          },
+          {
+            path: 'failure',
+            element: <PaymentFailure />,
           },
         ],
       },
