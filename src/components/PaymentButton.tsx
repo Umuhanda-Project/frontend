@@ -17,13 +17,14 @@ const PaymentButton = ({
   const [loading, setLoading] = useState(false);
   const token = sessionStorage.getItem('token');
   const PUBLIC_KEY = import.meta.env.VITE_IPAY_PUBLIC_KEY;
+  const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL;
   const { t } = useTranslation();
 
   const handlePayment = async () => {
     setLoading(true);
 
     if (!isAuthenticated()) {
-      window.location.href = 'http://localhost:5173/signin';
+      window.location.href = `${FRONTEND_URL}/signin`;
       return;
     }
 

@@ -149,6 +149,15 @@ export const resources = {
       upgrade_sub_message: 'Please buy subscription to get access/read to gazette!',
       updadate_password: 'Change Password',
       update_profile_button: 'Update Profile',
+      payment_success_body:
+        'Thank you for subscribing. You can now start learning or taking your trial exams.',
+      payment_success_title: 'Payment Successful!',
+      payment_failure_body: 'Unfortunately, your payment could not be processed.',
+      payment_failure_body2: 'Your invoice is still valid for 15 minutes.',
+      payment_failure_title: 'Payment Failed !',
+      payment_response_button: 'Start/Continue Learning',
+      payment_retry_button: 'Rety Payment',
+      payment_change_plan: 'Choose a different plan',
     },
   },
   fr: {
@@ -299,6 +308,14 @@ export const resources = {
       upgrade_sub_message: 'Veuillez acheter un abonnement pour avoir accès/lire la gazette !',
       updadate_password: 'Changer le mot de passe',
       update_profile_button: 'Mettre à jour le profil',
+      payment_success_body:
+        "Merci de votre inscription. Vous pouvez désormais commencer à apprendre ou à passer vos examens d'essai.!",
+      payment_failure_body: "Malheureusement, votre paiement n'a pas pu être traité.",
+      payment_failure_body2: 'Votre facture est encore valable 15 minutes.',
+      payment_failure_title: 'Échec du paiement!',
+      payment_response_button: "Commencer/Continuer l'apprentissage",
+      payment_retry_button: 'Paiement de remboursement',
+      payment_change_plan: 'Choisissez un autre forfait',
     },
   },
   kiny: {
@@ -452,6 +469,15 @@ export const resources = {
       upgrade_sub_message: 'Gura ifatabuguzi ryawe kugirango ubone amahirwe yo gusoma igazeti!',
       update_password: 'Hindura Ijambo banga',
       update_profile_button: 'Hindura Imyirondoro',
+      payment_success_body:
+        'Murakoze kugura ikfatabuguzi. Ubu mwatangira kwiga no gukora igerageza.',
+      payment_success_title: 'Kwishyura Byagenze neza!',
+      payment_failure_body: "Kubw'amahirwe make kwishyura kwanyu ntibibashije gukorwa.",
+      payment_failure_body2: 'Inyemeza bwishyu yanyu iracyafite agaciro iminota 15.',
+      payment_failure_title: 'Kwishyura ntibibashije gukunda !',
+      payment_response_button: 'Tangira/Ukomeze kwiga',
+      payment_retry_button: 'Gerageza kongera kwishyura',
+      payment_change_plan: 'Hitabo irindi fatabuguzi',
     },
   },
 };
