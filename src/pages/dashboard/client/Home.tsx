@@ -24,7 +24,7 @@ const Home = () => {
         if (
           attemptsData &&
           userInfo &&
-          new Date(userInfo.active_subscription.end_date).getTime() > Date.now()
+          new Date(userInfo.active_subscription?.end_date).getTime() > Date.now()
         ) {
           setLoggedInUserTotalAttempts(attemptsData.totalAttempts);
           setLoggedInUserMaxScore(attemptsData.maxScore);
