@@ -158,6 +158,11 @@ export const resources = {
       payment_response_button: 'Start/Continue Learning',
       payment_retry_button: 'Rety Payment',
       payment_change_plan: 'Choose a different plan',
+      language_mismatch_title: 'Language Mismatch',
+      language_mismatch_body:
+        "Your subscription doesn't support this language. Please use the one you subscribed for or buy another Subscription.",
+      language_mismatch_close: 'Got it !',
+      no_subs: 'No subscriptions available',
     },
   },
   fr: {
@@ -316,6 +321,11 @@ export const resources = {
       payment_response_button: "Commencer/Continuer l'apprentissage",
       payment_retry_button: 'Paiement de remboursement',
       payment_change_plan: 'Choisissez un autre forfait',
+      language_mismatch_title: 'Incompatibilité linguistique',
+      language_mismatch_body:
+        'Votre abonnement ne prend pas en charge cette langue. Veuillez utiliser celle que vous avez choisie ou souscrire un autre abonnement.',
+      language_mismatch_close: "J'ai compris !",
+      no_subs: 'Aucun abonnement disponible',
     },
   },
   kiny: {
@@ -478,6 +488,11 @@ export const resources = {
       payment_response_button: 'Tangira/Ukomeze kwiga',
       payment_retry_button: 'Gerageza kongera kwishyura',
       payment_change_plan: 'Hitabo irindi fatabuguzi',
+      language_mismatch_title: 'Indimi ntizihuye',
+      language_mismatch_body:
+        'Ifatabuguzi ryawe ntago ryemera uru rurimi. Guma mu rurimi wafashemo ifatabuguzi ryawe cyangwa ugure irindi fatabuguzi.',
+      language_mismatch_close: 'Yego',
+      no_subs: 'Nta fatabuguzi mufite',
     },
   },
 };

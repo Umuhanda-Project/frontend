@@ -1,11 +1,28 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
 import { language_options } from '../utils/languageOptions';
+import { getuserInfo } from '../utils/getUserInfo';
+import { useTranslation } from 'react-i18next';
 
 const LanguageSwitcher = () => {
   const { state, setLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [userSubscriptionLang, setUserSubscriptionLang] = useState<string | null>(null); // e.g., 'en', 'fr', 'kiny'
+  const [showWarning, setShowWarning] = useState(false);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const res = await getuserInfo();
+      const lang = res?.active_subscription?.language?.toLowerCase();
+      if (lang === 'ki') setUserSubscriptionLang('kiny');
+      else if (lang === 'eng') setUserSubscriptionLang('en');
+      else if (lang === 'fr') setUserSubscriptionLang('fr');
+    };
+
+    fetchUserInfo();
+  }, []);
 
   // Handle clicking outside to close dropdown
   useEffect(() => {
@@ -19,11 +36,18 @@ const LanguageSwitcher = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Handle language selection based on your existing logic
   const handleSelectLanguage = (languageName: string) => {
-    if (languageName === 'Kinyarwanda') setLanguage('kiny');
-    if (languageName === 'English') setLanguage('en');
-    if (languageName === 'French') setLanguage('fr');
+    let selectedCode: 'en' | 'fr' | 'kiny' = 'en';
+    if (languageName === 'Kinyarwanda') selectedCode = 'kiny';
+    if (languageName === 'French') selectedCode = 'fr';
+
+    if (userSubscriptionLang && selectedCode !== userSubscriptionLang) {
+      setShowWarning(true);
+      setIsOpen(false);
+      return;
+    }
+
+    setLanguage(selectedCode);
     setIsOpen(false);
   };
 
@@ -116,6 +140,31 @@ const LanguageSwitcher = () => {
               </button>
             ))}
           </div>
+        </div>
+      )}
+      {showWarning && (
+        <div
+          className="absolute top-0 left-48 w-80 bg-white shadow-xl rounded-md p-4 border border-red-200 
+                   animate-slide-in flex flex-col gap-2 z-40"
+        >
+          <div className="flex items-center gap-2 text-red-600 font-semibold">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"
+              />
+            </svg>
+            <span>{t('language_mismatch_title')}</span>
+          </div>
+          <p className="text-sm text-gray-700">{t('language_mismatch_body')}</p>
+          <button
+            onClick={() => setShowWarning(false)}
+            className="self-end text-sm text-blue-600 hover:underline mt-2"
+          >
+            {t('language_mismatch_close')}
+          </button>
         </div>
       )}
     </div>
