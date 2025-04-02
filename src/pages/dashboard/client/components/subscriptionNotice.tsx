@@ -1,8 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import Layout from '../Layout';
+import { useNavigate } from 'react-router-dom';
 
 export const SubscriptionNotice = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handleUpgrade = () => {
+    navigate('/', { state: { scrollTo: 'pricing' } });
+  };
 
   return (
     <Layout>
@@ -12,12 +18,7 @@ export const SubscriptionNotice = () => {
           <p className="text-gray-600 mb-4">{t('upgrade_message')}</p>
           <button
             className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300"
-            onClick={() => {
-              window.location.href = '/';
-              setTimeout(() => {
-                document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-              }, 100); // Wait for navigation
-            }}
+            onClick={handleUpgrade}
           >
             {t('upgrade_button')}
           </button>
