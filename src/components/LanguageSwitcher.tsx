@@ -1,28 +1,34 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
 import { language_options } from '../utils/languageOptions';
-import { getuserInfo } from '../utils/getUserInfo';
 import { useTranslation } from 'react-i18next';
+import { useUser } from '../context/userContext';
 
 const LanguageSwitcher = () => {
   const { state, setLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user } = useUser();
   const [userSubscriptionLang, setUserSubscriptionLang] = useState<string | null>(null); // e.g., 'en', 'fr', 'kiny'
   const [showWarning, setShowWarning] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      const res = await getuserInfo();
-      const lang = res?.active_subscription?.language?.toLowerCase();
-      if (lang === 'ki') setUserSubscriptionLang('kiny');
-      else if (lang === 'eng') setUserSubscriptionLang('en');
-      else if (lang === 'fr') setUserSubscriptionLang('fr');
-    };
+    const lang = user?.active_subscription?.language?.toLowerCase();
 
-    fetchUserInfo();
-  }, []);
+    let defaultLang: 'kiny' | 'en' | 'fr' | null = null;
+
+    if (lang === 'ki') defaultLang = 'kiny';
+    else if (lang === 'en') defaultLang = 'en';
+    else if (lang === 'fr') defaultLang = 'fr';
+
+    // If the app's language is not already set to this, set it
+    if (defaultLang && state.currentCode !== defaultLang) {
+      setLanguage(defaultLang);
+    }
+
+    setUserSubscriptionLang(defaultLang);
+  }, [user]);
 
   // Handle clicking outside to close dropdown
   useEffect(() => {
@@ -144,8 +150,8 @@ const LanguageSwitcher = () => {
       )}
       {showWarning && (
         <div
-          className="absolute top-0 left-48 w-80 bg-white shadow-xl rounded-md p-4 border border-red-200 
-                   animate-slide-in flex flex-col gap-2 z-40"
+          className="absolute top-full mt-2 right-0 w-80 bg-white shadow-xl rounded-md p-4 border border-red-200 
+                   animate-slide-in flex flex-col gap-2 z-50"
         >
           <div className="flex items-center gap-2 text-red-600 font-semibold">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
