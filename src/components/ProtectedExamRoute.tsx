@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import { getuserInfo } from '../utils/getUserInfo';
 import { SubscriptionNotice } from '../pages/dashboard/client/components/subscriptionNotice';
 import Loader from '../pages/dashboard/client/components/Loader';
-import { userInfo } from 'os';
 
 const ProtectedExamRoute = () => {
   const [loggedInUserAttemptsLeft, setLoggedInUserAttemptsLeft] = useState(0);
@@ -46,8 +45,6 @@ const ProtectedExamRoute = () => {
   if (loading) {
     return <Loader />;
   }
-
-  console.log(loggedInUserAttemptsLeft, hasFreeTrial, unLimited);
 
   return loggedInUserAttemptsLeft > 0 || hasFreeTrial || unLimited ? (
     <Outlet />
