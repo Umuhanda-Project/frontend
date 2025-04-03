@@ -150,8 +150,8 @@ const LanguageSwitcher = () => {
       )}
       {showWarning && (
         <div
-          className="absolute top-0 left-48 w-80 bg-white shadow-xl rounded-md p-4 border border-red-200 
-                   animate-slide-in flex flex-col gap-2 z-40"
+          className="absolute top-full mt-2 right-0 w-80 bg-white shadow-xl rounded-md p-4 border border-red-200 
+                   animate-slide-in flex flex-col gap-2 z-50"
         >
           <div className="flex items-center gap-2 text-red-600 font-semibold">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
