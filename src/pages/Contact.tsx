@@ -1,39 +1,38 @@
-import Layout from "../Layout";
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import Layout from '../Layout';
+import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { toast } from "react-toastify";
-import axios from '../config/axios'
+import { toast } from 'react-toastify';
+import axios from '../config/axios';
 import 'react-toastify/dist/ReactToastify.css';
-import { Loader2 } from "lucide-react";
+import { Loader2 } from 'lucide-react';
 
 const Contact = () => {
-
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    names: "",
-    email: "",
-    phone_number: "",
-    message: "",
+    names: '',
+    email: '',
+    phone_number: '',
+    message: '',
   });
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setFormData({
       ...formData,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
 
   const initialFormState = {
-    names: "",
-    email: "",
-    phone_number: "",
-    message: "",
+    names: '',
+    email: '',
+    phone_number: '',
+    message: '',
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     setIsLoading(true);
@@ -42,19 +41,18 @@ const Contact = () => {
         names: formData.names,
         email: formData.email,
         phone_number: formData.phone_number,
-        message: formData.message
+        message: formData.message,
       });
-      if(response.status==201){
+      if (response.status == 201) {
         setFormData(initialFormState);
-       toast.success(response.data.message);
-       }
-       else{
         toast.success(response.data.message);
-       }
-    } catch (error:any) {
-      console.log(error)
+      } else {
+        toast.success(response.data.message);
+      }
+    } catch (error: any) {
+      console.log(error);
 
-      toast.error(error.response?.data?.error || "Message was not sent !");
+      toast.error(error.response?.data?.error || 'Message was not sent !');
     } finally {
       setIsLoading(false);
     }
@@ -62,26 +60,19 @@ const Contact = () => {
 
   return (
     <Layout>
-       <ToastContainer position="top-right" />
+      <ToastContainer position="top-right" />
       <section className="h-full flex flex-col items-center mt-16 px-4">
         {/* Header */}
         <header className="text-center">
-          <h1 className="text-3xl font-bold text-blue-600">
-            {t('contact_header')}
-          </h1>
-          <p className="text-gray-600 mt-2">
-            {t('contact_message')}
-          </p>
+          <h1 className="text-3xl font-bold text-blue-600">{t('contact_header')}</h1>
+          <p className="text-gray-600 mt-2">{t('contact_message')}</p>
         </header>
 
         {/* Contact Form */}
         <div className="mt-10 w-full max-w-md bg-white shadow-lg rounded-lg p-6">
           <form className="flex flex-col space-y-6" onSubmit={handleSubmit}>
-          <div>
-              <label
-                htmlFor="names"
-                className="block text-sm font-medium text-gray-700"
-              >
+            <div>
+              <label htmlFor="names" className="block text-sm font-medium text-gray-700">
                 {t('fullName')}
               </label>
               <input
@@ -96,10 +87,7 @@ const Contact = () => {
               />
             </div>
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 {t('email')}
               </label>
               <input
@@ -114,10 +102,7 @@ const Contact = () => {
             </div>
             {/* Phone Number Input */}
             <div>
-              <label
-                htmlFor="phone_number"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="phone_number" className="block text-sm font-medium text-gray-700">
                 {t('phone_number')}
               </label>
               <input
@@ -135,10 +120,7 @@ const Contact = () => {
 
             {/* Message Input */}
             <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700">
                 {t('message_label')}
               </label>
               <textarea
@@ -158,13 +140,13 @@ const Contact = () => {
               type="submit"
               className="bg-blue-600 py-3 text-white rounded-md font-medium hover:bg-blue-700 transition duration-300"
             >
-                 {isLoading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  </>
-                ) : (
-                  t("submit_button")
-                )}
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                </>
+              ) : (
+                t('submit_button')
+              )}
             </button>
           </form>
         </div>
@@ -173,7 +155,6 @@ const Contact = () => {
         <div className="mt-10 text-center">
           <p className="text-gray-700">{t('contact_info')}</p>
           <p className="font-semibold text-blue-600 mt-2">{t('contact_number')}</p>
-          <p className="font-semibold text-blue-600">{t('contact_number')}</p>
         </div>
       </section>
     </Layout>

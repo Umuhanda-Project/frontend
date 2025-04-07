@@ -52,7 +52,8 @@ const Header = () => {
                     } hover:text-blue-500 transition duration-300`
                   }
                 >
-                  Back To Dashboard
+                  {t('back_to_dashboard')}
+
                 </NavLink>
               </li>
             )}
