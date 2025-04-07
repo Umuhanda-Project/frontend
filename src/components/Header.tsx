@@ -1,29 +1,26 @@
-import logo from "../assets/Umuhanda_logo.png";
-import { NavLink } from "react-router";
-import { useTranslation } from "react-i18next";
-import LanguageSwitcher from "./LanguageSwitcher";
+import logo from '../assets/Umuhanda_logo.png';
+import { NavLink } from 'react-router';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
+import { isAuthenticated } from './ProtectedRoute';
 
 // Constants for easier maintainability
 const MENU_ITEMS = [
-  { name: "home", href: "/" },
-  { name: "exams", href: "/signin" },
-  { name: "login", href: "/signin" },
-  { name: "pricing", href: "/" },
-  { name: "contact", href: "/contact" },
+  { name: 'home', href: '/' },
+  { name: 'exams', href: '/signin' },
+  { name: 'login', href: '/signin' },
+  { name: 'pricing', href: '/' },
+  { name: 'contact', href: '/contact' },
 ];
 
 const Header = () => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
 
   return (
     <header className="flex flex-col sm:flex-row items-center justify-between py-4 px-6 shadow-md">
       {/* Logo Section */}
       <div className="mb-4 sm:mb-0">
-        <img
-          src={logo}
-          alt="Umuhanda Logo - Navigate to Home"
-          className="w-32 sm:w-40"
-        />
+        <img src={logo} alt="Umuhanda Logo - Navigate to Home" className="w-32 sm:w-40" />
       </div>
 
       {/* Navigation & Language Section */}
@@ -37,7 +34,7 @@ const Header = () => {
                   to={item.href}
                   className={({ isActive }) =>
                     `text-sm font-medium ${
-                      isActive ? "text-blue-500 underline" : "text-gray-700"
+                      isActive ? 'text-blue-500 underline' : 'text-gray-700'
                     } hover:text-blue-500 transition duration-300`
                   }
                 >
@@ -45,6 +42,20 @@ const Header = () => {
                 </NavLink>
               </li>
             ))}
+            {isAuthenticated() && (
+              <li>
+                <NavLink
+                  to="client"
+                  className={({ isActive }) =>
+                    `text-sm font-medium ${
+                      isActive ? 'text-blue-500 underline' : 'text-gray-700'
+                    } hover:text-blue-500 transition duration-300`
+                  }
+                >
+                  {t('back_to_dashboard')}
+                </NavLink>
+              </li>
+            )}
           </ul>
         </nav>
 
