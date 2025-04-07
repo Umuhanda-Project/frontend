@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Loader2 } from 'lucide-react';
 import { getuserInfo } from '../../../utils/getUserInfo';
 import Loader from './components/Loader';
+import { profileSchema } from '../../../utils/Validations/ProfileSchema';
 
 const Settings = () => {
   const { t } = useTranslation();
@@ -39,19 +40,24 @@ const Settings = () => {
     return new Date(dateString).toISOString().split('T')[0];
   };
 
+  const today = new Date().toISOString().split('T')[0];
+
   useEffect(() => {
     const fetchuserInfo = async () => {
       try {
         const userData = await getuserInfo();
         if (userData) {
-          setUserInfo({
-            ...userData,
-            birth_date: formatDate(userData.birth_date),
-          });
-          setFormData({
-            ...userData,
-            birth_date: formatDate(userData.birth_date),
-          });
+          const cleanedData = {
+            names: userData.names || '',
+            email: userData.email || '',
+            phone_number: userData.phone_number || '',
+            city: userData.city || '',
+            country: userData.country || '',
+            address: userData.address || '',
+            birth_date: formatDate(userData.birth_date) || '',
+          };
+          setUserInfo(cleanedData);
+          setFormData(cleanedData);
         }
       } catch (error) {
         console.log('Error Fetching User info: ', error);
@@ -74,6 +80,13 @@ const Settings = () => {
 
   const handleUpdateProfile = async (e: any) => {
     e.preventDefault();
+
+    const { error } = profileSchema.validate(formData, { abortEarly: false });
+    if (error) {
+      console.log(error);
+      error.details.forEach((err) => toast.error(err.message));
+      return;
+    }
 
     setIsLoading(true);
     try {
@@ -259,6 +272,7 @@ const Settings = () => {
                       type="date"
                       id="birth_date"
                       value={formData.birth_date}
+                      max={today}
                       onChange={handleChange}
                       className="block w-full rounded-md border-gray-300 py-3 px-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
                     />
