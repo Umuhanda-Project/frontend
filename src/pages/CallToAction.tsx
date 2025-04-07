@@ -1,10 +1,14 @@
-import { useTranslation } from "react-i18next";
-import video from "../assets/video1.mp4";
-import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
+import video from '../assets/video1.mp4';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router';
 
 const CallToAction = () => {
-
-  const {t} = useTranslation()
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const start = () => {
+    navigate('/client');
+  };
   return (
     <div className="relative flex items-center justify-center my-6">
       {/* Video Background */}
@@ -24,15 +28,16 @@ const CallToAction = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {t("call_to_action")}
+          {t('call_to_action')}
         </motion.p>
         <motion.button
+          onClick={start}
           className="bg-blue-500 text-white py-3 px-6 rounded-full hover:bg-blue-600 focus:ring-4 focus:ring-blue-300"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           aria-label="Tangira hano"
         >
-         {t("start_now")}
+          {t('start_now')}
         </motion.button>
       </div>
     </div>

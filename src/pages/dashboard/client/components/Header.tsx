@@ -2,7 +2,7 @@ import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { IoSettingsOutline } from 'react-icons/io5';
 import LanguageSwitcher from '../../../../components/LanguageSwitcher';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../../config/axios';
@@ -12,7 +12,14 @@ import { useUser } from '../../../../context/userContext';
 const Header = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { user, updateActiveSubscription } = useUser();
+  const { user, fetchAttempts, updateActiveSubscription } = useUser();
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchAttempts();
+    };
+    fetchData();
+  }, [user?.active_subscription?._id]);
+
   const [activeSubscriptionId, setActiveSubscriptionId] = useState(
     user?.active_subscription?._id || '',
   );

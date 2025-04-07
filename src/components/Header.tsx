@@ -7,7 +7,7 @@ import { isAuthenticated } from './ProtectedRoute';
 // Constants for easier maintainability
 const MENU_ITEMS = [
   { name: 'home', href: '/' },
-  { name: 'exams', href: '/signin' },
+  { name: 'exams', href: '/client/exam' },
   { name: 'login', href: '/signin' },
   { name: 'pricing', href: '/' },
   { name: 'contact', href: '/contact' },
@@ -53,7 +53,6 @@ const Header = () => {
                   }
                 >
                   {t('back_to_dashboard')}
-
                 </NavLink>
               </li>
             )}

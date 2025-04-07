@@ -1,14 +1,21 @@
-import logo from "../assets/Umuhanda_logo.png"
+import logo from '../assets/Umuhanda_logo.png';
 import { FaInstagram, FaFacebook, FaYoutube, FaTwitter, FaTiktok } from 'react-icons/fa';
 
 const Footer = () => {
-
-const socialLinks = [
-    { icon: FaInstagram, href: 'https://www.instagram.com/reel/C8hqmnTtCee/?igsh=MTRvMWR2azFmZm94', label: 'Instagram' },
+  const socialLinks = [
+    {
+      icon: FaInstagram,
+      href: 'https://www.instagram.com/reel/C8hqmnTtCee/?igsh=MTRvMWR2azFmZm94',
+      label: 'Instagram',
+    },
     { icon: FaFacebook, href: '#', label: 'Facebook' },
-    { icon: FaYoutube, href: 'https://youtube.com/@honestdrivingschool?si=kFe-OCFVLXz4lAXT', label: 'YouTube' },
+    {
+      icon: FaYoutube,
+      href: 'https://youtube.com/@honestdrivingschool?si=kFe-OCFVLXz4lAXT',
+      label: 'YouTube',
+    },
     { icon: FaTwitter, href: '#', label: 'Twitter' },
-    { icon: FaTiktok, href: 'https://vm.tiktok.com/ZMkv4CPTe/', label: 'TikTok' }
+    { icon: FaTiktok, href: 'https://vm.tiktok.com/ZMkv4CPTe/', label: 'TikTok' },
   ];
 
   return (
@@ -17,11 +24,7 @@ const socialLinks = [
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <img 
-              src={logo}
-              alt="Umuhanda Logo"
-              className="h-8 w-32 object-contain"
-            />
+            <img src={logo} alt="Umuhanda Logo" className="h-8 w-32 object-contain" />
           </div>
 
           {/* Copyright */}

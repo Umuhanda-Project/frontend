@@ -138,7 +138,7 @@ const Contact = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="bg-blue-600 py-3 text-white rounded-md font-medium hover:bg-blue-700 transition duration-300"
+              className="bg-blue-600 flex justify-center py-3 text-white rounded-md font-medium hover:bg-blue-700 transition duration-300"
             >
               {isLoading ? (
                 <>
