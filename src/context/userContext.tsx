@@ -3,7 +3,10 @@ import { getuserInfo } from '../utils/getUserInfo';
 import { getuserAttempts } from '../utils/getuserAttempts';
 import axios from '../config/axios';
 import io from 'socket.io-client';
-const socket = io(import.meta.env.VITE_API_URL);
+//const socket = io(import.meta.env.VITE_API_URL);
+const socket = io(import.meta.env.VITE_API_URL, {
+  withCredentials: true,
+});
 
 const UserContext = createContext<any>(null);
 
@@ -60,10 +63,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     const channel = `user:updated:${user._id}`;
 
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
       console.log('🔄 User updated via socket');
-      fetchUser();
-      fetchAttempts();
+      const freshUser = await getuserInfo();
+      setUser(freshUser);
     };
 
     socket.on(channel, handleUpdate);
