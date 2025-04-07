@@ -53,6 +53,7 @@ const Header = () => {
                   }
                 >
                   {t('back_to_dashboard')}
+
                 </NavLink>
               </li>
             )}
