@@ -163,6 +163,7 @@ export const resources = {
         "Your subscription doesn't support this language. Please use the one you subscribed for or buy another Subscription.",
       language_mismatch_close: 'Got it !',
       no_subs: 'No subscriptions available',
+      back_to_dashboard: 'Dashboad',
     },
   },
   fr: {
@@ -326,6 +327,7 @@ export const resources = {
         'Votre abonnement ne prend pas en charge cette langue. Veuillez utiliser celle que vous avez choisie ou souscrire un autre abonnement.',
       language_mismatch_close: "J'ai compris !",
       no_subs: 'Aucun abonnement disponible',
+      back_to_dashboard: 'Tableau de bord ',
     },
   },
   kiny: {
@@ -493,6 +495,7 @@ export const resources = {
         'Ifatabuguzi ryawe ntago ryemera uru rurimi. Guma mu rurimi wafashemo ifatabuguzi ryawe cyangwa ugure irindi fatabuguzi.',
       language_mismatch_close: 'Yego',
       no_subs: 'Nta fatabuguzi mufite',
+      back_to_dashboard: 'Aho Nigira ',
     },
   },
 };
