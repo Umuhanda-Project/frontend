@@ -43,7 +43,7 @@ const PaymentButton = ({
         },
       );
       if (response.data.success) {
-        window.location.href = response.data.paymentUrl;
+        window.open(response.data.paymentUrl, '_blank');
       } else {
         toast.error('Failed to create invoice. Please try again.');
         setLoading(false);
@@ -58,7 +58,7 @@ const PaymentButton = ({
     <button
       onClick={handlePayment}
       disabled={loading || disabled}
-      className={`w-full px-6 py-3 rounded-lg shadow-md transition-all duration-300 ${
+      className={`w-full flex justify-center px-6 py-3 rounded-lg shadow-md transition-all duration-300 ${
         loading || disabled
           ? 'bg-blue-400 cursor-not-allowed'
           : 'bg-blue-600 hover:bg-blue-700 text-white hover:bg-blue-700'
