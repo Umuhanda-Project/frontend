@@ -2,6 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getuserInfo } from '../utils/getUserInfo';
 import { getuserAttempts } from '../utils/getuserAttempts';
 import axios from '../config/axios';
+import io from 'socket.io-client';
+const socket = io(import.meta.env.VITE_API_URL);
 
 const UserContext = createContext<any>(null);
 
@@ -53,15 +55,30 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    if (!user?._id) return;
+
+    const channel = `user:updated:${user._id}`;
+
+    const handleUpdate = () => {
+      console.log('🔄 User updated via socket');
+      fetchUser();
+      fetchAttempts();
+    };
+
+    socket.on(channel, handleUpdate);
+
+    return () => {
+      socket.off(channel, handleUpdate);
+    };
+  }, [user?._id]);
+
   const updateActiveSubscription = async (subId: string) => {
     try {
       await axios.post(
         '/user-subscription/change-active',
         { subscription_id: subId },
         {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-          },
           withCredentials: true,
         },
       );
