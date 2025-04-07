@@ -1,17 +1,10 @@
 import axios from '../config/axios';
-import { tokenDecoder } from './tokenDecoder';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const decodedToken = tokenDecoder();
-const token = sessionStorage.getItem('token');
-
 export const getuserInfo = async () => {
   try {
-    const response = await axios.get(`/auth/info/${decodedToken?.id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const response = await axios.get('/auth/info', {
       withCredentials: true,
     });
 

@@ -17,30 +17,24 @@ const Header = () => {
     user?.active_subscription?._id || '',
   );
 
-  const token = sessionStorage.getItem('token');
-
   const handleActiveChange = async (e: any) => {
     const selectedId = e.target.value;
     setActiveSubscriptionId(selectedId);
 
     try {
-      await axios.post(
-        '/user-subscription/change-active',
-        {
-          subscription_id: selectedId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        },
-      );
-    } catch (error) {
+      const response = await axios.post('/user-subscription/change-active', {
+        subscription_id: selectedId,
+      });
+      updateActiveSubscription(selectedId);
+      if (response.status == 200) {
+        toast.success('Active subscription changed!');
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error: any) {
       console.log(error);
+      toast.error(error.response.data.message);
     }
-    updateActiveSubscription(selectedId);
-    toast.success('Active subscription changed!');
   };
 
   return (
