@@ -8,6 +8,11 @@ interface PaymentSuccessModalProps {
   onClose: () => void;
 }
 
+interface PaymentSuccessModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
 
@@ -35,15 +40,12 @@ const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = ({ isOpen, onClo
 
         <h2 className="text-2xl font-bold text-green-600 mb-3">🎉 {t('payment_success_title')}</h2>
         <p className="text-gray-700 mb-6">{t('payment_success_body')}</p>
-        <button
-          onClick={() => {
-            window.location.href = '/dashboard';
-          }}
+        <Link
+          to="/dashboard"
           className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
         >
           {t('payment_response_button')}
-        </button>
-
+        </Link>
       </motion.div>
     </div>
   );
