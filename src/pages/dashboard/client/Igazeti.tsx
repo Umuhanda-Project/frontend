@@ -10,8 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { Loader2 } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getuserInfo } from '../../../utils/getUserInfo';
 import Loader from './components/Loader';
+import { useUser } from '../../../context/userContext';
 
 interface Magazine {
   lang: string;
@@ -50,9 +50,8 @@ const Igazeti = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [loggedInUserAttemptsLeft, setLoggedInUserAttemptsLeft] = useState(0);
-  const [unLimited, setUnLimited] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
+  const { attempts, fetchAttempts, loading: userLoading, user } = useUser();
   const { t } = useTranslation();
 
   const handleGazettePayment = async () => {
@@ -78,7 +77,7 @@ const Igazeti = () => {
       );
 
       if (response.data.success) {
-        window.location.href = response.data.paymentUrl;
+        window.open(response.data.paymentUrl, '_blank');
       } else {
         toast.error('Something Went Wrong');
       }
@@ -91,28 +90,13 @@ const Igazeti = () => {
   };
 
   useEffect(() => {
-    const fetchAttempts = async () => {
-      try {
-        const userInfo = await getuserInfo();
-        if (userInfo) {
-          if (userInfo.active_subscription && userInfo.active_subscription.attempts_left != null) {
-            const attemptsFromSub = userInfo.active_subscription?.attempts_left || 0;
-            setLoggedInUserAttemptsLeft(attemptsFromSub);
-          } else if (
-            userInfo.active_subscription &&
-            userInfo.active_subscription.attempts_left == null
-          ) {
-            setUnLimited(true);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching user attempts:', error);
-      } finally {
-        setLoadingData(false);
-      }
+    const fetchData = async () => {
+      await fetchAttempts();
+      setLoadingData(false);
     };
-    fetchAttempts();
-  }, []);
+    fetchData();
+  }, [user?.active_subscription?._id]);
+
   useEffect(() => {
     const fetchAccess = async () => {
       const token = sessionStorage.getItem('token');
@@ -130,11 +114,11 @@ const Igazeti = () => {
     setSelectedMagazine(magazine);
   };
 
-  if (loadingData) {
+  if (loadingData || userLoading) {
     return <Loader />;
   }
 
-  if (loggedInUserAttemptsLeft <= 0 && !unLimited)
+  if (attempts.leftAttempts <= 0 && !attempts.unLimited)
     return (
       <Layout>
         <div className="flex p-6 items-center justify-center">

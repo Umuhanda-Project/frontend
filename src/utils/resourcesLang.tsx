@@ -163,7 +163,9 @@ export const resources = {
         "Your subscription doesn't support this language. Please use the one you subscribed for or buy another Subscription.",
       language_mismatch_close: 'Got it !',
       no_subs: 'No subscriptions available',
-      back_to_dashboard: 'Dashboad',
+      back_to_dashboard: 'Dashboard',
+      buy_new: 'Buy new',
+      back_home: 'Back Home',
     },
   },
   fr: {
@@ -328,6 +330,8 @@ export const resources = {
       language_mismatch_close: "J'ai compris !",
       no_subs: 'Aucun abonnement disponible',
       back_to_dashboard: 'Tableau de bord ',
+      buy_new: 'Acheter du neuf',
+      back_home: "Retour à la page d'accueil",
     },
   },
   kiny: {
@@ -496,6 +500,8 @@ export const resources = {
       language_mismatch_close: 'Yego',
       no_subs: 'Nta fatabuguzi mufite',
       back_to_dashboard: 'Aho Nigira ',
+      buy_new: 'Gura rishya',
+      back_home: 'Subira ahabanza',
     },
   },
 };

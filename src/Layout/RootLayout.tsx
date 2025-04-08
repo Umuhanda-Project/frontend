@@ -2,9 +2,10 @@ import { ReactNode } from 'react';
 import { LanguageProvider } from '../context/LanguageContext';
 import { ModalProvider } from '../providers/ModalProviders';
 import { UserProvider } from '../context/userContext';
+import { Outlet } from 'react-router-dom';
 
 type RootLayoutProps = {
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 const RootLayout = ({ children }: RootLayoutProps) => {
@@ -12,7 +13,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     <UserProvider>
       <ModalProvider>
         <LanguageProvider>
-          <div className="font-outfit">{children}</div>
+          <div className="font-outfit"> {children || <Outlet />}</div>
         </LanguageProvider>
       </ModalProvider>
     </UserProvider>
