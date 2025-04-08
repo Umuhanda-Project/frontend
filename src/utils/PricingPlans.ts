@@ -61,20 +61,20 @@ export const PricingPlans = [
     subId: JUNIOR_EN_FR,
     name: 'beginner',
     price: 1000,
-    language: 'Francais',
+    language: 'French',
   },
   {
     id: 9,
     subId: SENIOR_EN_FR,
     name: 'experienced',
     price: 10000,
-    language: 'Francais',
+    language: 'French',
   },
   {
     id: 10,
     subId: PREMIUM_EN_FR,
     name: 'master',
     price: 15000,
-    language: 'Francais',
+    language: 'French',
   },
 ];

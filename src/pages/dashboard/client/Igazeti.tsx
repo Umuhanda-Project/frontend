@@ -10,8 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { Loader2 } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getuserInfo } from '../../../utils/getUserInfo';
 import Loader from './components/Loader';
+import { useUser } from '../../../context/userContext';
 
 interface Magazine {
   lang: string;
@@ -48,11 +48,15 @@ const magazines: Magazine[] = [
 const Igazeti = () => {
   const [selectedMagazine, setSelectedMagazine] = useState<Magazine>(magazines[0]);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasAccess, setHasAccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [loggedInUserAttemptsLeft, setLoggedInUserAttemptsLeft] = useState(0);
-  const [unLimited, setUnLimited] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
+  const {
+    attempts,
+    fetchAttempts,
+    hasAccessToDownloadGazette,
+    loading: userLoading,
+    user,
+  } = useUser();
   const { t } = useTranslation();
 
   const handleGazettePayment = async () => {
@@ -78,7 +82,7 @@ const Igazeti = () => {
       );
 
       if (response.data.success) {
-        window.location.href = response.data.paymentUrl;
+        window.open(response.data.paymentUrl, '_blank');
       } else {
         toast.error('Something Went Wrong');
       }
@@ -91,50 +95,23 @@ const Igazeti = () => {
   };
 
   useEffect(() => {
-    const fetchAttempts = async () => {
-      try {
-        const userInfo = await getuserInfo();
-        if (userInfo) {
-          if (userInfo.active_subscription && userInfo.active_subscription.attempts_left != null) {
-            const attemptsFromSub = userInfo.active_subscription?.attempts_left || 0;
-            setLoggedInUserAttemptsLeft(attemptsFromSub);
-          } else if (
-            userInfo.active_subscription &&
-            userInfo.active_subscription.attempts_left == null
-          ) {
-            setUnLimited(true);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching user attempts:', error);
-      } finally {
-        setLoadingData(false);
-      }
+    const fetchData = async () => {
+      await fetchAttempts();
+      setLoadingData(false);
     };
-    fetchAttempts();
-  }, []);
-  useEffect(() => {
-    const fetchAccess = async () => {
-      const token = sessionStorage.getItem('token');
-      const res = await axios.get('/auth/gazette-access', {
-        headers: { Authorization: `Bearer ${token}` },
-        withCredentials: true,
-      });
-      setHasAccess(res.data.hasAccess);
-    };
-    fetchAccess();
-  }, []);
+    fetchData();
+  }, [user?.active_subscription?._id]);
 
   const handleMagazineChange = (magazine: Magazine) => {
     setIsLoading(true);
     setSelectedMagazine(magazine);
   };
 
-  if (loadingData) {
+  if (loadingData || userLoading) {
     return <Loader />;
   }
 
-  if (loggedInUserAttemptsLeft <= 0 && !unLimited)
+  if (attempts.leftAttempts <= 0 && !attempts.unLimited)
     return (
       <Layout>
         <div className="flex p-6 items-center justify-center">
@@ -218,7 +195,7 @@ const Igazeti = () => {
               </div>
             )}
 
-            {!hasAccess && (
+            {!hasAccessToDownloadGazette && (
               <div className="m-2 text-center">
                 <p className="text-red-600 mb-4 font-medium">{t('needToPayGazette')}</p>
                 <button
@@ -250,14 +227,14 @@ const Igazeti = () => {
                 console.log('Magazine loaded successfully');
               }}
               onAccessRevoked={() => {
-                setHasAccess(false);
                 toast.info('You have downloaded the gazette. Access is now revoked.');
+                fetchAttempts();
               }}
               onLoadError={(error) => {
                 setIsLoading(false);
                 console.error('Failed to load magazine:', error);
               }}
-              hideDownload={!hasAccess}
+              hideDownload={!hasAccessToDownloadGazette}
               onDownload={() => console.log(`Downloading ${selectedMagazine.title}`)}
             />
           </motion.div>
