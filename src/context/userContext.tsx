@@ -3,7 +3,7 @@ import { getuserInfo } from '../utils/getUserInfo';
 import { getuserAttempts } from '../utils/getuserAttempts';
 import axios from '../config/axios';
 import io from 'socket.io-client';
-//const socket = io(import.meta.env.VITE_API_URL);
+import PaymentSuccessModal from '../components/PaymentSuccess';
 const socket = io(import.meta.env.VITE_API_URL, {
   withCredentials: true,
 });
@@ -19,6 +19,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   const [loading, setLoading] = useState(true);
+  const [isPaymentSuccessOpen, setIsPaymentSuccessOpen] = useState(false);
 
   const fetchUser = async () => {
     const data = await getuserInfo();
@@ -67,6 +68,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       console.log('🔄 User updated via socket');
       const freshUser = await getuserInfo();
       setUser(freshUser);
+      setIsPaymentSuccessOpen(true);
     };
 
     socket.on(channel, handleUpdate);
@@ -99,6 +101,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       value={{ user, setUser, updateActiveSubscription, loading, attempts, fetchAttempts }}
     >
       {children}
+      <PaymentSuccessModal
+        isOpen={isPaymentSuccessOpen}
+        onClose={() => setIsPaymentSuccessOpen(false)}
+      />
     </UserContext.Provider>
   );
 };
