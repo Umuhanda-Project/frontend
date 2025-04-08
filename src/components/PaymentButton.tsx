@@ -43,7 +43,7 @@ const PaymentButton = ({
         },
       );
       if (response.data.success) {
-        window.location.href = response.data.paymentUrl;
+        window.open(response.data.paymentUrl, '_blank');
       } else {
         toast.error('Failed to create invoice. Please try again.');
         setLoading(false);
