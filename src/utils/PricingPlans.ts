@@ -46,7 +46,7 @@ export const PricingPlans = [
     id: 6,
     subId: SENIOR_EN_FR,
     name: 'senior',
-    price: 1000,
+    price: 10000,
     language: 'English',
   },
   {
