@@ -1,4 +1,3 @@
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from '../App';
 import { Contact } from '../pages';
@@ -47,19 +46,6 @@ const router = createBrowserRouter([
         path: '/verificationcode',
         element: <VerificationCode />,
       },
-      // {
-      //   path: 'payment',
-      //   children: [
-      //     {
-      //       path: 'success',
-      //       element: <PaymentSuccess />,
-      //     },
-      //     {
-      //       path: 'failure',
-      //       element: <PaymentFailure />,
-      //     },
-      //   ],
-      // },
       {
         path: '/passwordconfirmation',
         element: <PasswordConfirmation />,
