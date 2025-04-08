@@ -4,6 +4,7 @@ import { getuserAttempts } from '../utils/getuserAttempts';
 import axios from '../config/axios';
 import io from 'socket.io-client';
 import PaymentSuccessModal from '../components/PaymentSuccess';
+import { toast } from 'react-toastify';
 const socket = io(import.meta.env.VITE_API_URL, {
   withCredentials: true,
 });
@@ -12,10 +13,13 @@ const UserContext = createContext<any>(null);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<any>(null);
+  const [hasAccessToDownloadGazette, setHasAccessToDownloadGazette] = useState(false);
   const [attempts, setAttempts] = useState({
     totalAttempts: 0,
     maxScore: 0,
     attemptsLeft: '0',
+    leftAttempts: 0,
+    unLimited: false,
   });
 
   const [loading, setLoading] = useState(true);
@@ -40,6 +44,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         if (userData.hasFreeTrial) {
           attemptsFromSub += 1;
         }
+        setHasAccessToDownloadGazette(userData.allowedToDownloadGazette);
 
         const finalAttemptsLeft =
           userData.active_subscription?.attempts_left == null ? 'Unlimited' : attemptsFromSub;
@@ -48,6 +53,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           totalAttempts: attemptsData.totalAttempts,
           maxScore: attemptsData.maxScore,
           attemptsLeft: finalAttemptsLeft,
+          leftAttempts: attemptsFromSub,
+          unLimited: userData.active_subscription?.attempts_left == null,
         });
       }
     } catch (err) {
@@ -64,11 +71,15 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     const channel = `user:updated:${user._id}`;
 
-    const handleUpdate = async () => {
+    const handleUpdate = async (payload: { type: string; data?: any }) => {
       console.log('🔄 User updated via socket');
       const freshUser = await getuserInfo();
       setUser(freshUser);
-      setIsPaymentSuccessOpen(true);
+      if (payload?.type === 'gazette') {
+        toast.success('📄 Payment successful! You can now download the gazette.');
+      } else if (payload?.type === 'subscription') {
+        setIsPaymentSuccessOpen(true);
+      }
     };
 
     socket.on(channel, handleUpdate);
@@ -98,7 +109,16 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, updateActiveSubscription, loading, attempts, fetchAttempts }}
+      value={{
+        user,
+        setUser,
+        fetchUser,
+        updateActiveSubscription,
+        loading,
+        attempts,
+        hasAccessToDownloadGazette,
+        fetchAttempts,
+      }}
     >
       {children}
       <PaymentSuccessModal
