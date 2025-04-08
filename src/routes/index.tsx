@@ -186,6 +186,19 @@ const router = createBrowserRouter([
         path: '/verificationcode',
         element: <VerificationCode />,
       },
+      // {
+      //   path: 'payment',
+      //   children: [
+      //     {
+      //       path: 'success',
+      //       element: <PaymentSuccess />,
+      //     },
+      //     {
+      //       path: 'failure',
+      //       element: <PaymentFailure />,
+      //     },
+      //   ],
+      // },
       {
         path: '/passwordconfirmation',
         element: <PasswordConfirmation />,
