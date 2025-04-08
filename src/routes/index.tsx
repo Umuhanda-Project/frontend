@@ -16,107 +16,82 @@ import RevisionStudy from '../pages/dashboard/client/components/RevisionStudy';
 import ExamTest from '../pages/dashboard/client/ExamTest';
 import ProtectedRoute from '../components/ProtectedRoute';
 import ProtectedExamRoute from '../components/ProtectedExamRoute';
+import RootLayout from '../Layout/RootLayout.tsx';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App />,
-  },
-  {
-    path: '/contact',
-    element: <Contact />,
-  },
-  {
-    path: '/signin',
-    element: <Signin />,
-  },
-  {
-    path: '/signup',
-    element: <Signup />,
-  },
-  {
-    path: '/reset',
-    element: <ResetPassword />,
-  },
-  {
-    path: '/verificationcode',
-    element: <VerificationCode />,
-  },
-  {
-    path: '/passwordconfirmation',
-    element: <PasswordConfirmation />,
-  },
-
-  // 🔒 Protected Routes
-  {
-    path: '/client',
-    element: <ProtectedRoute />,
+    element: <RootLayout />,
     children: [
       {
-        path: '',
-        element: <Home />,
+        path: '/',
+        element: <App />,
       },
       {
-        path: 'igazeti',
-        element: <Igazeti />,
+        path: '/contact',
+        element: <Contact />,
       },
       {
-        path: 'lessons',
-        element: <ProtectedExamRoute />,
+        path: '/signin',
+        element: <Signin />,
+      },
+      {
+        path: '/signup',
+        element: <Signup />,
+      },
+      {
+        path: '/reset',
+        element: <ResetPassword />,
+      },
+      {
+        path: '/verificationcode',
+        element: <VerificationCode />,
+      },
+      {
+        path: '/passwordconfirmation',
+        element: <PasswordConfirmation />,
+      },
+      // 🔒 Protected Routes
+      {
+        path: '/client',
+        element: <ProtectedRoute />,
         children: [
           {
             path: '',
-            element: <Lessons />,
+            element: <Home />,
           },
           {
-            path: 'lesson/:id',
-            element: <Lesson />,
+            path: 'igazeti',
+            element: <Igazeti />,
           },
           {
-            path: 'revision/:id',
-            element: <RevisionStudy />,
-          },
-        ],
-      },
-      // {
-      //   path: 'payment',
-      //   children: [
-      //     {
-      //       path: 'success',
-      //       element: <PaymentSuccess />,
-      //     },
-      //     {
-      //       path: 'failure',
-      //       element: <PaymentFailure />,
-      //     },
-      //   ],
-      // },
-      {
-        path: 'settings',
-        element: <Settings />,
-      },
-      {
-        path: 'exam',
-        element: <ProtectedExamRoute />,
-        children: [
-          {
-            path: '',
-            element: <Exam />,
-          },
-          {
-            path: 'questions',
-            element: <ExamQuestions />,
-          },
-          {
-            path: 'answers',
-            element: <ExamAnswers />,
-          },
-          {
-            path: 'test',
+            path: 'lessons',
+            element: <ProtectedExamRoute />,
             children: [
               {
                 path: '',
-                element: <ExamTest />,
+                element: <Lessons />,
+              },
+              {
+                path: 'lesson/:id',
+                element: <Lesson />,
+              },
+              {
+                path: 'revision/:id',
+                element: <RevisionStudy />,
+              },
+            ],
+          },
+          {
+            path: 'settings',
+            element: <Settings />,
+          },
+          {
+            path: 'exam',
+            element: <ProtectedExamRoute />,
+            children: [
+              {
+                path: '',
+                element: <Exam />,
               },
               {
                 path: 'questions',
@@ -125,6 +100,23 @@ const router = createBrowserRouter([
               {
                 path: 'answers',
                 element: <ExamAnswers />,
+              },
+              {
+                path: 'test',
+                children: [
+                  {
+                    path: '',
+                    element: <ExamTest />,
+                  },
+                  {
+                    path: 'questions',
+                    element: <ExamQuestions />,
+                  },
+                  {
+                    path: 'answers',
+                    element: <ExamAnswers />,
+                  },
+                ],
               },
             ],
           },
