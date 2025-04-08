@@ -3,6 +3,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { language_options } from '../utils/languageOptions';
 import { useTranslation } from 'react-i18next';
 import { useUser } from '../context/userContext';
+import { useNavigate } from 'react-router-dom';
 
 const LanguageSwitcher = () => {
   const { state, setLanguage } = useLanguage();
@@ -78,6 +79,12 @@ const LanguageSwitcher = () => {
   };
 
   const currentLang = getCurrentLanguage();
+
+  const navigate = useNavigate();
+
+  const handleUpgrade = () => {
+    navigate('/', { state: { scrollTo: 'pricing' } });
+  };
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -165,12 +172,20 @@ const LanguageSwitcher = () => {
             <span>{t('language_mismatch_title')}</span>
           </div>
           <p className="text-sm text-gray-700">{t('language_mismatch_body')}</p>
-          <button
-            onClick={() => setShowWarning(false)}
-            className="self-end text-sm text-blue-600 hover:underline mt-2"
-          >
-            {t('language_mismatch_close')}
-          </button>
+          <div className="flex justify-between">
+            <button
+              onClick={handleUpgrade}
+              className="self-end text-md text-green-600 hover:underline mt-2"
+            >
+              ✅ {t('buy_new')}
+            </button>
+            <button
+              onClick={() => setShowWarning(false)}
+              className="self-end text-md text-blue-600 hover:underline mt-2"
+            >
+              {t('language_mismatch_close')}
+            </button>
+          </div>
         </div>
       )}
     </div>
