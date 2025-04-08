@@ -46,6 +46,7 @@ const PaymentButton = ({
         },
       );
       if (response.data.success) {
+
         setLoading(false);
         closeModal();
         window.open(response.data.paymentUrl, '_blank');
