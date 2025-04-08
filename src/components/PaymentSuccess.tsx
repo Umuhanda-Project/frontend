@@ -2,10 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 interface PaymentSuccessModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
 
 interface PaymentSuccessModalProps {
   isOpen: boolean;
@@ -18,8 +20,8 @@ const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = ({ isOpen, onClo
 
   if (!isOpen) return null; // Don't render if modal is closed
   const goToHome = () => {
-    onClose();
     navigate('/client');
+    onClose();
   };
 
   return (
