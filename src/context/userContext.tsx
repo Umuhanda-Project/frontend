@@ -63,10 +63,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     const channel = `user:updated:${user._id}`;
 
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
       console.log('🔄 User updated via socket');
-      fetchUser();
-      fetchAttempts();
+      const freshUser = await getuserInfo();
+      setUser(freshUser);
     };
 
     socket.on(channel, handleUpdate);

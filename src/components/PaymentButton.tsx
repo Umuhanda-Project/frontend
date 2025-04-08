@@ -4,6 +4,7 @@ import { isAuthenticated } from './ProtectedRoute';
 import { Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useModal } from '../hooks/useModal';
 
 const PaymentButton = ({
   subscriptionId,
@@ -19,6 +20,8 @@ const PaymentButton = ({
   const PUBLIC_KEY = import.meta.env.VITE_IPAY_PUBLIC_KEY;
   const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL;
   const { t } = useTranslation();
+
+  const { closeModal } = useModal();
 
   const handlePayment = async () => {
     setLoading(true);
@@ -43,6 +46,9 @@ const PaymentButton = ({
         },
       );
       if (response.data.success) {
+
+        setLoading(false);
+        closeModal();
         window.open(response.data.paymentUrl, '_blank');
       } else {
         toast.error('Failed to create invoice. Please try again.');
