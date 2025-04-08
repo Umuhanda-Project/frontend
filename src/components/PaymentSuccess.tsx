@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 interface PaymentSuccessModalProps {
   isOpen: boolean;
@@ -42,6 +43,7 @@ const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = ({ isOpen, onClo
         >
           {t('payment_response_button')}
         </button>
+
       </motion.div>
     </div>
   );
