@@ -3,7 +3,10 @@ import { getuserInfo } from '../utils/getUserInfo';
 import { getuserAttempts } from '../utils/getuserAttempts';
 import axios from '../config/axios';
 import io from 'socket.io-client';
-const socket = io(import.meta.env.VITE_API_URL);
+//const socket = io(import.meta.env.VITE_API_URL);
+const socket = io(import.meta.env.VITE_API_URL, {
+  withCredentials: true,
+});
 
 const UserContext = createContext<any>(null);
 
