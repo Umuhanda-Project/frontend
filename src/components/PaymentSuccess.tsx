@@ -17,11 +17,7 @@ const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = ({ isOpen, onClo
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  if (!isOpen) return null; // Don't render if modal is closed
-  const goToHome = () => {
-    navigate('/client');
-    onClose();
-  };
+  if (!isOpen) return null; // Don't render if modal is close
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
