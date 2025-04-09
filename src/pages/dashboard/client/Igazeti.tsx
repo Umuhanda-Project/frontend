@@ -102,6 +102,7 @@ const Igazeti = () => {
     fetchData();
   }, [user?.active_subscription?._id]);
 
+
   const handleMagazineChange = (magazine: Magazine) => {
     setIsLoading(true);
     setSelectedMagazine(magazine);
