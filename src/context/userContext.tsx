@@ -16,6 +16,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     totalAttempts: 0,
     maxScore: 0,
     attemptsLeft: '0',
+    leftAttempts: 0,
+    unLimited: false,
   });
 
   const [loading, setLoading] = useState(true);
@@ -48,6 +50,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           totalAttempts: attemptsData.totalAttempts,
           maxScore: attemptsData.maxScore,
           attemptsLeft: finalAttemptsLeft,
+          leftAttempts: attemptsFromSub,
+          unLimited: userData.active_subscription?.attempts_left == null,
         });
       }
     } catch (err) {
