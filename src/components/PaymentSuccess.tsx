@@ -8,11 +8,20 @@ interface PaymentSuccessModalProps {
   onClose: () => void;
 }
 
+interface PaymentSuccessModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   if (!isOpen) return null; // Don't render if modal is closed
+  const goToHome = () => {
+    navigate('/client');
+    onClose();
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -44,7 +53,7 @@ const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = ({ isOpen, onClo
           className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
         >
           {t('payment_response_button')}
-        </button>
+        </Link>
       </motion.div>
     </div>
   );
