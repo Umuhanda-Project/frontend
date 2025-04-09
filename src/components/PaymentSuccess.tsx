@@ -8,7 +8,6 @@ interface PaymentSuccessModalProps {
   onClose: () => void;
 }
 
-
 interface PaymentSuccessModalProps {
   isOpen: boolean;
   onClose: () => void;

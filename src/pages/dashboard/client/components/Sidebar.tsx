@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import logo from '../../../../assets/Umuhanda_logo.png';
-import { RiDashboardFill } from 'react-icons/ri';
+import { RiDashboardFill, RiArrowLeftLine } from 'react-icons/ri';
 import { AiOutlineLogout, AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { CiSettings } from 'react-icons/ci';
 import { MdPlayLesson } from 'react-icons/md';
@@ -69,7 +69,7 @@ const Sidebar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { t } = useTranslation();
   const location = useLocation();
-  const handleLogout = useLogout(); 
+  const handleLogout = useLogout();
 
   // Handle screen size changes
   useEffect(() => {
@@ -95,31 +95,29 @@ const Sidebar = () => {
   const mainMenuItems = MENU_ITEMS.filter((item) => item.section === 'main');
   const accountMenuItems = MENU_ITEMS.filter((item) => item.section === 'account');
 
+  useEffect(() => {
+    const checkTokenExpiration = () => {
+      const token = sessionStorage.getItem('token');
+      if (!token) {
+        handleLogout();
+        return;
+      }
 
-useEffect(() => {
-  const checkTokenExpiration = () => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      handleLogout();
-      return;
-    }
+      const decodedToken: any = tokenDecoder();
+      const currentTime = Date.now() / 1000; // Get current time in seconds
 
-    const decodedToken: any = tokenDecoder();
-    const currentTime = Date.now() / 1000; // Get current time in seconds
+      if (decodedToken.exp < currentTime) {
+        handleLogout(); // Logout if token has expired
+      }
+    };
 
-    if (decodedToken.exp < currentTime) {
-      handleLogout(); // Logout if token has expired
-    }
-  };
+    checkTokenExpiration();
 
-  checkTokenExpiration();
+    // Set interval to check every minute
+    const interval = setInterval(checkTokenExpiration, 60000);
 
-  // Set interval to check every minute
-  const interval = setInterval(checkTokenExpiration, 60000);
-
-  return () => clearInterval(interval);
-}, []);
-
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -153,14 +151,25 @@ useEffect(() => {
       >
         {/* Logo Section */}
         <div className="p-6 flex justify-center items-center border-b border-gray-100">
-          <img src={logo} alt="Umuhanda Logo" className="w-36" />
+          <Link to="/">
+            <img src={logo} alt="Umuhanda Logo" className="w-36" />
+          </Link>
         </div>
 
         {/* Menu Container */}
         <div className="flex flex-col flex-grow justify-between overflow-y-auto">
           {/* Main Menu Items */}
           <nav className="mt-6 px-4" aria-label="Main navigation">
-            <ul className="space-y-2 pt-16">
+            <Link
+              to="/"
+              className="flex items-center space-x-4 rounded-lg p-3 transition-all duration-200 mb-4 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+            >
+              <span className="text-2xl text-blue-500">
+                <RiArrowLeftLine />
+              </span>
+              <span className="font-medium">{t('back_home')}</span>
+            </Link>
+            <ul className="space-y-2 pt-4">
               {mainMenuItems.map((item) => (
                 <li key={item.id}>
                   <Link
@@ -194,38 +203,37 @@ useEffect(() => {
             <ul className="space-y-2">
               {accountMenuItems.map((item) => (
                 <li key={item.id}>
-                            {item.nameKey === "logout" ? (
-            <button
-              onClick={(event) => {
-                event.stopPropagation()
-                handleLogout()
-                }
-              }
-              className="flex w-full items-center space-x-4 rounded-lg p-3 transition-all duration-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-            >
-              <span className="text-xl text-blue-500">{item.icon}</span>
-              <span className="font-medium">{t(item.nameKey)}</span>
-            </button>
-          ) : (
-                  <Link
-                    to={item.href}
-                    className={`flex items-center space-x-4 rounded-lg p-3 transition-all duration-200 ${
-                      location.pathname === item.href
-                        ? 'bg-blue-500 text-white'
-                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
-                    }`}
-                    aria-current={location.pathname === item.href ? 'page' : undefined}
-                  >
-                    <span
-                      className={`text-xl ${
-                        location.pathname === item.href ? 'text-white' : 'text-blue-500'
-                      }`}
+                  {item.nameKey === 'logout' ? (
+                    <button
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleLogout();
+                      }}
+                      className="flex w-full items-center space-x-4 rounded-lg p-3 transition-all duration-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
                     >
-                      {item.icon}
-                    </span>
-                    <span className="font-medium">{t(item.nameKey)}</span>
-                  </Link>
-          )}
+                      <span className="text-xl text-blue-500">{item.icon}</span>
+                      <span className="font-medium">{t(item.nameKey)}</span>
+                    </button>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className={`flex items-center space-x-4 rounded-lg p-3 transition-all duration-200 ${
+                        location.pathname === item.href
+                          ? 'bg-blue-500 text-white'
+                          : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                      }`}
+                      aria-current={location.pathname === item.href ? 'page' : undefined}
+                    >
+                      <span
+                        className={`text-xl ${
+                          location.pathname === item.href ? 'text-white' : 'text-blue-500'
+                        }`}
+                      >
+                        {item.icon}
+                      </span>
+                      <span className="font-medium">{t(item.nameKey)}</span>
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
