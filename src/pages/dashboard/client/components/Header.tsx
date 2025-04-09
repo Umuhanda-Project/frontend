@@ -12,10 +12,10 @@ import { useUser } from '../../../../context/userContext';
 const Header = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { user, fetchAttempts, updateActiveSubscription } = useUser();
+  const { user, fetchUser, updateActiveSubscription } = useUser();
   useEffect(() => {
     const fetchData = async () => {
-      await fetchAttempts();
+      await fetchUser();
     };
     fetchData();
   }, [user?.active_subscription?._id]);

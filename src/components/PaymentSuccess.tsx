@@ -17,7 +17,7 @@ const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = ({ isOpen, onClo
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  if (!isOpen) return null; // Don't render if modal is close
+  if (!isOpen) return null; // Don't render if modal is closed
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -49,7 +49,7 @@ const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = ({ isOpen, onClo
           className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
         >
           {t('payment_response_button')}
-        </Link>
+        </button>
       </motion.div>
     </div>
   );

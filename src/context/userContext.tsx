@@ -4,6 +4,7 @@ import { getuserAttempts } from '../utils/getuserAttempts';
 import axios from '../config/axios';
 import io from 'socket.io-client';
 import PaymentSuccessModal from '../components/PaymentSuccess';
+import { toast, ToastContainer } from 'react-toastify';
 const socket = io(import.meta.env.VITE_API_URL, {
   withCredentials: true,
 });
@@ -68,11 +69,15 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     const channel = `user:updated:${user._id}`;
 
-    const handleUpdate = async () => {
+    const handleUpdate = async (payload: { type: string; data?: any }) => {
       console.log('🔄 User updated via socket');
       const freshUser = await getuserInfo();
       setUser(freshUser);
-      setIsPaymentSuccessOpen(true);
+      if (payload?.type === 'gazette') {
+        toast.success('📄 Payment successful! You can now download the gazette.');
+      } else if (payload?.type === 'subscription') {
+        setIsPaymentSuccessOpen(true);
+      }
     };
 
     socket.on(channel, handleUpdate);
@@ -104,6 +109,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     <UserContext.Provider
       value={{ user, setUser, updateActiveSubscription, loading, attempts, fetchAttempts }}
     >
+      <ToastContainer />
       {children}
       <PaymentSuccessModal
         isOpen={isPaymentSuccessOpen}
