@@ -48,10 +48,15 @@ const magazines: Magazine[] = [
 const Igazeti = () => {
   const [selectedMagazine, setSelectedMagazine] = useState<Magazine>(magazines[0]);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasAccess, setHasAccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
-  const { attempts, fetchAttempts, loading: userLoading, user } = useUser();
+  const {
+    attempts,
+    fetchAttempts,
+    hasAccessToDownloadGazette,
+    loading: userLoading,
+    user,
+  } = useUser();
   const { t } = useTranslation();
 
   const handleGazettePayment = async () => {
@@ -97,17 +102,6 @@ const Igazeti = () => {
     fetchData();
   }, [user?.active_subscription?._id]);
 
-  useEffect(() => {
-    const fetchAccess = async () => {
-      const token = sessionStorage.getItem('token');
-      const res = await axios.get('/auth/gazette-access', {
-        headers: { Authorization: `Bearer ${token}` },
-        withCredentials: true,
-      });
-      setHasAccess(res.data.hasAccess);
-    };
-    fetchAccess();
-  }, []);
 
   const handleMagazineChange = (magazine: Magazine) => {
     setIsLoading(true);
@@ -202,7 +196,7 @@ const Igazeti = () => {
               </div>
             )}
 
-            {!hasAccess && (
+            {!hasAccessToDownloadGazette && (
               <div className="m-2 text-center">
                 <p className="text-red-600 mb-4 font-medium">{t('needToPayGazette')}</p>
                 <button
@@ -234,14 +228,14 @@ const Igazeti = () => {
                 console.log('Magazine loaded successfully');
               }}
               onAccessRevoked={() => {
-                setHasAccess(false);
                 toast.info('You have downloaded the gazette. Access is now revoked.');
+                fetchAttempts();
               }}
               onLoadError={(error) => {
                 setIsLoading(false);
                 console.error('Failed to load magazine:', error);
               }}
-              hideDownload={!hasAccess}
+              hideDownload={!hasAccessToDownloadGazette}
               onDownload={() => console.log(`Downloading ${selectedMagazine.title}`)}
             />
           </motion.div>

@@ -4,7 +4,7 @@ import { getuserAttempts } from '../utils/getuserAttempts';
 import axios from '../config/axios';
 import io from 'socket.io-client';
 import PaymentSuccessModal from '../components/PaymentSuccess';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 const socket = io(import.meta.env.VITE_API_URL, {
   withCredentials: true,
 });
@@ -13,6 +13,7 @@ const UserContext = createContext<any>(null);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<any>(null);
+  const [hasAccessToDownloadGazette, setHasAccessToDownloadGazette] = useState(false);
   const [attempts, setAttempts] = useState({
     totalAttempts: 0,
     maxScore: 0,
@@ -43,6 +44,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         if (userData.hasFreeTrial) {
           attemptsFromSub += 1;
         }
+        setHasAccessToDownloadGazette(userData.allowedToDownloadGazette);
 
         const finalAttemptsLeft =
           userData.active_subscription?.attempts_left == null ? 'Unlimited' : attemptsFromSub;
@@ -107,9 +109,17 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, updateActiveSubscription, loading, attempts, fetchAttempts }}
+      value={{
+        user,
+        setUser,
+        fetchUser,
+        updateActiveSubscription,
+        loading,
+        attempts,
+        hasAccessToDownloadGazette,
+        fetchAttempts,
+      }}
     >
-      <ToastContainer />
       {children}
       <PaymentSuccessModal
         isOpen={isPaymentSuccessOpen}
