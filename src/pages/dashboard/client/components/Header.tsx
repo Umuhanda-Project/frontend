@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../../config/axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useUser } from '../../../../context/userContext';
 
 const Header = () => {
@@ -82,7 +82,6 @@ const Header = () => {
         ) : (
           <span className="text-sm text-red-500 italic">{t('no_subs')}</span>
         )}
-        <ToastContainer />
         {/* Settings Icon */}
         <button
           aria-label="Settings"

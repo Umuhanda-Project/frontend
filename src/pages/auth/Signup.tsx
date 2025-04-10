@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import logo from '../../assets/Umuhanda_logo.png';
 import authSignup from '../../assets/auth2.png';
 import { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import axios from '../../config/axios';
 import 'react-toastify/dist/ReactToastify.css';
@@ -75,7 +74,6 @@ const Signup = () => {
 
   return (
     <div className="flex flex-col lg:flex-row h-screen">
-      <ToastContainer position="top-right" />
       {/* Left Section */}
       <div className="flex-1 bg-gray-50 p-8 lg:p-4 flex flex-col">
         {/* Logo */}

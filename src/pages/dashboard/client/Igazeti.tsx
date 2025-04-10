@@ -8,7 +8,7 @@ import Layout from './Layout';
 import axios from '../../../config/axios';
 import { useTranslation } from 'react-i18next';
 import { Loader2 } from 'lucide-react';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from './components/Loader';
 import { useUser } from '../../../context/userContext';
@@ -102,7 +102,6 @@ const Igazeti = () => {
     fetchData();
   }, [user?.active_subscription?._id]);
 
-
   const handleMagazineChange = (magazine: Magazine) => {
     setIsLoading(true);
     setSelectedMagazine(magazine);
@@ -137,7 +136,6 @@ const Igazeti = () => {
 
   return (
     <Fragment>
-      <ToastContainer />
       <Layout>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
           {/* Header Section */}

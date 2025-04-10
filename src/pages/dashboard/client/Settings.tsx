@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
 import axios from '../../../config/axios';
 import 'react-toastify/dist/ReactToastify.css';
 import { Loader2 } from 'lucide-react';
@@ -191,7 +190,6 @@ const Settings = () => {
 
           {/* Form Section */}
           <div className="px-6 py-8 sm:px-10">
-            <ToastContainer position="top-right" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
               {/* Left Column */}
               <div className="space-y-6">

@@ -77,6 +77,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(freshUser);
       if (payload?.type === 'gazette') {
         toast.success('📄 Payment successful! You can now download the gazette.');
+        fetchAttempts();
       } else if (payload?.type === 'subscription') {
         setIsPaymentSuccessOpen(true);
       }

@@ -8,11 +8,6 @@ interface PaymentSuccessModalProps {
   onClose: () => void;
 }
 
-interface PaymentSuccessModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
 const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
