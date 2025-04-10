@@ -1,7 +1,6 @@
 import Layout from '../Layout';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import axios from '../config/axios';
 import 'react-toastify/dist/ReactToastify.css';
@@ -60,7 +59,6 @@ const Contact = () => {
 
   return (
     <Layout>
-      <ToastContainer position="top-right" />
       <section className="h-full flex flex-col items-center mt-16 px-4">
         {/* Header */}
         <header className="text-center">

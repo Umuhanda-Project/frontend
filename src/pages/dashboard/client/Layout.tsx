@@ -1,7 +1,7 @@
-import { PropsWithChildren, useEffect} from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { Sidebar, Header } from './components';
-import toast, { Toaster } from 'react-hot-toast';
 import { useConnection } from '../../../hooks/useConnection';
+import { toast } from 'react-toastify';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const status = useConnection();
@@ -21,7 +21,6 @@ const Layout = ({ children }: PropsWithChildren) => {
         <header className="flex-shrink-0">
           <Header />
         </header>
-        <Toaster />
         <main className="flex-1 bg-[#F4F7FE] p-6 ">{children}</main>
       </div>
     </div>
