@@ -226,13 +226,7 @@ const Igazeti = () => {
                 console.log('Magazine loaded successfully');
               }}
               onAccessRevoked={() => {
-                const toastId = 'gazette-downloaded-toast';
-                if (!toast.isActive(toastId)) {
-                  toast.info('You have downloaded the gazette. Access is now revoked.', {
-                    toastId,
-                  });
-                }
-
+                toast.info('You have downloaded the gazette. Access is now revoked.');
                 fetchAttempts();
               }}
               onLoadError={(error) => {
