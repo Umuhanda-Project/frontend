@@ -5,6 +5,7 @@ import axios from '../config/axios';
 import io from 'socket.io-client';
 import PaymentSuccessModal from '../components/PaymentSuccess';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const socket = io(import.meta.env.VITE_API_URL, {
   withCredentials: true,
 });
@@ -12,6 +13,7 @@ const socket = io(import.meta.env.VITE_API_URL, {
 const UserContext = createContext<any>(null);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
   const [hasAccessToDownloadGazette, setHasAccessToDownloadGazette] = useState(false);
   const [attempts, setAttempts] = useState({
@@ -79,6 +81,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         toast.success('📄 Payment successful! You can now download the gazette.');
         fetchAttempts();
       } else if (payload?.type === 'subscription') {
+        navigate('/client');
         setIsPaymentSuccessOpen(true);
       }
     };

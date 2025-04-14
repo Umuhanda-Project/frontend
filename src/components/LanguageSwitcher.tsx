@@ -10,25 +10,35 @@ const LanguageSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user } = useUser();
-  const [userSubscriptionLang, setUserSubscriptionLang] = useState<string | null>(null); // e.g., 'en', 'fr', 'kiny'
+  const [userAllowedLanguages, setUserAllowedLanguages] = useState<string[]>([]);
   const [showWarning, setShowWarning] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
-    const lang = user?.active_subscription?.language?.toLowerCase();
+    if (!user?.subscriptions) return;
 
-    let defaultLang: 'kiny' | 'en' | 'fr' | null = null;
+    const langs: ('en' | 'fr' | 'kiny')[] = [];
+    let activeLang: 'en' | 'fr' | 'kiny' | null = null;
 
-    if (lang === 'ki') defaultLang = 'kiny';
-    else if (lang === 'en') defaultLang = 'en';
-    else if (lang === 'fr') defaultLang = 'fr';
+    user.subscriptions.forEach((sub: any) => {
+      const lang = sub.language?.toLowerCase();
+      if (lang === 'ki' && !langs.includes('kiny')) langs.push('kiny');
+      else if (lang === 'fr' && !langs.includes('fr')) langs.push('fr');
+      else if (lang === 'en' && !langs.includes('en')) langs.push('en');
+    });
 
-    // If the app's language is not already set to this, set it
-    if (defaultLang && state.currentCode !== defaultLang) {
-      setLanguage(defaultLang);
+    // Get preferred language from active_subscription
+    const actLang = user.active_subscription?.language?.toLowerCase();
+    if (actLang === 'ki') activeLang = 'kiny';
+    else if (actLang === 'fr') activeLang = 'fr';
+    else if (actLang === 'en') activeLang = 'en';
+
+    setUserAllowedLanguages(langs);
+
+    // Set preferred language based on active subscription (if different from current)
+    if (activeLang && langs.includes(activeLang) && state.currentCode !== activeLang) {
+      setLanguage(activeLang);
     }
-
-    setUserSubscriptionLang(defaultLang);
   }, [user]);
 
   // Handle clicking outside to close dropdown
@@ -48,7 +58,7 @@ const LanguageSwitcher = () => {
     if (languageName === 'Kinyarwanda') selectedCode = 'kiny';
     if (languageName === 'French') selectedCode = 'fr';
 
-    if (userSubscriptionLang && selectedCode !== userSubscriptionLang) {
+    if (!userAllowedLanguages.includes(selectedCode)) {
       setShowWarning(true);
       setIsOpen(false);
       return;

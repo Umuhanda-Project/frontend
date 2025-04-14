@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import hero1 from '../assets/hero1.png';
-import hero2 from '../assets/hero2.png';
+import umuhanda1 from '../assets/umuhandapic1.jpg';
+import umuhanda2 from '../assets/umuhandapic2.jpg';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
@@ -52,7 +52,7 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <img
-                src={hero1}
+                src={umuhanda1}
                 alt="Educational content preview 1"
                 className="w-full h-64 md:h-80 object-cover rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300"
               />
@@ -66,7 +66,7 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <img
-                src={hero2}
+                src={umuhanda2}
                 alt="Educational content preview 2"
                 className="w-full h-64 md:h-80 object-cover rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300"
               />
