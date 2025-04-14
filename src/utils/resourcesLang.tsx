@@ -16,13 +16,13 @@ export const resources = {
 
       // Pricing-related translations
       choosePlan: 'Choose a plan',
-      plan_one_header: 'Five Exams Plan',
+      plan_one_header: 'Six Exams Plan',
       plan_one_description: 'If you want to study in a short period',
       exam_only_option: 'Complete only five exams',
-      limited_attempts: 'Only five attempts',
+      limited_attempts: 'Only Six attempts',
       video_access: 'No video access',
       reading_permission: 'No reading permission',
-      duration_three_days: '5 Exam',
+      duration_three_days: '6 Exam',
 
       plan_two_header: 'Full Access Plan',
       plan_two_description: 'Study with full access',
@@ -155,7 +155,7 @@ export const resources = {
       payment_failure_body: 'Unfortunately, your payment could not be processed.',
       payment_failure_body2: 'Your invoice is still valid for 15 minutes.',
       payment_failure_title: 'Payment Failed !',
-      payment_response_button: 'Start/Continue Learning',
+      payment_response_button: 'Ok',
       payment_retry_button: 'Rety Payment',
       payment_change_plan: 'Choose a different plan',
       language_mismatch_title: 'Language Mismatch',
@@ -185,13 +185,13 @@ export const resources = {
 
       // Pricing-related translations
       choosePlan: 'Choisissez un plan',
-      plan_one_header: 'Plan Cinq Examens',
+      plan_one_header: 'Plan six Examens',
       plan_one_description: 'Si vous voulez étudier en peu de temps',
       exam_only_option: 'Complétez seulement cinq examens',
       limited_attempts: 'Seulement cinq tentatives',
       video_access: "Pas d'accès aux vidéos",
       reading_permission: "Pas d'autorisation de lecture",
-      duration_three_days: '5 Examens',
+      duration_three_days: '6 Examens',
 
       plan_two_header: 'Plan Accès Complet',
       plan_two_description: 'Étudier avec un accès complet',
@@ -321,7 +321,7 @@ export const resources = {
       payment_failure_body: "Malheureusement, votre paiement n'a pas pu être traité.",
       payment_failure_body2: 'Votre facture est encore valable 15 minutes.',
       payment_failure_title: 'Échec du paiement!',
-      payment_response_button: "Commencer/Continuer l'apprentissage",
+      payment_response_button: 'Oui',
       payment_retry_button: 'Paiement de remboursement',
       payment_change_plan: 'Choisissez un autre forfait',
       language_mismatch_title: 'Incompatibilité linguistique',
@@ -351,10 +351,10 @@ export const resources = {
 
       // Pricing-related translations
       choosePlan: 'Hitamo Ifatabuguzi',
-      plan_one_header: "Plan y'Ibizamini Bitanu",
+      plan_one_header: "Plan y'Ibizamini Bitandatu",
       plan_one_description: 'Niba ushaka kwiga mugihe gitoya',
       exam_only_option: 'Gukora ibizamini bitanu gusa',
-      limited_attempts: 'Inshuro 5 gusa',
+      limited_attempts: 'Inshuro 6 gusa',
       video_access: 'Nta video wemerewe kureba',
       reading_permission: 'Nta gusoma wemerewe',
       duration_three_days: 'Ibizamini bitanu',
@@ -491,7 +491,7 @@ export const resources = {
       payment_failure_body: "Kubw'amahirwe make kwishyura kwanyu ntibibashije gukorwa.",
       payment_failure_body2: 'Inyemeza bwishyu yanyu iracyafite agaciro iminota 15.',
       payment_failure_title: 'Kwishyura ntibibashije gukunda !',
-      payment_response_button: 'Tangira/Ukomeze kwiga',
+      payment_response_button: 'Yego',
       payment_retry_button: 'Gerageza kongera kwishyura',
       payment_change_plan: 'Hitabo irindi fatabuguzi',
       language_mismatch_title: 'Indimi ntizihuye',
