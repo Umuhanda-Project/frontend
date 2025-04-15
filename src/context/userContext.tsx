@@ -82,6 +82,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         fetchAttempts();
       } else if (payload?.type === 'subscription') {
         navigate('/client');
+        fetchUser();
+        fetchAttempts();
         setIsPaymentSuccessOpen(true);
       }
     };
