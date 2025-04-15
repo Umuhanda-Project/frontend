@@ -486,7 +486,7 @@ export const resources = {
       update_password: 'Hindura Ijambo banga',
       update_profile_button: 'Hindura Imyirondoro',
       payment_success_body:
-        'Murakoze kugura ikfatabuguzi. Ubu mwatangira kwiga no gukora igerageza.',
+        'Murakoze kugura ifatabuguzi. Ubu mwatangira kwiga no gukora igerageza.',
       payment_success_title: 'Kwishyura Byagenze neza!',
       payment_failure_body: "Kubw'amahirwe make kwishyura kwanyu ntibibashije gukorwa.",
       payment_failure_body2: 'Inyemeza bwishyu yanyu iracyafite agaciro iminota 15.',
