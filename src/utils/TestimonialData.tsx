@@ -14,19 +14,13 @@ export const TestimonialData = [
     name: 'Aline Umutoni',
     initials: 'AU',
     rating: 5,
-    text: `Natangiye kwiga ibyerekeye provisoire kuri iyi website mu gihe cy’ukwezi. 
-             Nyuma y'uko niga neza amasomo n’inyigisho zihari, nabashije kumenya 
-             ibibazo bisanzwe bibazwa mu kizamini. Ibi byatumye natsinda kizamini cya 
-             provisoire nta nkomyi. Ndashimira iyi website ku bufasha bwayo bw’indashyikirwa!`,
+    text: `Iyi website yamfashije kwiga amasomo ya provisoire mugihe gitoyo , mbasha gutsinda ikizamini`,
   },
   {
     id: 3,
     name: 'John Ngabo',
     initials: 'JN',
     rating: 5,
-    text: `Natangiye kwiga ibyerekeye provisoire kuri iyi website mu gihe cy’ukwezi. 
-             Nyuma y'uko niga neza amasomo n’inyigisho zihari, nabashije kumenya 
-             ibibazo bisanzwe bibazwa mu kizamini. Ibi byatumye natsinda kizamini cya 
-             provisoire nta nkomyi. Ndashimira iyi website ku bufasha bwayo bw’indashyikirwa!`,
+    text: `Gutangira kwiga provisoire byaranyoroheye kuberako natangire kwigira kuri ino website`,
   },
 ];
